@@ -2,7 +2,9 @@
 
 namespace Model;
 
-use MongoDB\BSON\Timestamp;
+
+use Cassandra\Date;
+use DateTime;
 
 class FiliadoModel
 {
@@ -10,38 +12,42 @@ class FiliadoModel
     private $sNome;
     private $sCpf;
     private $sRg;
-    private $tDataNascimento;
+    private $sDataNascimento;
     private $iIdade;
     private $sEmpresa;
     private $sCargo;
     private $sSituacao;
     private $sTelResidencial;
     private $sTelCelular;
+    private $sUltimaAtualizacao;
 
     public function __construct(
-        ?int $iId,
+        ?int   $iId,
         string $sNome,
         string $sCpf,
         string $sRg,
-        \DateTime $tDataNascimento,
-        int $iIdade,
+        \DateTime $sDataNascimento,
+        string $sIdade,
         string $sEmpresa,
         string $sCargo,
         string $sSituacao,
         string $sTelResidencial,
-        string $sTelCelular)
+        string $sTelCelular,
+        \DateTime $sUltimaAtualizacao
+    )
     {
         $this->iId = $iId;
         $this->sNome = $sNome;
         $this->sCpf = $sCpf;
         $this->sRg = $sRg;
-        $this->tDataNascimento = $tDataNascimento;
-        $this->iIdade = $iIdade;
+        $this->sDataNascimento = $sDataNascimento;
+        $this->iIdade = $sIdade;
         $this->sEmpresa = $sEmpresa;
         $this->sCargo = $sCargo;
         $this->sSituacao = $sSituacao;
         $this->sTelResidencial = $sTelResidencial;
         $this->sTelCelular = $sTelCelular;
+        $this->sUltimaAtualizacao = $sUltimaAtualizacao;
     }
 
     public function getIId(): ?int
@@ -64,9 +70,9 @@ class FiliadoModel
         return $this->sRg;
     }
 
-    public function getTDataNascimento(): \DateTime
+    public function getSDataNascimento(): DateTime
     {
-        return $this->tDataNascimento;
+        return $this->sDataNascimento;
     }
 
     public function getIIdade(): int
@@ -78,6 +84,8 @@ class FiliadoModel
     {
         return $this->sEmpresa;
     }
+
+
 
     public function getSCargo(): string
     {
@@ -98,6 +106,20 @@ class FiliadoModel
     {
         return $this->sTelCelular;
     }
+
+    public function getSUltimaAtualizacao(): \DateTime
+    {
+        return $this->sUltimaAtualizacao;
+    }
+
+    public function getDataNascimentoFormatada(): string{
+        return $this->sDataNascimento->format('d/m/Y');
+    }
+
+    public function getUltimaAtualizacaoFormatada(): string{
+        return $this->sUltimaAtualizacao->format('d/m/Y');
+    }
+
 
 
 }
