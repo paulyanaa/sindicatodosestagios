@@ -62,6 +62,7 @@ class UsuarioController{
                 3 => $sTipo
             ];
             $this->oDatabase->execute($sSql, $sParametros);
+            header('Location: lista-usuarios-view.php');
         }else{
             echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
         }

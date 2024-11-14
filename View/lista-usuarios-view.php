@@ -72,6 +72,7 @@ $aUsuariosComuns = $oUsuarioController->FindByTipo('comum');
         </div>
     </section>
     <a class="botao-cadastrar-usuario" href="cadastrar-usuario-view.php">Cadastrar Novo Usuário</a>
+    <a class="botao-voltar-menu" href="usuario-admin-view.php">Voltar</a>
     <a class="botao-sair" href="logout.php">Sair</a>
 
 </main>
