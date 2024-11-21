@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine On  # Ativa o mecanismo de reescrita
+
+   # Verifica se o arquivo ou diretório requisitado existe
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteCond %{REQUEST_FILENAME} !-d
+
+   # Redireciona todas as requisições para o index.php com a URL como parâmetro "url"
+   RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+
+   ErrorDocument 403 http://localhost/sincatodosestagios/usuario/index
+
+   Options -Indexes
+</IfModule>

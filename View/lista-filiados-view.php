@@ -1,9 +1,4 @@
 <?php
-require_once '../Controller/FiliadoController.php';
-
-$oFiliadoController = new FiliadoController();
-
-$aFiliados= $oFiliadoController->findAll();
 
 ?>
 
@@ -34,6 +29,7 @@ $aFiliados= $oFiliadoController->findAll();
                     <th>Data de Nascimento</th>
                     <th>Idade</th>
                     <th>Empresa</th>
+
                     <th>Cargo</th>
                     <th>Situação</th>
                     <th>Telefone Residencial</th>
@@ -78,8 +74,8 @@ $aFiliados= $oFiliadoController->findAll();
         </div>
     </section>
 
-    <a class="botao-cadastrar-filiado" href="cadastrar-filiado-view.php">Cadastrar Novo Filiado</a>
-    <a class="botao-sair" href="logout.php">Sair</a>
+    <a class="botao-cadastrar-filiado" href="http://localhost/sindicatodosestagios/filiado/cadastrar">Cadastrar Novo Filiado</a>
+    <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
 
 </main>
 </body>

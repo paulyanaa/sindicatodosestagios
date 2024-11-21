@@ -1,11 +1,5 @@
 <?php
-require_once '../Controller/UsuarioController.php';
-
-$oUsuarioController = new UsuarioController();
-$oUsuarioController->acessarSistema();
-
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -16,7 +10,7 @@ $oUsuarioController->acessarSistema();
 <body>
 <section class="container-form">
     <h1>Login</h1>
-    <form method="post">
+    <form action="http://localhost/sindicatodosestagios/usuario/acessar" method="post">
 
         <label for="login">Usuário</label>
         <input type="text" id="login" name="login"  placeholder="Digite o seu usuário" required><br>
@@ -26,8 +20,6 @@ $oUsuarioController->acessarSistema();
 
         <button type="submit">Entrar</button>
     </form>
-
 </section>
-
 </body>
 </html>

@@ -2,182 +2,107 @@
 
 use Model\UsuarioModel;
 
-require_once '../Config/DatabaseHandler.php';
-require_once '../Config/PostHandler.php';
-require_once '../Config/SessaoHandler.php';
-require_once '../Model/UsuarioModel.php';
+require_once __DIR__ . "/../Config/DatabaseHandler.php";
+require_once __DIR__ . '/../Config/PostHandler.php';
+require_once __DIR__ . '/../Config/SessaoHandler.php';
+require_once __DIR__ . '/../Model/UsuarioModel.php';
+require_once __DIR__ . '/../Model/UsuarioDAO.php';
 
 
 
 class UsuarioController{
     public function __construct()
     {
-        $this->oDatabase = new DatabaseHandler("localhost", 'root', 'password','3306', 'paulyana');
+        $this->oUsuarioDAO = new UsuarioDAO();
+        $this->oDatabase = new DatabaseHandler();
         $this->oPost = new PostHandler();
-
-
     }
 
-    public function formarObjeto($aDadosUsuario):UsuarioModel{
-
-        $oUsuarioModel = new UsuarioModel(
-            $aDadosUsuario['uso_id'],
-            $aDadosUsuario['uso_login'],
-            $aDadosUsuario['uso_senha'],
-            $aDadosUsuario['uso_tipo']);
-
-        return $oUsuarioModel;
+    public function index(){
+        require_once  __DIR__.'/../View/home-view.php';
     }
 
-    public function findAll():array{
-        $sSql = "SELECT * FROM uso_usuario";
-        $aUsuarios = $this->oDatabase->query($sSql);
-
-        $aObjUsuario = array_map(function($usuario){
-            return $this->formarObjeto($usuario);
-        }, $aUsuarios);
-
-        return $aObjUsuario;
+    public function login(){
+        require_once  __DIR__.'/../View/login-view.php';
     }
 
-//    public function save(UsuarioModel $oUsuarioModel){
-//        $sSenhaCriptografada = password_hash($oUsuarioModel->getSSenha(), PASSWORD_DEFAULT);
-//        $sSql = "INSERT INTO uso_usuario (uso_login, uso_senha, uso_tipo) VALUES (?, ?, ?)";
-//        $sParametros = [
-//            1 => $oUsuarioModel->getLogin(),
-//            2 => $sSenhaCriptografada,
-//            3 => $oUsuarioModel->getTipo()
-//        ];
-//        return $this->oDatabase->execute($sSql, $sParametros);
+    public function logout(){
+        $oSessao = new SessaoHandler();
+        $oSessao->deslogarSessao();
+        require_once  __DIR__.'/../View/home-view.php';
+        exit();
+    }
+
+    public function cadastrar(){
+        $oSessao = new SessaoHandler();
+        $oSessao->verificarSessao();
+
+        if($this->isAdmin($oSessao->getDado('login'))){
+            require_once  __DIR__.'/../View/cadastrar-usuario-view.php';
+        }else{
+            require_once  __DIR__.'/../View/login-view.php';
+        }
+    }
+
+//    public function salvarUsuario($sLogin, $sSenha, $sTipo){
+//
+//        if(!$this->oUsuarioDAO->isUsuarioExiste($sLogin)){
+//            $sSenhaCriptografada = password_hash($sSenha, PASSWORD_DEFAULT);
+//            $this->oUsuarioDAO->save($sLogin, $sSenhaCriptografada, $sTipo);
+//            header('Location: lista-usuarios-view.php');
+//        }else{
+//            echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
+//        }
 //    }
 
-    public function save($sLogin, $sSenha, $sTipo){
-
-        if(!$this->isUsuarioExiste($sLogin)){
-            $sSenhaCriptografada = password_hash($sSenha, PASSWORD_DEFAULT);
-            $sSql = "INSERT INTO uso_usuario (uso_login, uso_senha, uso_tipo) VALUES (?, ?, ?)";
-            $sParametros = [
-                1 => $sLogin,
-                2 => $sSenhaCriptografada,
-                3 => $sTipo
-            ];
-            $this->oDatabase->execute($sSql, $sParametros);
-            header('Location: lista-usuarios-view.php');
-        }else{
-            echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
-        }
 
 
+    public function listar()
+    {
+        $aUsuariosAdmins = $this->oUsuarioDAO->FindByTipo('administrador');
+        $aUsuariosComuns = $this->oUsuarioDAO->FindByTipo('comum');
+
+        include('lista-usuarios-view.php');
+        require_once __DIR__.'/../View/lista-usuarios-view.php';
     }
 
-    public function isUsuarioExiste($sLogin):bool{
-        $SSql =" SELECT COUNT(*) AS total FROM uso_usuario WHERE uso_login = ? ";
-        $sParametro = [1 => $sLogin];
-        $aResultadoConsulta = $this->oDatabase->query($SSql, $sParametro);
-        if($aResultadoConsulta[0]["total"] == 1){
-            return true;
-        } else{
-            return false;
-        }
-    }
+    public function menu(){
 
-    public function senhaFindByLogin($sLogin){
-        $sSql = " SELECT uso_senha FROM uso_usuario WHERE uso_login = ? ";
-        $sParametro = [1 => $sLogin];
-        $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
-        if($aResultadoConsulta!=[]){
-            return $aResultadoConsulta[0]['uso_senha'];
-        }else{
-            return [];
-        }
-    }
+        echo "entrou menu";
+        $oSessao = new SessaoHandler();
+        $oSessao->verificarSessao();
 
-    public function FindByTipo($sTipo):array{
-        $sSql = " SELECT * FROM uso_usuario WHERE uso_tipo = ? ";
-        $sParametro = [1 => $sTipo];
-        $aUsuarios = $this->oDatabase->query($sSql, $sParametro);
+        $sLogin = $oSessao->getDado('login');
 
-        $aObjUsuario = array_map(function($usuario){
-            return $this->formarObjeto($usuario);
-        }, $aUsuarios);
-
-        if($aObjUsuario!=[]){
-            return $aObjUsuario;
-        }else{
-            return [];
-        }
-    }
-
-    public function FindByLogin($sLogin):array{
-        $sSql = " SELECT * FROM uso_usuario WHERE uso_login = ? ";
-        $sParametro = [1 => $sLogin];
-        $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
-        if($aResultadoConsulta!=[]){
-            return $aResultadoConsulta[0];
-        }else{
-            return [];
-        }
-    }
-
-    public function validarSenha($sLogin, $sSenha):bool{
-        if ($this->isUsuarioExiste($sLogin)){
-            return password_verify($sSenha,$this->senhaFindByLogin($sLogin));
-        } else {
-            return false;
-        }
-    }
-
-    public function verificarTipo($sLogin){
-        $tipo = ($this->findByLogin($sLogin))['uso_tipo'];
+        $tipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
 
         if($tipo == "administrador"){
-            header('Location: usuario-admin-view.php');
+            require_once  __DIR__.'/../View/usuario-admin-view.php';
             exit();
         }elseif ($tipo == "comum") {
-            header('Location: usuario-comum-view.php');
+            require_once  __DIR__.'/../View/usuario-comum-view.php';
             exit();
         }
     }
 
-    public function isAdmin($sLogin){
-        $sTipo = ($this->findByLogin($sLogin))['uso_tipo'];
-
-        if($sTipo == "administrador"){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-
-    public function acessarSistema()
+    public function acessar()
     {
         if ($this->oPost->verificarOcorrencia()) {
-
-            $oUsuarioController = new UsuarioController();
 
             $sLogin = $this->oPost->getDado('login');
             $sSenha = $this->oPost->getDado('senha');
 
-            if ($oUsuarioController->validarSenha($sLogin, $sSenha)){
+            if ($this->validarSenha($sLogin, $sSenha)){
 
                 $oSessao = new SessaoHandler();
 
                 $oSessao->setDado('login', $sLogin);
-                $oUsuarioController->verificarTipo($oSessao->getDado('login'));
+                $this->menu();
             } else {
                 echo "<script>alert('Usuário ou senha incorretos!');</script>";
             }
         }
     }
-
-    public function deslogarUsuario(){
-        $oSessao = new SessaoHandler();
-        $oSessao->deslogarSessao();
-        header("Location: login-usuario.php");
-        exit();
-    }
-
 
     public function cadastrarUsuario(){
 
@@ -192,9 +117,36 @@ class UsuarioController{
             $sSenha =  $this->oPost->getDado('senha');
             $sTipo=  $this->oPost->getDado('tipo');
 
-            $this->save($sLogin, $sSenha, $sTipo);
+            if(!$this->oUsuarioDAO->isUsuarioExiste($sLogin)){
+                $sSenhaCriptografada = password_hash($sSenha, PASSWORD_DEFAULT);
+                $this->oUsuarioDAO->save($sLogin, $sSenhaCriptografada, $sTipo);
+
+                $this->listar();
+            }else{
+                echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
+            }
         }
     }
+
+    private function validarSenha($sLogin, $sSenha):bool{
+        if ($this->oUsuarioDAO->isUsuarioExiste($sLogin)){
+            return password_verify($sSenha,$this->oUsuarioDAO->senhaFindByLogin($sLogin));
+        } else {
+            return false;
+        }
+    }
+
+    public function isAdmin($sLogin):bool{
+        $sTipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
+
+        if($sTipo == "administrador"){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
 
 }
 

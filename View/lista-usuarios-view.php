@@ -1,11 +1,4 @@
 <?php
-require_once '../Controller/UsuarioController.php';
-
-$oUsuarioController = new UsuarioController();
-
-$aUsuariosAdmins = $oUsuarioController->FindByTipo('administrador');
-$aUsuariosComuns = $oUsuarioController->FindByTipo('comum');
-
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -71,9 +64,9 @@ $aUsuariosComuns = $oUsuarioController->FindByTipo('comum');
             </table>
         </div>
     </section>
-    <a class="botao-cadastrar-usuario" href="cadastrar-usuario-view.php">Cadastrar Novo Usuário</a>
-    <a class="botao-voltar-menu" href="usuario-admin-view.php">Voltar</a>
-    <a class="botao-sair" href="logout.php">Sair</a>
+    <a class="botao-cadastrar-usuario" href="http://localhost/sindicatodosestagios/usuario/cadastrar">Cadastrar Novo Usuário</a>
+    <a class="botao-voltar-menu" href="http://localhost/sindicatodosestagios/usuario/menu">Voltar</a>
+    <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
 
 </main>
 </body>

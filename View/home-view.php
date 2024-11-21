@@ -1,7 +1,5 @@
 <?php
-var_dump(password_hash('123456', PASSWORD_DEFAULT));
 ?>
-
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -14,15 +12,11 @@ var_dump(password_hash('123456', PASSWORD_DEFAULT));
 </head>
 <body>
 <main>
-
     <h1>Bem vindo ao Sindicato dos Estágios</h1>
-
-    <a class="botao-login" href="login-view.php">Acessar Sistema</a>
-
+    <a class="botao-login" href='http://localhost/sindicatodosestagios/usuario/login'>Acessar Sistema</a>
     <footer>
         <p>&copy; 2024 Paulyana Ferreira. Todos os direitos reservados.</p>
     </footer>
-
 </main>
 </body>
 </html>

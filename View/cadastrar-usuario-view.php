@@ -1,10 +1,4 @@
 <?php
-
-require_once '../Controller/UsuarioController.php';
-
-$oUsuarioController = new UsuarioController();
-$oUsuarioController->cadastrarUsuario();
-
 ?>
 
 <!doctype html>
@@ -22,7 +16,7 @@ $oUsuarioController->cadastrarUsuario();
     <h1>Cadastro de Usuário</h1>
 
     <section class="container-form">
-        <form method="post" enctype = "multipart/form-data">
+        <form action="http://localhost/sindicatodosestagios/usuario/cadastrarUsuario" method="post" enctype = "multipart/form-data">
 
             <label for="login">Login</label>
             <input type="text" id="login" name="login" placeholder="Digite o login" required>
@@ -43,8 +37,8 @@ $oUsuarioController->cadastrarUsuario();
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar usuário"/>
         </form>
-        <a class="botao-voltar" href="lista-usuarios-view.php">Voltar</a>
-        <a class="botao-sair" href="logout.php">Sair</a>
+        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/usuario/menu">Voltar</a>
+        <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
 
     </section>
 </main>

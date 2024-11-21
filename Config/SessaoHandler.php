@@ -10,16 +10,16 @@ class SessaoHandler {
     public function verificarSessao()
     {
         if (!isset($_SESSION['login'])) {
-            header("Location: login-view.php");
+            require_once  __DIR__.'/../View/login-view.php';
             exit();
         }
     }
 
-    public function logarSessao(){
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-    }
+//    public function logarSessao(){
+//        if (session_status() == PHP_SESSION_NONE) {
+//            session_start();
+//        }
+//    }
 
     public function deslogarSessao()
     {

@@ -1,9 +1,4 @@
 <?php
-require_once '../Config/SessaoHandler.php';
-
-$oSessaoHandler = new SessaoHandler();
-$oSessaoHandler->verificarSessao();
-
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -21,10 +16,10 @@ $oSessaoHandler->verificarSessao();
     <h1>Menu - Administrador</h1>
 
     <section class="container-buttons">
-        <a class="botao-listar-usuario" href="lista-usuarios-view.php" >Usuários</a>
-        <a class="botao-listar-filiado" href="lista-filiados-view.php" >Filiados</a>
+        <a class="botao-listar-usuario" href="http://localhost/sindicatodosestagios/usuario/listar" >Usuários</a>
+        <a class="botao-listar-filiado" href="http://localhost/sindicatodosestagios/filiado/listar" >Filiados</a>
 
-        <a class="botao-sair" href="logout.php">Sair</a>
+        <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
 
     </section>
 </main>
