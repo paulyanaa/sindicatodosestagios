@@ -19,26 +19,40 @@
         <form method="post" enctype = "multipart/form-data">
 
             <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" placeholder="Digite o nome" required>
+            <input type="text" id="nome" name="nome" placeholder="Digite o nome" required><br>
 
-            <label for="senha">Senha</label>
-            <input type="text" id="senha" name="senha" placeholder="Digite a senha" required>
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF" required><br>
 
-            <div class="container-radio">
-                <div>
-                    <label for="administrador">Administrador</label>
-                    <input type="radio" id="administrador" name="tipo" value="administrador" >
-                </div>
-                <div>
-                    <label for="comum">Comum</label>
-                    <input type="radio" id="comum" name="tipo" value="comum" >
-                </div>
-            </div>
+            <label for="rg">RG</label>
+            <input type="text" id="rg" name="rg" placeholder="Digite o RG" required><br>
+
+            <label for="data_nascimento">Data de nascimento</label>
+            <input type="text" id="data_nascimento" name="data_nascimento" placeholder="Digite a data de nascimento" required><br>
+
+            <label for="idade">Idade</label>
+            <input type="text" id="idade" name="idade" placeholder="Digite a idade" required><br>
+
+            <label for="empresa">Empresa</label>
+            <input type="text" id="empresa" name="empresa" placeholder="Digite o nome da empresa" required><br>
+
+            <label for="cargo">Cargo</label>
+            <input type="text" id="cargo" name="cargo" placeholder="Digite o nome da empresa" required><br>
+
+            <label for="situacao">Situacao</label>
+            <input type="text" id="situacao" name="situacao" placeholder="Digite o nome da empresa" required><br>
+
+            <label for="tel_residencial">Telefone Residencial</label>
+            <input type="text" id="tel_residencial" name="tel_residencial" placeholder="Digite o nome da empresa" required><br>
+
+            <label for="tel_celular">Telefone Celular</label>
+            <input type="text" id="tel_celular" name="tel_celular" placeholder="Digite o nome da empresa" required><br>
+
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar usuário"/>
         </form>
-        <a class="botao-voltar" href="lista-usuarios-view.php">Voltar</a>
-        <a class="botao-sair" href="logout.php">Sair</a>
+        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/filiados/listar">Voltar</a>
+        <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
 
     </section>
 </main>
