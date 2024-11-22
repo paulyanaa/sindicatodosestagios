@@ -1,6 +1,7 @@
 <?php
 
 namespace Model;
+require_once __DIR__ . '/../Model/UsuarioDAO.php';
 
 class UsuarioModel
 {
@@ -33,6 +34,16 @@ class UsuarioModel
 
     public function getSTipo(){
         return $this->sTipo;
+    }
+
+    public static function createFromArray(array $aDadosUsuario):UsuarioModel{
+        $oUsuario = new UsuarioModel(
+            $aDadosUsuario['uso_id'],
+            $aDadosUsuario['login'],
+            $aDadosUsuario['senha'],
+            $aDadosUsuario['tipo']
+        );
+        return $oUsuario;
     }
 
 

@@ -3,7 +3,6 @@
 use Model\UsuarioModel;
 
 require_once __DIR__ . "/../Config/DatabaseHandler.php";
-require_once __DIR__ . '/../Config/PostHandler.php';
 require_once __DIR__ . '/../Config/SessaoHandler.php';
 require_once __DIR__ . '/../Model/UsuarioModel.php';
 require_once __DIR__ . '/../Model/UsuarioDAO.php';
@@ -15,7 +14,6 @@ class UsuarioController{
     {
         $this->oUsuarioDAO = new UsuarioDAO();
         $this->oDatabase = new DatabaseHandler();
-        $this->oPost = new PostHandler();
     }
 
     public function index(){
@@ -44,18 +42,19 @@ class UsuarioController{
         }
     }
 
-//    public function salvarUsuario($sLogin, $sSenha, $sTipo){
-//
-//        if(!$this->oUsuarioDAO->isUsuarioExiste($sLogin)){
-//            $sSenhaCriptografada = password_hash($sSenha, PASSWORD_DEFAULT);
-//            $this->oUsuarioDAO->save($sLogin, $sSenhaCriptografada, $sTipo);
-//            header('Location: lista-usuarios-view.php');
-//        }else{
-//            echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
-//        }
-//    }
+    public function deletar(array $aDados = null){
 
+        $oSessao = new SessaoHandler();
+        $oSessao->verificarSessao();
 
+        if($this->isAdmin($oSessao->getDado('login'))){
+            $this->oUsuarioDAO->delete($aDados['id']);
+
+            $this->listar();
+        }else{
+            require_once  __DIR__.'/../View/login-view.php';
+        }
+    }
 
     public function listar()
     {
@@ -66,37 +65,55 @@ class UsuarioController{
         require_once __DIR__.'/../View/lista-usuarios-view.php';
     }
 
+//    public function menu(){
+//
+//        $oSessao = new SessaoHandler();
+//        $oSessao->verificarSessao();
+//
+//        $sLogin = $oSessao->getDado('login');
+//
+//        $tipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
+//
+//        if($tipo == "administrador"){
+//            require_once  __DIR__.'/../View/usuario-admin-view.php';
+//            exit();
+//        }elseif ($tipo == "comum") {
+//            require_once  __DIR__.'/../View/usuario-comum-view.php';
+//            exit();
+//        }
+//    }
+
     public function menu(){
 
-        echo "entrou menu";
         $oSessao = new SessaoHandler();
         $oSessao->verificarSessao();
 
         $sLogin = $oSessao->getDado('login');
 
-        $tipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
+        //$tipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
 
-        if($tipo == "administrador"){
+        if($this->isAdmin($oSessao->getDado('login'))){
+            $bAparecer = true;
+            include('usuario-admin-view.php');
             require_once  __DIR__.'/../View/usuario-admin-view.php';
             exit();
-        }elseif ($tipo == "comum") {
-            require_once  __DIR__.'/../View/usuario-comum-view.php';
+        }else {
+            $bAparecer = false;
+            include('usuario-admin-view.php');
+            require_once  __DIR__.'/../View/usuario-admin-view.php';
             exit();
         }
     }
 
-    public function acessar()
+    public function acessar(array $aDados = null)
     {
-        if ($this->oPost->verificarOcorrencia()) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $sLogin = $this->oPost->getDado('login');
-            $sSenha = $this->oPost->getDado('senha');
-
-            if ($this->validarSenha($sLogin, $sSenha)){
+            if ($this->validarSenha($aDados['login'], $aDados['senha'])){
 
                 $oSessao = new SessaoHandler();
 
-                $oSessao->setDado('login', $sLogin);
+                $oSessao->setDado('login', $aDados['login']);
                 $this->menu();
             } else {
                 echo "<script>alert('Usuário ou senha incorretos!');</script>";
@@ -104,26 +121,24 @@ class UsuarioController{
         }
     }
 
-    public function cadastrarUsuario(){
+    public function cadastrarUsuario(array $aDados = null){
 
         $oSessao = new SessaoHandler();
         $oSessao->verificarSessao();
 
         $sUsuarioLogado = $oSessao->getDado('login');
 
-        if(($this->oPost->verificarOcorrencia()) && ($this->isAdmin($sUsuarioLogado))){
+        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->isAdmin($sUsuarioLogado))){
 
-            $sLogin =  $this->oPost->getDado('login');
-            $sSenha =  $this->oPost->getDado('senha');
-            $sTipo=  $this->oPost->getDado('tipo');
+            $oUsuario = UsuarioModel::createFromArray($aDados);
 
-            if(!$this->oUsuarioDAO->isUsuarioExiste($sLogin)){
-                $sSenhaCriptografada = password_hash($sSenha, PASSWORD_DEFAULT);
-                $this->oUsuarioDAO->save($sLogin, $sSenhaCriptografada, $sTipo);
+            if(!$this->oUsuarioDAO->isUsuarioExiste($oUsuario->getSLogin())){
+                $sSenhaCriptografada = password_hash($oUsuario->getSSenha(), PASSWORD_DEFAULT);
+                $this->oUsuarioDAO->save($oUsuario, $sSenhaCriptografada);
 
                 $this->listar();
             }else{
-                echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
+                echo "<script>alert('Login já cadastrado. Tente novamente.')";
             }
         }
     }
@@ -145,8 +160,6 @@ class UsuarioController{
             return false;
         }
     }
-
-
 
 }
 

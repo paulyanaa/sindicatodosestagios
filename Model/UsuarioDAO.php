@@ -32,15 +32,25 @@ class UsuarioDAO
         }
     }
 
-    public function save($sLogin, $sSenha, $sTipo){
+    public function save(UsuarioModel $oUsuario, string $sSenhaCriptografada){
         $sSql = "INSERT INTO uso_usuario (uso_login, uso_senha, uso_tipo) VALUES (?, ?, ?)";
         $sParametros = [
-            1 => $sLogin,
-            2 => $sSenha,
-            3 => $sTipo
+            1 => $oUsuario->getSLogin(),
+            2 => $sSenhaCriptografada,
+            3 => $oUsuario->getSTipo()
         ];
         $this->oDatabase->execute($sSql, $sParametros);
     }
+
+    public function delete(int $iId){
+        $sSql = "DELETE FROM uso_usuario WHERE `uso_usuario`.`uso_id` = ?";
+        $sParametros = [
+            1 => $iId,
+        ];
+        $this->oDatabase->execute($sSql, $sParametros);
+    }
+
+
 
     public function findAll():array{
         $sSql = "SELECT * FROM uso_usuario";
@@ -52,6 +62,8 @@ class UsuarioDAO
 
         return $aObjUsuario;
     }
+
+
 
     public function FindByTipo($sTipo):array{
         $sSql = " SELECT * FROM uso_usuario WHERE uso_tipo = ? ";
@@ -80,6 +92,13 @@ class UsuarioDAO
         }
     }
 
+    public function idFindByLogin($sLogin):array{
+        $sSql = " SELECT uso_id FROM uso_usuario WHERE uso_login = ? ";
+        $sParametro = [1 => $sLogin];
+        $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
+        return $aResultadoConsulta;
+    }
+
     public function senhaFindByLogin($sLogin){
         $sSql = " SELECT uso_senha FROM uso_usuario WHERE uso_login = ? ";
         $sParametro = [1 => $sLogin];
@@ -90,4 +109,6 @@ class UsuarioDAO
             return [];
         }
     }
+
+
 }

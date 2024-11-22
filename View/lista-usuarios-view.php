@@ -26,6 +26,7 @@
                 <tr>
                     <th>Usuário</th>
                     <th>Tipo</th>
+                    <th>Ação</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,12 @@
                 <tr>
                     <td><?= $admin->getSLogin() ?></td>
                     <td><?= $admin->getSTipo() ?></td>
+                    <td>
+                        <form action="http://localhost/sindicatodosestagios/usuario/deletar" method="post">
+                            <input type="hidden" name="id" value="<?= $admin->getIId() ?>">
+                            <input type="submit" class="botao-excluir" value="Excluir">
+                        </form>
+                    </td>
                 </tr>
                 <?php endforeach;?>
                 </tbody>
@@ -49,6 +56,7 @@
                 <tr>
                     <th>Usuário</th>
                     <th>Tipo</th>
+                    <th>Acão</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -56,8 +64,15 @@
                 <tr>
                     <td><?= $comum->getSLogin()?></td>
                     <td><?= $comum->getSTipo() ?></td>
+                    <td>
+                        <form action="http://localhost/sindicatodosestagios/usuario/deletar" method="post">
+                            <input type="hidden" name="id" value="<?= $comum->getIId() ?>">
+                            <input type="submit" class="botao-excluir" value="Excluir">
+                        </form>
+                    </td>
 
                 </tr>
+
                 <?php endforeach;?>
 
                 </tbody>

@@ -13,10 +13,12 @@ $url = array_filter(explode('/', $verificacao));
 
 $sController = ucfirst($url[0]) . 'Controller';
 $sMetodo = $url[1];
+$aDados = array_merge($_POST, $_GET);
 
 var_dump($url);
 var_dump($sController);
 var_dump($sMetodo);
+
 
 try {
     if (class_exists($sController)) {
@@ -27,7 +29,7 @@ try {
 
 
     if (method_exists($oController, $sMetodo)) {
-        $oController->$sMetodo();
+        $oController->$sMetodo($aDados);
     } else {
         throw new Exception("Método '$sMetodo' não encontrado.");
     }

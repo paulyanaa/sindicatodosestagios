@@ -29,6 +29,16 @@ class FiliadoDAO{
         return $oFiliadoModel;
     }
 
+    public function save($sLogin, $sSenha, $sTipo){
+        $sSql = "INSERT INTO uso_usuario (uso_login, uso_senha, uso_tipo) VALUES (?, ?, ?)";
+        $sParametros = [
+            1 => $sLogin,
+            2 => $sSenha,
+            3 => $sTipo
+        ];
+        $this->oDatabase->execute($sSql, $sParametros);
+    }
+
     public function findAll():array{
         $sSql = "SELECT * FROM flo_filiado";
         $aFiliados = $this->oDatabase->query($sSql);

@@ -48,8 +48,7 @@
             <label for="tel_celular">Telefone Celular</label>
             <input type="text" id="tel_celular" name="tel_celular" placeholder="Digite o nome da empresa" required><br>
 
-
-            <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar usuário"/>
+            <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar filiado"/>
         </form>
         <a class="botao-voltar" href="http://localhost/sindicatodosestagios/filiados/listar">Voltar</a>
         <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>

@@ -13,10 +13,12 @@
 <body>
 <main>
 
-    <h1>Menu - Administrador</h1>
+    <h1>Menu</h1>
 
     <section class="container-buttons">
+        <?php if($bAparecer): ?>
         <a class="botao-listar-usuario" href="http://localhost/sindicatodosestagios/usuario/listar" >Usuários</a>
+        <?php endif;?>
         <a class="botao-listar-filiado" href="http://localhost/sindicatodosestagios/filiado/listar" >Filiados</a>
 
         <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
