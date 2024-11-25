@@ -70,11 +70,8 @@
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
                     </td>
-
                 </tr>
-
                 <?php endforeach;?>
-
                 </tbody>
             </table>
         </div>

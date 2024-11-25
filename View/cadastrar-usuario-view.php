@@ -19,19 +19,19 @@
         <form action="http://localhost/sindicatodosestagios/usuario/cadastrarUsuario" method="post" enctype = "multipart/form-data">
 
             <label for="login">Login</label>
-            <input type="text" id="login" name="login" placeholder="Digite o login" required>
+            <input type="text" id="login" name="uso_login" placeholder="Digite o login" required>
 
             <label for="senha">Senha</label>
-            <input type="text" id="senha" name="senha" placeholder="Digite a senha" required>
+            <input type="text" id="senha" name="uso_senha" placeholder="Digite a senha" required>
 
             <div class="container-radio">
                 <div>
                     <label for="administrador">Administrador</label>
-                    <input type="radio" id="administrador" name="tipo" value="administrador" >
+                    <input type="radio" id="administrador" name="uso_tipo" value="administrador" >
                 </div>
                 <div>
                     <label for="comum">Comum</label>
-                    <input type="radio" id="comum" name="tipo" value="comum" >
+                    <input type="radio" id="comum" name="uso_tipo" value="comum" >
                 </div>
             </div>
 

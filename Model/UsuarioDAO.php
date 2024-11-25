@@ -10,29 +10,15 @@ class UsuarioDAO
         $this->oDatabase = new DatabaseHandler();
     }
 
-    public function formarObjeto($aDadosUsuario):UsuarioModel
-    {
-        $oUsuarioModel = new UsuarioModel(
-            $aDadosUsuario['uso_id'],
-            $aDadosUsuario['uso_login'],
-            $aDadosUsuario['uso_senha'],
-            $aDadosUsuario['uso_tipo']);
-
-        return $oUsuarioModel;
-    }
-
     public function isUsuarioExiste($sLogin):bool{
-        $SSql =" SELECT COUNT(*) AS total FROM uso_usuario WHERE uso_login = ? ";
+        $SSql ="SELECT 1 FROM uso_usuario WHERE uso_login = ? LIMIT 1";
         $sParametro = [1 => $sLogin];
         $aResultadoConsulta = $this->oDatabase->query($SSql, $sParametro);
-        if($aResultadoConsulta[0]["total"] == 1){
-            return true;
-        } else{
-            return false;
-        }
+        return !empty($aResultadoConsulta);
     }
 
     public function save(UsuarioModel $oUsuario, string $sSenhaCriptografada){
+
         $sSql = "INSERT INTO uso_usuario (uso_login, uso_senha, uso_tipo) VALUES (?, ?, ?)";
         $sParametros = [
             1 => $oUsuario->getSLogin(),
@@ -51,13 +37,12 @@ class UsuarioDAO
     }
 
 
-
     public function findAll():array{
         $sSql = "SELECT * FROM uso_usuario";
         $aUsuarios = $this->oDatabase->query($sSql);
 
         $aObjUsuario = array_map(function($usuario){
-            return $this->formarObjeto($usuario);
+            return UsuarioModel::createFromArray($usuario);
         }, $aUsuarios);
 
         return $aObjUsuario;
@@ -71,8 +56,10 @@ class UsuarioDAO
         $aUsuarios = $this->oDatabase->query($sSql, $sParametro);
 
         $aObjUsuario = array_map(function($usuario){
-            return $this->formarObjeto($usuario);
+            return UsuarioModel::createFromArray($usuario);
         }, $aUsuarios);
+
+
 
         if($aObjUsuario!=[]){
             return $aObjUsuario;
