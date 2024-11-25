@@ -36,7 +36,9 @@
                     <th>Telefone Celular</th>
                     <th>Útima atualização</th>
                     <th>Dependentes</th>
+                    <?php if($bAparecerBotao): ?>
                     <th colspan="2">Ação</th>
+                    <?php endif?>
 
                 </tr>
                 </thead>
@@ -60,13 +62,15 @@
                                 <input type="submit" class="botao-dependentes" value="Visualizar dependentes">
                             </form>
                         </td>
+                        <?php if($bAparecerBotao): ?>
                         <td><a class="botao-editar" href="editar-filiado.php?id=<?= $filiado->getIId() ?>">Editar</a></td>
                         <td>
-                            <form action="excluir-filiado.php" method="post">
+                            <form action="http://localhost/sindicatodosestagios/filiado/deletar" method="post">
                                 <input type="hidden" name="id" value="<?= $filiado->getIId() ?>">
                                 <input type="submit" class="botao-excluir" value="Excluir">
                             </form>
                         </td>
+                        <?php endif?>
                     </tr>
                 <?php endforeach;?>
                 </tbody>
@@ -74,7 +78,11 @@
         </div>
     </section>
 
+    <?php if($bAparecerBotao): ?>
     <a class="botao-cadastrar-filiado" href="http://localhost/sindicatodosestagios/filiado/cadastrar">Cadastrar Novo Filiado</a>
+    <?php endif?>
+
+    <a class="botao-voltar-menu" href="http://localhost/sindicatodosestagios/usuario/menu">Voltar</a>
     <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
 
 </main>

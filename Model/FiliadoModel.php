@@ -120,6 +120,22 @@ class FiliadoModel
         return $this->sUltimaAtualizacao->format('d/m/Y');
     }
 
-
+    public static function createFromArray(array $aDadosFiliado):FiliadoModel{
+        $oFiliadoModel = new FiliadoModel(
+            $aDadosFiliado['flo_id'],
+            $aDadosFiliado['flo_nome'],
+            $aDadosFiliado['flo_cpf'],
+            $aDadosFiliado['flo_rg'],
+            new DateTime($aDadosFiliado['flo_data_nascimento']),
+            $aDadosFiliado['flo_idade'],
+            $aDadosFiliado['flo_empresa'],
+            $aDadosFiliado['flo_cargo'],
+            $aDadosFiliado['flo_situacao'],
+            $aDadosFiliado['flo_tel_residencial'],
+            $aDadosFiliado['flo_tel_celular'],
+            new DateTime($aDadosFiliado['flo_ultima_atualizacao'])
+        );
+        return $oFiliadoModel;
+    }
 
 }
