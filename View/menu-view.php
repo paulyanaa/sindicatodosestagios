@@ -16,7 +16,7 @@
     <h1>Menu</h1>
 
     <section class="container-buttons">
-        <?php if($bAparecer): ?>
+        <?php if($bAparecerBotao): ?>
         <a class="botao-listar-usuario" href="http://localhost/sindicatodosestagios/usuario/listar" >Usuários</a>
         <?php endif;?>
         <a class="botao-listar-filiado" href="http://localhost/sindicatodosestagios/filiado/listar" >Filiados</a>

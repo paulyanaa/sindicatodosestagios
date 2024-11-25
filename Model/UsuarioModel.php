@@ -39,9 +39,9 @@ class UsuarioModel
     public static function createFromArray(array $aDadosUsuario):UsuarioModel{
         $oUsuario = new UsuarioModel(
             $aDadosUsuario['uso_id'],
-            $aDadosUsuario['login'],
-            $aDadosUsuario['senha'],
-            $aDadosUsuario['tipo']
+            $aDadosUsuario['uso_login'],
+            $aDadosUsuario['uso_senha'],
+            $aDadosUsuario['uso_tipo']
         );
         return $oUsuario;
     }

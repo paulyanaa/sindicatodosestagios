@@ -75,10 +75,10 @@ class UsuarioController{
 //        $tipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
 //
 //        if($tipo == "administrador"){
-//            require_once  __DIR__.'/../View/usuario-admin-view.php';
+//            require_once  __DIR__.'/../View/menu-view.php';
 //            exit();
 //        }elseif ($tipo == "comum") {
-//            require_once  __DIR__.'/../View/usuario-comum-view.php';
+//            require_once  __DIR__.'/../View/usuario-cmum-view.php';
 //            exit();
 //        }
 //    }
@@ -92,17 +92,15 @@ class UsuarioController{
 
         //$tipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
 
-        if($this->isAdmin($oSessao->getDado('login'))){
-            $bAparecer = true;
-            include('usuario-admin-view.php');
-            require_once  __DIR__.'/../View/usuario-admin-view.php';
-            exit();
+        if($this->isAdmin($sLogin)){
+            $bAparecerBotao = true;
         }else {
-            $bAparecer = false;
-            include('usuario-admin-view.php');
-            require_once  __DIR__.'/../View/usuario-admin-view.php';
-            exit();
+            $bAparecerBotao = false;
         }
+
+        include('menu-view.php');
+        require_once  __DIR__.'/../View/menu-view.php';
+        exit();
     }
 
     public function acessar(array $aDados = null)
@@ -117,11 +115,13 @@ class UsuarioController{
                 $this->menu();
             } else {
                 echo "<script>alert('Usuário ou senha incorretos!');</script>";
+                $this->login();
             }
         }
     }
 
     public function cadastrarUsuario(array $aDados = null){
+
 
         $oSessao = new SessaoHandler();
         $oSessao->verificarSessao();
@@ -135,10 +135,10 @@ class UsuarioController{
             if(!$this->oUsuarioDAO->isUsuarioExiste($oUsuario->getSLogin())){
                 $sSenhaCriptografada = password_hash($oUsuario->getSSenha(), PASSWORD_DEFAULT);
                 $this->oUsuarioDAO->save($oUsuario, $sSenhaCriptografada);
-
                 $this->listar();
             }else{
-                echo "<script>alert('Login já cadastrado. Tente novamente.')";
+                echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
+                $this->listar();
             }
         }
     }
@@ -153,7 +153,6 @@ class UsuarioController{
 
     public function isAdmin($sLogin):bool{
         $sTipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
-
         if($sTipo == "administrador"){
             return true;
         }else{
