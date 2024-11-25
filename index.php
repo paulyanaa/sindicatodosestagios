@@ -1,7 +1,6 @@
 <?php
 
 
-require_once __DIR__ . "/Controller/teste.php";
 require_once __DIR__ . "/Controller/UsuarioController.php";
 require_once __DIR__ . "/Controller/FiliadoController.php";
 
