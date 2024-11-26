@@ -33,6 +33,7 @@ class FiliadoController{
         require_once __DIR__.'/../View/lista-filiados-view.php';
     }
 
+
     public function cadastrar(){
         $oSessao = new SessaoHandler();
         $oSessao->verificarSessao();
@@ -49,10 +50,24 @@ class FiliadoController{
         $oSessao = new SessaoHandler();
         $oSessao->verificarSessao();
 
+
         if($this->oUsuarioController->isAdmin($oSessao->getDado('login'))){
             $this->oFiliadoDAO->delete($aDados['id']);
 
             $this->listar();
+        }else{
+            require_once  __DIR__.'/../View/login-view.php';
+        }
+    }
+
+    public function editar(array $aDados = null){
+        $oSessao = new SessaoHandler();
+        $oSessao->verificarSessao();
+
+        if($this->oUsuarioController->isAdmin($oSessao->getDado('login'))){
+            $oFiliado = FiliadoModel::createFromArray($this->oFiliadoDAO->findById($aDados['id']));
+            include('editar-filiado-view.php');
+            require_once  __DIR__.'/../View/editar-filiado-view.php';
         }else{
             require_once  __DIR__.'/../View/login-view.php';
         }
@@ -66,15 +81,29 @@ class FiliadoController{
 
             $oFiliado = FiliadoModel::createFromArray($aDados);
 
-
             if(!$this->oFiliadoDAO->isFiliadoExiste($oFiliado->getSCpf())){
                 $this->oFiliadoDAO->save($oFiliado);
 
-                $this->listar();
             }else{
-                echo "<script>alert('Filiado já cadastrado. Tente novamente.')";
-                $this->listar();
+                echo "<script>alert('Filiado já cadastrado. Tente novamente.');</script>";
             }
+
+            $this->listar();
+        }
+    }public function editarFiliado(array $aDados = null){
+        $oSessao = new SessaoHandler();
+        $oSessao->verificarSessao();
+//        var_dump($aDados);
+//        exit();
+
+        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->oUsuarioController->isAdmin($oSessao->getDado('login')))){
+
+            $oFiliado = FiliadoModel::createFromArray($aDados);
+//            var_dump($oFiliado);
+//            exit();
+            $this->oFiliadoDAO->update($oFiliado);
+
+            $this->listar();
         }
     }
 

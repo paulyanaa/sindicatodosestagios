@@ -38,6 +38,17 @@ class FiliadoDAO{
         $this->oDatabase->execute($sSql, $sParametros);
     }
 
+    public function update(FiliadoModel $oFiliado){
+        $sSql = "UPDATE flo_filiado SET flo_empresa = ?, flo_cargo = ?, flo_situacao = ?, flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
+        $sParametros = [
+            1 => $oFiliado->getSEmpresa(),
+            2 => $oFiliado->getSCargo(),
+            3 => $oFiliado->getSSituacao(),
+            4 => $oFiliado->getIId()
+        ];
+        $this->oDatabase->execute($sSql, $sParametros);
+    }
+
 
     public function findAll():array{
 
@@ -53,10 +64,18 @@ class FiliadoDAO{
 
     public function isFiliadoExiste(string $sCpf)
     {
-        $SSql ="SELECT 1 FROM flo_filiado WHERE flo_cpf = ? LIMIT 1";
+        $sSql ="SELECT 1 FROM flo_filiado WHERE flo_cpf = ? LIMIT 1";
         $sParametro = [1 => $sCpf];
-        $aResultadoConsulta = $this->oDatabase->query($SSql, $sParametro);
+        $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
         return !empty($aResultadoConsulta);
+    }
+
+    public function findById($id)
+    {
+        $sSql = "SELECT * FROM flo_filiado WHERE flo_id = ?";
+        $sParametro = [1 => $id];
+        $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
+        return $aResultadoConsulta[0];
     }
 
 }

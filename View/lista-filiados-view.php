@@ -63,7 +63,12 @@
                             </form>
                         </td>
                         <?php if($bAparecerBotao): ?>
-                        <td><a class="botao-editar" href="editar-filiado.php?id=<?= $filiado->getIId() ?>">Editar</a></td>
+                        <td>
+                            <form action="http://localhost/sindicatodosestagios/filiado/editar" method="post">
+                                <input type="hidden" name="id" value="<?= $filiado->getIId() ?>">
+                                <input type="submit" class="botao-editar" value="Editar">
+                            </form>
+                        </td>
                         <td>
                             <form action="http://localhost/sindicatodosestagios/filiado/deletar" method="post">
                                 <input type="hidden" name="id" value="<?= $filiado->getIId() ?>">

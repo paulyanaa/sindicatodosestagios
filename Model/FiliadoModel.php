@@ -28,9 +28,9 @@ class FiliadoModel
         string $sRg,
         \DateTime $sDataNascimento,
         string $sIdade,
-        string $sEmpresa,
-        string $sCargo,
-        string $sSituacao,
+        ?string $sEmpresa,
+        ?string $sCargo,
+        ?string $sSituacao,
         string $sTelResidencial,
         string $sTelCelular,
         \DateTime $sUltimaAtualizacao
@@ -75,24 +75,26 @@ class FiliadoModel
         return $this->sDataNascimento;
     }
 
+
+
     public function getIIdade(): int
     {
         return $this->iIdade;
     }
 
-    public function getSEmpresa(): string
+    public function getSEmpresa(): ?string
     {
         return $this->sEmpresa;
     }
 
 
 
-    public function getSCargo(): string
+    public function getSCargo(): ?string
     {
         return $this->sCargo;
     }
 
-    public function getSSituacao(): string
+    public function getSSituacao(): ?string
     {
         return $this->sSituacao;
     }
@@ -114,6 +116,11 @@ class FiliadoModel
 
     public function getDataNascimentoFormatada(): string{
         return $this->sDataNascimento->format('d/m/Y');
+    }
+
+    public function getSDataNascimentoBanco(): string
+    {
+        return $this->sDataNascimento->format('Y-m-d');
     }
 
     public function getUltimaAtualizacaoFormatada(): string{
