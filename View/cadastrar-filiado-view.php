@@ -28,7 +28,7 @@
             <input type="text" id="rg" name="flo_rg" placeholder="Digite o RG" required><br>
 
             <label for="data_nascimento">Data de nascimento</label>
-            <input type="text" id="data_nascimento" name="flo_data_nascimento" placeholder="Digite a data de nascimento" required><br>
+            <input type="date" id="data_nascimento" name="flo_data_nascimento" placeholder="Digite a data de nascimento" required><br>
 
             <label for="idade">Idade</label>
             <input type="text" id="idade" name="flo_idade" placeholder="Digite a idade" required><br>
@@ -43,10 +43,10 @@
             <input type="text" id="situacao" name="flo_situacao" placeholder="Digite o nome da empresa" required><br>
 
             <label for="tel_residencial">Telefone Residencial</label>
-            <input type="text" id="tel_residencial" name="flo_tel_residencial" placeholder="Digite o nome da empresa" required><br>
+            <input type="tel" id="tel_residencial" name="flo_tel_residencial" placeholder="Digite o nome da empresa" required><br>
 
             <label for="tel_celular">Telefone Celular</label>
-            <input type="text" id="tel_celular" name="flo_tel_celular" placeholder="Digite o nome da empresa" required><br>
+            <input type="tel" id="tel_celular" name="flo_tel_celular" placeholder="Digite o nome da empresa" required><br>
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar filiado"/>
         </form>
