@@ -2,7 +2,7 @@
 
 use Model\UsuarioModel;
 
-require_once __DIR__ . "/../Config/DatabaseHandler.php";
+//require_once __DIR__ . "/../Config/DatabaseHandler.php";
 require_once __DIR__ . '/../Config/SessaoHandler.php';
 require_once __DIR__ . '/../Model/UsuarioModel.php';
 require_once __DIR__ . '/../Model/UsuarioDAO.php';
@@ -13,25 +13,25 @@ class UsuarioController{
     public function __construct()
     {
         $this->oUsuarioDAO = new UsuarioDAO();
-        $this->oDatabase = new DatabaseHandler();
+
     }
 
-    public function index(){
+    public function index():void{
         require_once  __DIR__.'/../View/home-view.php';
     }
 
-    public function login(){
+    public function login():void{
         require_once  __DIR__.'/../View/login-view.php';
     }
 
-    public function logout(){
+    public function logout():void{
         $oSessao = new SessaoHandler();
         $oSessao->deslogarSessao();
         require_once  __DIR__.'/../View/home-view.php';
         exit();
     }
 
-    public function cadastrar(){
+    public function cadastrar():void{
         $oSessao = new SessaoHandler();
         $oSessao->verificarSessao();
 
@@ -42,7 +42,7 @@ class UsuarioController{
         }
     }
 
-    public function deletar(array $aDados = null){
+    public function deletar(?array $aDados = null):void{
 
         $oSessao = new SessaoHandler();
         $oSessao->verificarSessao();
@@ -56,7 +56,7 @@ class UsuarioController{
         }
     }
 
-    public function listar()
+    public function listar():void
     {
         $aUsuariosAdmins = $this->oUsuarioDAO->FindByTipo('administrador');
         $aUsuariosComuns = $this->oUsuarioDAO->FindByTipo('comum');
@@ -65,32 +65,13 @@ class UsuarioController{
         require_once __DIR__.'/../View/lista-usuarios-view.php';
     }
 
-//    public function menu(){
-//
-//        $oSessao = new SessaoHandler();
-//        $oSessao->verificarSessao();
-//
-//        $sLogin = $oSessao->getDado('login');
-//
-//        $tipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
-//
-//        if($tipo == "administrador"){
-//            require_once  __DIR__.'/../View/menu-view.php';
-//            exit();
-//        }elseif ($tipo == "comum") {
-//            require_once  __DIR__.'/../View/usuario-cmum-view.php';
-//            exit();
-//        }
-//    }
 
-    public function menu(){
+    public function menu():void{
 
         $oSessao = new SessaoHandler();
         $oSessao->verificarSessao();
 
         $sLogin = $oSessao->getDado('login');
-
-        //$tipo = ($this->oUsuarioDAO->findByLogin($sLogin))['uso_tipo'];
 
         if($this->isAdmin($sLogin)){
             $bAparecerBotao = true;
@@ -103,12 +84,12 @@ class UsuarioController{
         exit();
     }
 
-    public function acessar(array $aDados = null)
+    public function acessar(?array $aDados = null):void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($this->validarSenha($aDados['login'], $aDados['senha'])){
-
+                echo 'entrou no 2* if';
                 $oSessao = new SessaoHandler();
 
                 $oSessao->setDado('login', $aDados['login']);
@@ -120,7 +101,7 @@ class UsuarioController{
         }
     }
 
-    public function cadastrarUsuario(array $aDados = null){
+    public function cadastrarUsuario(?array $aDados = null):void{
 
 
         $oSessao = new SessaoHandler();
@@ -145,7 +126,7 @@ class UsuarioController{
 
     private function validarSenha($sLogin, $sSenha):bool{
         if ($this->oUsuarioDAO->isUsuarioExiste($sLogin)){
-            return password_verify($sSenha,$this->oUsuarioDAO->senhaFindByLogin($sLogin));
+            return password_verify($sSenha,($this->oUsuarioDAO->senhaFindByLogin($sLogin))['uso_senha']);
         } else {
             return false;
         }

@@ -9,7 +9,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/../sindicatodosestagios/View/css/styles.css">
     <title>Filiados</title>
 </head>
 <body>
@@ -57,8 +57,8 @@
                         <td><?= $filiado->getSTelCelular() ?></td>
                         <td><?= $filiado->getUltimaAtualizacaoFormatada() ?></td>
                         <td>
-                            <form action="lista-dependentes-view.php" method="post">
-                                <input type="hidden" name="id" value="<?= $filiado->getIId() ?>">
+                            <form action="http://localhost/sindicatodosestagios/dependente/listar" method="post">
+                                <input type="hidden" name="flo_id" value="<?= $filiado->getIId() ?>">
                                 <input type="submit" class="botao-dependentes" value="Visualizar dependentes">
                             </form>
                         </td>

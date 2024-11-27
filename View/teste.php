@@ -1,9 +1,6 @@
 <?php
-require_once '../Config/DatabaseHandler.php';
-require_once '../Model/UsuarioModel.php';
-require_once '../Controller/UsuarioController.php';
 
-$user = new UsuarioController();
+require_once '../Controller/DependenteController.php';
 
+$user = new DependenteController();
 
-var_dump($user->findByTipo('administrador'));

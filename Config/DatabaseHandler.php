@@ -36,7 +36,6 @@ class DatabaseHandler
             echo "Erro na consulta: " . $e->getMessage();
             return false;
         }
-
     }
 
     public function execute($sSql, $aParametros = [])

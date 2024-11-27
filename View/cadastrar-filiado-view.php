@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+<!--    <link rel="stylesheet"  href="/../sindicatodosestagios/View/css/styles.css">-->
     <title>Filiado - Cadastro</title>
 </head>
 <body>
@@ -34,13 +34,20 @@
             <input type="text" id="idade" name="flo_idade" placeholder="Digite a idade" required><br>
 
             <label for="empresa">Empresa</label>
-            <input type="text" id="empresa" name="flo_empresa" placeholder="Digite o nome da empresa" required><br>
+            <input type="text" id="empresa" name="flo_empresa" placeholder="Digite o nome da empresa" ><br>
 
             <label for="cargo">Cargo</label>
-            <input type="text" id="cargo" name="flo_cargo" placeholder="Digite o nome da empresa" required><br>
+            <input type="text" id="cargo" name="flo_cargo" placeholder="Digite o nome da empresa" ><br>
 
-            <label for="situacao">Situacao</label>
-            <input type="text" id="situacao" name="flo_situacao" placeholder="Digite o nome da empresa" required><br>
+            <div>
+                <label>Situacao</label>
+                <select name="flo_situacao">
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Aposentado</option>
+                    <option value="Aposentado">Inativo</option>
+                    <option value="Licenciado">Licenciado</option>
+                </select>
+            </div>
 
             <label for="tel_residencial">Telefone Residencial</label>
             <input type="tel" id="tel_residencial" name="flo_tel_residencial" placeholder="Digite o nome da empresa" required><br>
@@ -50,7 +57,7 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar filiado"/>
         </form>
-        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/filiados/listar">Voltar</a>
+        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/filiado/listar">Voltar</a>
         <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
 
     </section>

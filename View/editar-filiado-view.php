@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Filiado - Edição</title>
 </head>
 <body>
@@ -21,8 +21,9 @@
             <input type="hidden" name="flo_id" value="<?= $oFiliado->getIId() ?>">
 
             <label for="nome">Nome</label>
+            <label>
             <input type="text" name="flo_nome" value="<?= $oFiliado->getSNome()?>" readonly>
-
+            </label><br>
 
             <label for="cpf">CPF</label>
             <label>
@@ -34,7 +35,7 @@
                 <input type="text" name="flo_rg" value="<?= $oFiliado->getSRg()?>" readonly>
             </label><br>
 
-            <label for="data_nascimento">Data de nascimento</label>
+            <label for="data_nascimento">Data de nascimento </label>
             <label>
                 <input type="text"  value="<?= $oFiliado->getDataNascimentoFormatada()?>" readonly>
                 <input type="hidden" name="flo_data_nascimento" value="<?= $oFiliado->getSDataNascimentoBanco()?>">
@@ -46,15 +47,22 @@
             </label><br>
 
             <label for="empresa">Empresa</label>
-            <input type="text" id="empresa" name="flo_empresa" placeholder="Digite o nome da nova empresa" ><br>
+            <input type="text" id="empresa" name="flo_empresa" value="<?= $oFiliado->getSEmpresa()?>" ><br>
 
             <label for="cargo">Cargo</label>
-            <input type="text" id="cargo" name="flo_cargo" placeholder="Digite o nome dno novo cargo" ><br>
+            <input type="text" id="cargo" name="flo_cargo" value="<?= $oFiliado->getSCargo()?>"><br>
 
-            <label for="situacao">Situacao</label>
-            <input type="text" id="situacao" name="flo_situacao" placeholder="Digite a nova situação" ><br>
+            <div>
+                <label>Situação </label>
+                <select name="flo_situacao">
+                    <option value="Ativo">Ativo</option>
+                    <option value="Inativo">Aposentado </option>
+                    <option value="Aposentado">Inativo </option>
+                    <option value="Licenciado">Licenciado </option>
+                </select>
+            </div>
 
-            <label for="tel_residencial">Telefone Residencial</label>
+            <label for="tel_residencial">Telefone Residencial </label>
             <label>
                 <input type="text" name="flo_tel_residencial" value="<?= $oFiliado->getSTelResidencial()?>" readonly>
             </label><br>

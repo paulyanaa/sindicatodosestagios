@@ -5,10 +5,10 @@ require_once __DIR__ . '/../Model/UsuarioDAO.php';
 
 class UsuarioModel
 {
-    private $iId;
-    private $sLogin;
-    private $sSenha;
-    private $sTipo;
+    private ?int $iId;
+    private string $sLogin;
+    private string $sSenha;
+    private string $sTipo;
 
     public function __construct(?int $iId, string $sLogin, string $sSenha, string $sTipo)
     {
@@ -23,7 +23,7 @@ class UsuarioModel
     }
 
 
-    public function getSLogin(){
+    public function getSLogin():string{
         return $this->sLogin;
     }
 
@@ -32,7 +32,7 @@ class UsuarioModel
         return $this->sSenha;
     }
 
-    public function getSTipo(){
+    public function getSTipo(): string{
         return $this->sTipo;
     }
 

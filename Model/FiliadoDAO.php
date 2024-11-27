@@ -11,7 +11,7 @@ class FiliadoDAO{
     }
 
 
-    public function save(FiliadoModel $oFiliado){
+    public function save(FiliadoModel $oFiliado):void{
 
         $sSql = "INSERT INTO flo_filiado (flo_nome, flo_cpf, flo_rg, flo_data_nascimento, flo_idade, flo_empresa, flo_cargo, flo_situacao, flo_tel_residencial, flo_tel_celular, flo_ultima_atualizacao) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
@@ -30,7 +30,7 @@ class FiliadoDAO{
         $this->oDatabase->execute($sSql, $sParametros);
     }
 
-    public function delete(int $iId){
+    public function delete(int $iId):void{
         $sSql = "DELETE FROM flo_filiado WHERE `flo_filiado`.`flo_id` = ?";
         $sParametros = [
             1 => $iId,
@@ -38,7 +38,9 @@ class FiliadoDAO{
         $this->oDatabase->execute($sSql, $sParametros);
     }
 
-    public function update(FiliadoModel $oFiliado){
+    public function update(FiliadoModel $oFiliado):void{
+
+
         $sSql = "UPDATE flo_filiado SET flo_empresa = ?, flo_cargo = ?, flo_situacao = ?, flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
         $sParametros = [
             1 => $oFiliado->getSEmpresa(),
@@ -62,7 +64,7 @@ class FiliadoDAO{
         return $aObjFiliado;
     }
 
-    public function isFiliadoExiste(string $sCpf)
+    public function isFiliadoExiste(string $sCpf):bool
     {
         $sSql ="SELECT 1 FROM flo_filiado WHERE flo_cpf = ? LIMIT 1";
         $sParametro = [1 => $sCpf];
@@ -70,7 +72,7 @@ class FiliadoDAO{
         return !empty($aResultadoConsulta);
     }
 
-    public function findById($id)
+    public function findById($id):array
     {
         $sSql = "SELECT * FROM flo_filiado WHERE flo_id = ?";
         $sParametro = [1 => $id];

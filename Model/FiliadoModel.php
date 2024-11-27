@@ -8,18 +8,18 @@ use DateTime;
 
 class FiliadoModel
 {
-    private $iId;
-    private $sNome;
-    private $sCpf;
-    private $sRg;
-    private $sDataNascimento;
-    private $iIdade;
-    private $sEmpresa;
-    private $sCargo;
-    private $sSituacao;
-    private $sTelResidencial;
-    private $sTelCelular;
-    private $sUltimaAtualizacao;
+    private ?int $iId;
+    private string $sNome;
+    private string $sCpf;
+    private string $sRg;
+    private DateTime $sDataNascimento;
+    private int $iIdade;
+    private ?string $sEmpresa;
+    private ?string $sCargo;
+    private ?string $sSituacao;
+    private string $sTelResidencial;
+    private string $sTelCelular;
+    private DateTime $sUltimaAtualizacao;
 
     public function __construct(
         ?int   $iId,
@@ -126,6 +126,18 @@ class FiliadoModel
     public function getUltimaAtualizacaoFormatada(): string{
         return $this->sUltimaAtualizacao->format('d/m/Y');
     }
+
+    public function setSEmpresa(?string $sEmpresa): void
+    {
+        $this->sEmpresa = $sEmpresa;
+    }
+
+    public function setSCargo(?string $sCargo): void
+    {
+        $this->sCargo = $sCargo;
+    }
+
+
 
     public static function createFromArray(array $aDadosFiliado):FiliadoModel{
         $oFiliadoModel = new FiliadoModel(

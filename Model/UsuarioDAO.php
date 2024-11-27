@@ -17,7 +17,7 @@ class UsuarioDAO
         return !empty($aResultadoConsulta);
     }
 
-    public function save(UsuarioModel $oUsuario, string $sSenhaCriptografada){
+    public function save(UsuarioModel $oUsuario, string $sSenhaCriptografada):void{
 
         $sSql = "INSERT INTO uso_usuario (uso_login, uso_senha, uso_tipo) VALUES (?, ?, ?)";
         $sParametros = [
@@ -28,7 +28,7 @@ class UsuarioDAO
         $this->oDatabase->execute($sSql, $sParametros);
     }
 
-    public function delete(int $iId){
+    public function delete(int $iId):void{
         $sSql = "DELETE FROM uso_usuario WHERE `uso_usuario`.`uso_id` = ?";
         $sParametros = [
             1 => $iId,
@@ -59,8 +59,6 @@ class UsuarioDAO
             return UsuarioModel::createFromArray($usuario);
         }, $aUsuarios);
 
-
-
         if($aObjUsuario!=[]){
             return $aObjUsuario;
         }else{
@@ -86,12 +84,12 @@ class UsuarioDAO
         return $aResultadoConsulta;
     }
 
-    public function senhaFindByLogin($sLogin){
+    public function senhaFindByLogin($sLogin):array{
         $sSql = " SELECT uso_senha FROM uso_usuario WHERE uso_login = ? ";
         $sParametro = [1 => $sLogin];
         $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
-        if($aResultadoConsulta!=[]){
-            return $aResultadoConsulta[0]['uso_senha'];
+        if(!empty($aResultadoConsulta)){
+            return $aResultadoConsulta[0];
         }else{
             return [];
         }
