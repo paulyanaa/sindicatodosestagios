@@ -21,7 +21,7 @@ class DatabaseHandler
     public function query($sSql, $aParametros = [])
     {
         try {
-            if ($aParametros != []) {
+            if (!empty($aParametros)) {
                 $PDOStatement = $this->pdo->prepare($sSql);
                 foreach ($aParametros as $sParametro => &$sValor) {
                     $PDOStatement->bindValue($sParametro, $sValor);
