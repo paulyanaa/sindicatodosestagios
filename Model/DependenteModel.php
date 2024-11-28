@@ -5,7 +5,6 @@ namespace Model;
 class DependenteModel
 {
     private $iId;
-
     private $iIdFiliadoAssociado;
     private $sNome;
     private $tDataNascimento;
@@ -41,7 +40,11 @@ class DependenteModel
         return $this->tDataNascimento;
     }
 
-    public function getTDataNacimentoBanco(): string{
+    public function getTDataNascimentoFormatada(): string{
+        return $this->tDataNascimento->format('d/m/Y');
+    }
+
+    public function getTDataNascimentoBanco(): string{
         return $this->tDataNascimento->format('Y-m-d');
     }
 
@@ -56,7 +59,7 @@ class DependenteModel
             $aDadosDependente['dpe_id'],
             $aDadosDependente['flo_id'],
             $aDadosDependente['dpe_nome'],
-            $aDadosDependente['dpe_data_nascimento'],
+            new \DateTime($aDadosDependente['dpe_data_nascimento']),
             $aDadosDependente['dpe_grau_de_parentesco']
         );
         return $oDependente;
