@@ -40,7 +40,7 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar Dependente"/>
         </form>
-        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/dependente/listar">Voltar</a>
+        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/dependente/listar?flo_id=<?=$iIdFiliadoAssociado?>">Voltar</a>
         <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
 
     </section>
