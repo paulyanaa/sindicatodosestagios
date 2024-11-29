@@ -25,7 +25,7 @@ class DependenteController
         $this->oSessao->setDado('flo_id',$aDados['flo_id']);
 
         $iIdFiliadoAssociado = $this->oSessao->getDado('flo_id');
-        $aDependentes = $this->oDependenteDAO->findById($iIdFiliadoAssociado);
+        $aDependentes = $this->oDependenteDAO->findByIdFiliado($iIdFiliadoAssociado);
 
         if($this->oUsuarioController->isAdmin($this->sLogin)){
             $bAparecerBotao = true;
@@ -45,8 +45,9 @@ class DependenteController
             include('cadastrar-dependente-view.php');
             require_once  __DIR__.'/../View/cadastrar-dependente-view.php';
         }else{
-            echo "<script>alert('Você não tem permissão para fazer cadastro');</script>";
-            $this->listar();
+
+            echo "<script>alert('Você não tem permissão para fazer cadastro de dependente');</script>";
+            require_once  __DIR__.'/../View/menu-view.php';
         }
     }
 
@@ -55,19 +56,38 @@ class DependenteController
             $this->oDependenteDAO->delete($aDados['dpe_id']);
             $this->listar($aDados);
         }else{
+            echo "<script>alert('Você não tem permissão para deletar dependente');</script>";
             require_once  __DIR__.'/../View/menu-view.php';
         }
     }
+
+
+//    public function cadastrarDependente(?array $aDados = null):void{
+//
+//        if($this->oUsuarioController->isAdmin($this->sLogin)){
+//            $oDependente = DependenteModel::createFromArray($aDados);
+//            $this->oDependenteDAO->save($oDependente);
+//            $this->listar($aDados);
+//        }else{
+//            require_once  __DIR__.'/../View/menu-view.php';
+//        }
+//    }
 
     public function cadastrarDependente(?array $aDados = null):void{
 
-        if($this->oUsuarioController->isAdmin($this->sLogin)){
-            $oDependente = DependenteModel::createFromArray($aDados);
-            $this->oDependenteDAO->save($oDependente);
-            $this->listar($aDados);
-        }else{
-            require_once  __DIR__.'/../View/menu-view.php';
-        }
+        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->oUsuarioController->isAdmin($this->sLogin))){
 
+            $oDependente = DependenteModel::createFromArray($aDados);;
+
+            if(!$this->oDependenteDAO->isDependenteExiste($oDependente)){
+                $this->oDependenteDAO->save($oDependente);
+                $this->listar($aDados);
+            }else{
+                echo "<script>alert('Dependente já cadastrado. Tente novamente.');</script>";
+                $this->listar($aDados);
+            }
+        }
     }
+
+
 }

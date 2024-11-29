@@ -51,8 +51,8 @@ class FiliadoController{
         if($this->oUsuarioController->isAdmin($this->sLogin)){
             require_once  __DIR__.'/../View/cadastrar-filiado-view.php';
         }else{
-            echo "<script>alert('Você não tem permissão para fazer cadastro');</script>";
-            $this->listar();
+            echo "<script>alert('Você não tem permissão para fazer cadastro de filiado');</script>";
+            require_once  __DIR__.'/../View/menu-view.php';
         }
     }
 
@@ -63,7 +63,8 @@ class FiliadoController{
 
             $this->listar();
         }else{
-            require_once  __DIR__.'/../View/login-view.php';
+            echo "<script>alert('Você não tem permissão para deletar um filiado');</script>";
+            require_once  __DIR__.'/../View/menu-view.php';
         }
     }
 
@@ -74,7 +75,8 @@ class FiliadoController{
             include('editar-filiado-view.php');
             require_once  __DIR__.'/../View/editar-filiado-view.php';
         }else{
-            require_once  __DIR__.'/../View/login-view.php';
+            echo "<script>alert('Você não tem permissão para editar um filiado');</script>";
+            require_once  __DIR__.'/../View/menu-view.php';
         }
     }
 

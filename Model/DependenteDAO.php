@@ -22,22 +22,17 @@ class DependenteDAO
         $this->oDatabase->execute($sSql, $sParametros);
     }
 
-    public function findById(int $id):array{
+    public function findByIdFiliado(int $id):array{
 
         $sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ?";
         $sParametros = [
             1 => $id
         ];
-
         $aDependentes = $this->oDatabase->query($sSql, $sParametros);
-
-
         $aObjDependente = array_map(function($dependente){
             return DependenteModel::createFromArray($dependente);
         }, $aDependentes);
-//
-//        var_dump($aObjDependente);
-//        exit();
+
         return $aObjDependente;
     }
 
@@ -48,6 +43,18 @@ class DependenteDAO
             1 => $dpe_id
         ];
         $this->oDatabase->execute($sSql, $sParametros);
+    }
+
+    public function isDependenteExiste(DependenteModel $oDependente):bool{
+        $sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_nome = ? AND dpe_grau_de_parentesco = ?";
+        $sParametros = [
+            1 => $oDependente->getIIdFiliadoAssociado(),
+            2 => $oDependente->getSNome(),
+            3 => $oDependente->getSGrauDeParentesco(),
+        ];
+        $aDependentes = $this->oDatabase->query($sSql, $sParametros);
+        return !empty($aDependentes);
+
     }
 
 }
