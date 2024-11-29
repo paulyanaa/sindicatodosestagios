@@ -22,7 +22,7 @@ class DependenteDAO
         $this->oDatabase->execute($sSql, $sParametros);
     }
 
-    public function findByIdFiliado(int $id):array{
+    public function findAll(int $id):array{
 
         $sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ?";
         $sParametros = [
@@ -34,6 +34,18 @@ class DependenteDAO
         }, $aDependentes);
 
         return $aObjDependente;
+    }
+
+    public function findById(int $idFiliado, int $idDependente):DependenteModel{
+
+        $sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_id = ?";
+        $sParametros = [
+            1 => $idFiliado,
+            2 => $idDependente
+        ];
+        $oDependente = $this->oDatabase->query($sSql, $sParametros);
+
+        return DependenteModel::createFromArray($oDependente[0]);
     }
 
     public function delete(int $dpe_id)
@@ -55,6 +67,23 @@ class DependenteDAO
         $aDependentes = $this->oDatabase->query($sSql, $sParametros);
         return !empty($aDependentes);
 
+    }
+
+    public function update(DependenteModel $oDependente)
+    {
+        $sSql = "UPDATE dpe_dependente SET dpe_nome = ? WHERE dpe_dependente.flo_id = ? and dpe_dependente.dpe_id = ?";
+        $sParametros = [
+            1 => $oDependente->getSNome(),
+            2 => $oDependente->getIIdFiliadoAssociado(),
+            3 => $oDependente->getIId()
+        ];
+        $this->oDatabase->execute($sSql, $sParametros);
+
+        $sSql2 = "UPDATE flo_filiado SET flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
+        $sParametros2 = [
+            1 => $oDependente->getIIdFiliadoAssociado()
+        ];
+        $this->oDatabase->execute($sSql2, $sParametros2);
     }
 
 }

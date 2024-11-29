@@ -22,10 +22,8 @@ class DependenteController
 
     public function listar(?array $aDados = null):void{
 
-        $this->oSessao->setDado('flo_id',$aDados['flo_id']);
-
-        $iIdFiliadoAssociado = $this->oSessao->getDado('flo_id');
-        $aDependentes = $this->oDependenteDAO->findByIdFiliado($iIdFiliadoAssociado);
+        $iIdFiliadoAssociado = $aDados['flo_id'];
+        $aDependentes = $this->oDependenteDAO->findAll($iIdFiliadoAssociado);
 
         if($this->oUsuarioController->isAdmin($this->sLogin)){
             $bAparecerBotao = true;
@@ -39,7 +37,7 @@ class DependenteController
 
     public function cadastrar(?array $aDados = null):void{
 
-        $iIdFiliadoAssociado = $this->oSessao->getDado('flo_id');
+        $iIdFiliadoAssociado = $aDados['flo_id'];
 
         if($this->oUsuarioController->isAdmin($this->sLogin)){
             include('cadastrar-dependente-view.php');
@@ -73,11 +71,25 @@ class DependenteController
 //        }
 //    }
 
+    public function editar(?array $aDados = null):void{
+
+        if($this->oUsuarioController->isAdmin($this->sLogin)){
+
+            $oDependente = $this->oDependenteDAO->findById($aDados['flo_id'],$aDados['dpe_id']);
+
+            include('editar-dependente-view.php');
+            require_once  __DIR__.'/../View/editar-dependente-view.php';
+        }else{
+            echo "<script>alert('Você não tem permissão para editar um filiado');</script>";
+            require_once  __DIR__.'/../View/menu-view.php';
+        }
+    }
+
     public function cadastrarDependente(?array $aDados = null):void{
 
         if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->oUsuarioController->isAdmin($this->sLogin))){
 
-            $oDependente = DependenteModel::createFromArray($aDados);;
+            $oDependente = DependenteModel::createFromArray($aDados);
 
             if(!$this->oDependenteDAO->isDependenteExiste($oDependente)){
                 $this->oDependenteDAO->save($oDependente);
@@ -86,6 +98,14 @@ class DependenteController
                 echo "<script>alert('Dependente já cadastrado. Tente novamente.');</script>";
                 $this->listar($aDados);
             }
+        }
+    }
+
+    public function editarDependente(?array $aDados = null):void{
+        if($this->oUsuarioController->isAdmin($this->sLogin)){
+            $oDependente = DependenteModel::createFromArray($aDados);
+            $this->oDependenteDAO->update($oDependente);
+            $this->listar($aDados);
         }
     }
 
