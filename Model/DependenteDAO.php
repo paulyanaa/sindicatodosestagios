@@ -57,6 +57,15 @@ class DependenteDAO
         $this->oDatabase->execute($sSql, $sParametros);
     }
 
+    public function deleteAllByFiliado(int $idFiliado)
+    {
+        $sSql = "DELETE FROM dpe_dependente WHERE flo_id = ?";
+        $sParametros = [
+            1 => $idFiliado
+        ];
+        $this->oDatabase->execute($sSql, $sParametros);
+    }
+
     public function isDependenteExiste(DependenteModel $oDependente):bool{
         $sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_nome = ? AND dpe_grau_de_parentesco = ?";
         $sParametros = [

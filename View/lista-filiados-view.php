@@ -17,6 +17,33 @@
 
     <h1>Filiados Cadastrados</h1>
 
+    <form action="http://localhost/sindicatodosestagios/filiado/listar" method="post" enctype = "multipart/form-data">
+        <h3>Filtro</h3>
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="flo_nome" placeholder="Digite o nome" >
+
+        <div>
+            <label>Grau de Parentesco</label>
+            <select name="flo_data_nascimento">
+                <option value=""></option>
+                <option value="1">Janeiro</option>
+                <option value="2">Fevereiro</option>
+                <option value="2">Março</option>
+                <option value="4">Abril</option>
+                <option value="5">Maio</option>
+                <option value="6">Junho</option>
+                <option value="7">Julho</option>
+                <option value="8">Agosto</option>
+                <option value="9">Setembro</option>
+                <option value="10">Outubro</option>
+                <option value="11">Novembro</option>
+                <option value="12">Dezembro</option>
+
+            </select>
+        </div>
+
+        <input type="submit" name="filtro" class="botao-filtrar" value="Filtrar"/>
+    </form>
 
     <section class="container-filiados">
         <div>
@@ -65,13 +92,13 @@
                         <?php if($bAparecerBotao): ?>
                         <td>
                             <form action="http://localhost/sindicatodosestagios/filiado/editar" method="post">
-                                <input type="hidden" name="id" value="<?= $filiado->getIId() ?>">
+                                <input type="hidden" name="flo_id" value="<?= $filiado->getIId() ?>">
                                 <input type="submit" class="botao-editar" value="Editar">
                             </form>
                         </td>
                         <td>
                             <form action="http://localhost/sindicatodosestagios/filiado/deletar" method="post">
-                                <input type="hidden" name="id" value="<?= $filiado->getIId() ?>">
+                                <input type="hidden" name="flo_id" value="<?= $filiado->getIId() ?>">
                                 <input type="submit" class="botao-excluir" value="Excluir">
                             </form>
                         </td>

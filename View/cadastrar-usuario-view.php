@@ -1,6 +1,5 @@
 <?php
 ?>
-
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -14,7 +13,6 @@
 <body>
 <main>
     <h1>Cadastro de Usuário</h1>
-
     <section class="container-form">
         <form action="http://localhost/sindicatodosestagios/usuario/cadastrarUsuario" method="post" enctype = "multipart/form-data">
 
@@ -39,9 +37,7 @@
         </form>
         <a class="botao-voltar" href="http://localhost/sindicatodosestagios/usuario/menu">Voltar</a>
         <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
-
     </section>
 </main>
-
 </body>
 </html>

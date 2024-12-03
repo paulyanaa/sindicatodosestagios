@@ -7,39 +7,30 @@ require_once __DIR__ . '/../Model/FiliadoDAO.php';
 require_once __DIR__ . '/../Model/FiliadoModel.php';
 //require_once __DIR__ . '/../Utils/Functions.php';
 require_once __DIR__ . '/../Controller/UsuarioController.php';
+require_once __DIR__ . '/../Controller/DependenteController.php';
 
 class FiliadoController{
     public function __construct()
     {
         $this->oFiliadoDAO = new FiliadoDAO();
         $this->oUsuarioController = new UsuarioController();
+        $this->oDependenteController = new DependenteController();
         $this->oSessao = new SessaoHandler();
 
         $this->oSessao->verificarSessao();
         $this->sLogin = $this->oSessao->getDado('login');
 
+
+
     }
-    public function listar():void
-    {
-        $aFiliados= $this->oFiliadoDAO->findAll();
+    public function listar(?array $aDados = null):void{
 
-        foreach($aFiliados as $aFiliado){
+        $bAparecerBotao = $this->oUsuarioController->isAdmin($this->sLogin);
 
-            $sEmpresa = $aFiliado->getSEmpresa() == null
-                ? '-'
-                : $aFiliado->getSEmpresa();
-            $aFiliado->setSEmpresa($sEmpresa);
-
-            $sCargo = $aFiliado->getSCargo() == null
-                ? '-'
-                : $aFiliado->getSCargo();
-            $aFiliado->setSCargo($sCargo);
-        }
-
-        if($this->oUsuarioController->isAdmin($this->sLogin)){
-            $bAparecerBotao = true;
-        }else {
-            $bAparecerBotao = false;
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $aFiliados = $this->oFiliadoDAO->findByFiltro($aDados);
+        }else{
+            $aFiliados = $this->oFiliadoDAO->findAll();
         }
 
         include('lista-filiados-view.php');
@@ -59,8 +50,7 @@ class FiliadoController{
     public function deletar(?array $aDados = null):void{
 
         if($this->oUsuarioController->isAdmin($this->sLogin)){
-            $this->oFiliadoDAO->delete($aDados['id']);
-
+            $this->oFiliadoDAO->delete($aDados['flo_id']);
             $this->listar();
         }else{
             echo "<script>alert('Você não tem permissão para deletar um filiado');</script>";

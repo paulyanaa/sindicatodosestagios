@@ -27,7 +27,7 @@ class FiliadoModel
         string $sCpf,
         string $sRg,
         \DateTime $sDataNascimento,
-        string $sIdade,
+//        string $sIdade,
         ?string $sEmpresa,
         ?string $sCargo,
         ?string $sSituacao,
@@ -41,7 +41,7 @@ class FiliadoModel
         $this->sCpf = $sCpf;
         $this->sRg = $sRg;
         $this->sDataNascimento = $sDataNascimento;
-        $this->iIdade = $sIdade;
+        $this->iIdade = (new DateTime())->diff($this->sDataNascimento)->y;
         $this->sEmpresa = $sEmpresa;
         $this->sCargo = $sCargo;
         $this->sSituacao = $sSituacao;
@@ -146,7 +146,7 @@ class FiliadoModel
             $aDadosFiliado['flo_cpf'],
             $aDadosFiliado['flo_rg'],
             new DateTime($aDadosFiliado['flo_data_nascimento']),
-            $aDadosFiliado['flo_idade'],
+//            $aDadosFiliado['flo_idade'],
             $aDadosFiliado['flo_empresa'],
             $aDadosFiliado['flo_cargo'],
             $aDadosFiliado['flo_situacao'],

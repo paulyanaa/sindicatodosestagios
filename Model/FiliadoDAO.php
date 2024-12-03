@@ -31,7 +31,8 @@ class FiliadoDAO{
     }
 
     public function delete(int $iId):void{
-        $sSql = "DELETE FROM flo_filiado WHERE `flo_filiado`.`flo_id` = ?";
+
+        $sSql = "DELETE FROM flo_filiado WHERE flo_filiado.flo_id = ?";
         $sParametros = [
             1 => $iId,
         ];
@@ -78,6 +79,36 @@ class FiliadoDAO{
         $sParametro = [1 => $id];
         $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
         return $aResultadoConsulta[0];
+    }
+
+    public function findByFiltro(?array $aDados)
+    {
+
+        $sSql = "SELECT * FROM flo_filiado WHERE 1=1";
+        $aParametro = [];
+
+        if(!empty($aDados['flo_nome'])){
+            $sSql .= " AND flo_nome LIKE ?";
+            $aParametro = [
+                1 => "%".$aDados['flo_nome']."%"
+            ];
+        }
+        if(!empty($aDados['flo_data_nascimento'])){
+            $sSql .= " AND MONTH(flo_data_nascimento) = ?";
+            $aParametro = [
+                1 => intval($aDados['flo_data_nascimento'])
+            ];
+        }
+
+        $aFiliados = $this->oDatabase->query($sSql, $aParametro);
+
+        $aObjFiliado = array_map(function($filiado){
+            return FiliadoModel::createFromArray($filiado);
+        }, $aFiliados);
+
+        return $aObjFiliado;
+
+
     }
 
 }

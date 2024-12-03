@@ -30,8 +30,8 @@
             <label for="data_nascimento">Data de nascimento</label>
             <input type="date" id="data_nascimento" name="flo_data_nascimento" placeholder="Digite a data de nascimento" required><br>
 
-            <label for="idade">Idade</label>
-            <input type="text" id="idade" name="flo_idade" placeholder="Digite a idade" required><br>
+<!--            <label for="idade">Idade</label>-->
+<!--            <input type="text" id="idade" name="flo_idade" placeholder="Digite a idade" required><br>-->
 
             <label for="empresa">Empresa</label>
             <input type="text" id="empresa" name="flo_empresa" placeholder="Digite o nome da empresa" ><br>
