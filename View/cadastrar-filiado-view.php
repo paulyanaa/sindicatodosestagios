@@ -15,7 +15,7 @@
     <h1>Cadastro de Filiado</h1>
 
     <section class="container-form">
-        <form action="<?php echo Ambiente::getUrl('filiado/cadastrarFiliado')?>" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo AmbienteConfig::getUrl('filiado/cadastrarFiliado')?>" method="post" enctype = "multipart/form-data">
 
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="flo_nome" placeholder="Digite o nome" required><br>
@@ -53,8 +53,8 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar filiado"/>
         </form>
-        <a class="botao-voltar" href="<?php echo Ambiente::getUrl('filiado/listar')?>">Voltar</a>
-        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
+        <a class="botao-voltar" href="<?php echo AmbienteConfig::getUrl('filiado/listar')?>">Voltar</a>
+        <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
 
     </section>
 </main>

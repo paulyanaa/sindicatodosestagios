@@ -15,7 +15,7 @@
     <h1>Cadastro de Dependente</h1>
 
     <section class="container-form">
-        <form action="<?php echo Ambiente::getUrl('dependente/cadastrarDependente')?>" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo AmbienteConfig::getUrl('dependente/cadastrarDependente')?>" method="post" enctype = "multipart/form-data">
 
             <input type="hidden" name="flo_id" value="<?php echo $iIdFiliadoAssociado?>">
 
@@ -39,8 +39,8 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar Dependente"/>
         </form>
-        <a class="botao-voltar" href="<?php echo Ambiente::getUrl('dependente/listar')?>?flo_id=<?php echo$iIdFiliadoAssociado?>">Voltar</a>
-        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
+        <a class="botao-voltar" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?php echo$iIdFiliadoAssociado?>">Voltar</a>
+        <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
 
     </section>
 </main>

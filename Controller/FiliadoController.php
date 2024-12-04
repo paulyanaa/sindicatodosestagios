@@ -9,7 +9,7 @@ require_once __DIR__ . '/../Model/FiliadoModel.php';
 //require_once __DIR__ . '/../Utils/Functions.php';
 require_once __DIR__ . '/../Controller/UsuarioController.php';
 require_once __DIR__ . '/../Controller/DependenteController.php';
-require_once __DIR__ . '/../Config/Ambiente.php';
+require_once __DIR__ . '/../Config/AmbienteConfig.php';
 
 class FiliadoController{
     public function __construct()

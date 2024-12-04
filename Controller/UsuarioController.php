@@ -7,7 +7,7 @@ require_once __DIR__ . '/../Handler/SessaoHandler.php';
 require_once __DIR__ . '/../Handler/SessaoHandler.php';
 require_once __DIR__ . '/../Model/UsuarioModel.php';
 require_once __DIR__ . '/../Model/UsuarioDAO.php';
-require_once __DIR__ . '/../Config/Ambiente.php';
+require_once __DIR__ . '/../Config/AmbienteConfig.php';
 
 
 

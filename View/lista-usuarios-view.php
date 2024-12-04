@@ -7,7 +7,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="<?php echo Ambiente::getUrl('View/css/styles.css')?>">
+    <link rel="stylesheet" href="<?php echo AmbienteConfig::getUrl('View/css/styles.css')?>">
 <!--    <link rel="stylesheet" href="/../sindicatodosestagios/View/css/styles.css">-->
     <title>Usuários</title>
 </head>
@@ -33,7 +33,7 @@
                     <td><?= $admin->getSLogin() ?></td>
                     <td><?= $admin->getSTipo() ?></td>
                     <td>
-                        <form action="<?php echo Ambiente::getUrl('usuario/deletar')?>" method="post">
+                        <form action="<?php echo AmbienteConfig::getUrl('usuario/deletar')?>" method="post">
                             <input type="hidden" name="uso_id" value="<?php echo $admin->getIId() ?>">
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
@@ -63,7 +63,7 @@
                     <td><?php echo $comum->getSLogin()?></td>
                     <td><?php echo $comum->getSTipo() ?></td>
                     <td>
-                        <form action="<?php echo Ambiente::getUrl('usuario/deletar')?>" method="post">
+                        <form action="<?php echo AmbienteConfig::getUrl('usuario/deletar')?>" method="post">
                             <input type="hidden" name="uso_id" value="<?= $comum->getIId() ?>">
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
@@ -74,9 +74,9 @@
             </table>
         </div>
     </section>
-    <a class="botao-cadastrar-usuario" href="<?php echo Ambiente::getUrl('usuario/cadastrar')?>">Cadastrar Novo Usuário</a>
-    <a class="botao-voltar-menu" href="<?php echo Ambiente::getUrl('usuario/menu')?>">Voltar</a>
-    <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
+    <a class="botao-cadastrar-usuario" href="<?php echo AmbienteConfig::getUrl('usuario/cadastrar')?>">Cadastrar Novo Usuário</a>
+    <a class="botao-voltar-menu" href="<?php echo AmbienteConfig::getUrl('usuario/menu')?>">Voltar</a>
+    <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
 </main>
 </body>
 </html>

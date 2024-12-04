@@ -16,7 +16,7 @@
     <h1>Edição de Filiado</h1>
 
     <section class="container-form">
-        <form action="<?php echo Ambiente::getUrl('dependente/editarDependente')?>" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo AmbienteConfig::getUrl('dependente/editarDependente')?>" method="post" enctype = "multipart/form-data">
 
             <input type="hidden" name="dpe_id" value="<?php echo $oDependente->getIId() ?>">
             <input type="hidden" name="flo_id" value="<?php echo $oDependente->getIIdFiliadoAssociado() ?>">
@@ -40,8 +40,8 @@
 
             <input type="submit" name="cadastro" class="botao-editar" value="Editar dependente"/>
         </form>
-        <a class="botao-voltar" href="<?php echo Ambiente::getUrl('dependente/listar')?>?flo_id=<?=$oDependente->getIIdFiliadoAssociado()?>">Voltar</a>
-        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
+        <a class="botao-voltar" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?=$oDependente->getIIdFiliadoAssociado()?>">Voltar</a>
+        <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
 
     </section>
 </main>

@@ -1,7 +1,7 @@
 <?php
 
 
-class Ambiente
+class AmbienteConfig
 {
     public static function getUrl(string $sCaminho): string
     {

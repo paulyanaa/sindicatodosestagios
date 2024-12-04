@@ -14,7 +14,7 @@
 <main>
     <h1>Cadastro de Usuário</h1>
     <section class="container-form">
-        <form action="<?php echo Ambiente::getUrl('usuario/cadastrarUsuario')?>" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo AmbienteConfig::getUrl('usuario/cadastrarUsuario')?>" method="post" enctype = "multipart/form-data">
 
             <label for="login">Login</label>
             <input type="text" id="login" name="uso_login" placeholder="Digite o login" required>
@@ -35,8 +35,8 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar usuário"/>
         </form>
-        <a class="botao-voltar-menu" href="<?php echo Ambiente::getUrl('usuario/listar')?>">Voltar</a>
-        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
+        <a class="botao-voltar-menu" href="<?php echo AmbienteConfig::getUrl('usuario/listar')?>">Voltar</a>
+        <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
     </section>
 </main>
 </body>

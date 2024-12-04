@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="<?php echo Ambiente::getUrl('View/css/styles.css')?>">
+    <link rel="stylesheet" href="<?php echo AmbienteConfig::getUrl('View/css/styles.css')?>">
     <title>Filiados</title>
 </head>
 <body>
@@ -16,7 +16,7 @@
 
     <h1>Filiados Cadastrados</h1>
 
-    <form action="<?php echo Ambiente::getUrl('filiado/listar')?>" method="post" enctype = "multipart/form-data">
+    <form action="<?php echo AmbienteConfig::getUrl('filiado/listar')?>" method="post" enctype = "multipart/form-data">
         <h3>Filtro</h3>
         <label for="nome">Nome</label>
         <input type="text" id="nome" name="flo_nome" placeholder="Digite o nome" >
@@ -88,18 +88,18 @@
 <!--                                <input type="submit" class="botao-dependentes" value="Visualizar dependentes">-->
 <!--                            </form>-->
 
-                            <a class="botao-dependentes" href="<?php echo Ambiente::getUrl('dependente/listar')?>?flo_id=<?php echo $filiado->getIId() ?>">Visualizar Dependentes</a>
+                            <a class="botao-dependentes" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?php echo $filiado->getIId() ?>">Visualizar Dependentes</a>
 
                         </td>
                         <?php if($bAparecerBotao): ?>
                         <td>
-                            <form action="<?php echo Ambiente::getUrl('filiado/editar')?>" method="post">
+                            <form action="<?php echo AmbienteConfig::getUrl('filiado/editar')?>" method="post">
                                 <input type="hidden" name="flo_id" value="<?php echo $filiado->getIId() ?>">
                                 <input type="submit" class="botao-editar" value="Editar">
                             </form>
                         </td>
                         <td>
-                            <form action="<?php echo Ambiente::getUrl('filiado/deletar')?>" method="post">
+                            <form action="<?php echo AmbienteConfig::getUrl('filiado/deletar')?>" method="post">
                                 <input type="hidden" name="flo_id" value="<?php echo $filiado->getIId() ?>">
                                 <input type="submit" class="botao-excluir" value="Excluir">
                             </form>
@@ -113,11 +113,11 @@
     </section>
 
     <?php if($bAparecerBotao): ?>
-    <a class="botao-cadastrar-filiado" href="<?php echo Ambiente::getUrl('filiado/cadastrar')?>">Cadastrar Novo Filiado</a>
+    <a class="botao-cadastrar-filiado" href="<?php echo AmbienteConfig::getUrl('filiado/cadastrar')?>">Cadastrar Novo Filiado</a>
     <?php endif?>
 
-    <a class="botao-voltar-menu" href="<?php echo Ambiente::getUrl('usuario/menu')?>">Voltar</a>
-    <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
+    <a class="botao-voltar-menu" href="<?php echo AmbienteConfig::getUrl('usuario/menu')?>">Voltar</a>
+    <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
 
 </main>
 </body>

@@ -1,2 +1,2 @@
-<?php echo Ambiente::getUrl('usuario/login');
+<?php echo AmbienteConfig::getUrl('usuario/login');
 

@@ -16,7 +16,7 @@
     <h1>Edição de Filiado</h1>
 
     <section class="container-form">
-        <form action="<?php echo Ambiente::getUrl('filiado/editarFiliado')?>" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo AmbienteConfig::getUrl('filiado/editarFiliado')?>" method="post" enctype = "multipart/form-data">
 
             <input type="hidden" name="flo_id" value="<?php echo $oFiliado->getIId() ?>">
 
@@ -74,8 +74,8 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Editar filiado"/>
         </form>
-        <a class="botao-voltar" href="<?php echo Ambiente::getUrl('filiado/listar')?>">Voltar</a>
-        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
+        <a class="botao-voltar" href="<?php echo AmbienteConfig::getUrl('filiado/listar')?>">Voltar</a>
+        <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
 
     </section>
 </main>

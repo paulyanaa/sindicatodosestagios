@@ -13,7 +13,7 @@
 <body>
 <main>
     <h1>Bem vindo ao Sindicato dos Estágios</h1>
-    <a class="botao-login" href="<?php echo Ambiente::getUrl('usuario/login')?>">Acessar Sistema</a>
+    <a class="botao-login" href="<?php echo AmbienteConfig::getUrl('usuario/login')?>">Acessar Sistema</a>
     <footer>
         <p>&copy; 2024 Paulyana Ferreira. Todos os direitos reservados.</p>
     </footer>

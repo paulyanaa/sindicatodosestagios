@@ -12,7 +12,7 @@
 <body>
 <section class="container-form">
     <h1>Login</h1>
-    <form action="<?php echo Ambiente::getUrl('usuario/acessar') ?>" method="post">
+    <form action="<?php echo AmbienteConfig::getUrl('usuario/acessar') ?>" method="post">
 
         <label for="login">Usuário</label>
         <input type="text" id="login" name="login"  placeholder="Digite o seu usuário" required><br>
