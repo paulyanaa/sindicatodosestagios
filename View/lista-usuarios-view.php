@@ -7,15 +7,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/../sindicatodosestagios/View/css/styles.css">
+    <link rel="stylesheet" href="<?php echo Ambiente::getUrl('View/css/styles.css')?>">
+<!--    <link rel="stylesheet" href="/../sindicatodosestagios/View/css/styles.css">-->
     <title>Usuários</title>
 </head>
 <body>
 <main>
-
     <h1>Usuários Cadastrados</h1>
-
-
     <section class="container-admins">
         <div>
             <h3>Usuários Administradores</h3>
@@ -35,8 +33,8 @@
                     <td><?= $admin->getSLogin() ?></td>
                     <td><?= $admin->getSTipo() ?></td>
                     <td>
-                        <form action="http://localhost/sindicatodosestagios/usuario/deletar" method="post">
-                            <input type="hidden" name="id" value="<?= $admin->getIId() ?>">
+                        <form action="<?php echo Ambiente::getUrl('usuario/deletar')?>" method="post">
+                            <input type="hidden" name="uso_id" value="<?php echo $admin->getIId() ?>">
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
                     </td>
@@ -62,11 +60,11 @@
                 <tbody>
                 <?php foreach($aUsuariosComuns as $comum):?>
                 <tr>
-                    <td><?= $comum->getSLogin()?></td>
-                    <td><?= $comum->getSTipo() ?></td>
+                    <td><?php echo $comum->getSLogin()?></td>
+                    <td><?php echo $comum->getSTipo() ?></td>
                     <td>
-                        <form action="http://localhost/sindicatodosestagios/usuario/deletar" method="post">
-                            <input type="hidden" name="id" value="<?= $comum->getIId() ?>">
+                        <form action="<?php echo Ambiente::getUrl('usuario/deletar')?>" method="post">
+                            <input type="hidden" name="uso_id" value="<?= $comum->getIId() ?>">
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
                     </td>
@@ -76,10 +74,9 @@
             </table>
         </div>
     </section>
-    <a class="botao-cadastrar-usuario" href="http://localhost/sindicatodosestagios/usuario/cadastrar">Cadastrar Novo Usuário</a>
-    <a class="botao-voltar-menu" href="http://localhost/sindicatodosestagios/usuario/menu">Voltar</a>
-    <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
-
+    <a class="botao-cadastrar-usuario" href="<?php echo Ambiente::getUrl('usuario/cadastrar')?>">Cadastrar Novo Usuário</a>
+    <a class="botao-voltar-menu" href="<?php echo Ambiente::getUrl('usuario/menu')?>">Voltar</a>
+    <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
 </main>
 </body>
 </html>

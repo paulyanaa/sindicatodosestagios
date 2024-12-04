@@ -8,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="css/styles.css">
+
     <title>Filiado - Edição</title>
 </head>
 <body>
@@ -16,41 +16,41 @@
     <h1>Edição de Filiado</h1>
 
     <section class="container-form">
-        <form action="http://localhost/sindicatodosestagios/filiado/editarFiliado" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo Ambiente::getUrl('filiado/editarFiliado')?>" method="post" enctype = "multipart/form-data">
 
-            <input type="hidden" name="flo_id" value="<?= $oFiliado->getIId() ?>">
+            <input type="hidden" name="flo_id" value="<?php echo $oFiliado->getIId() ?>">
 
             <label for="nome">Nome</label>
             <label>
-            <input type="text" name="flo_nome" value="<?= $oFiliado->getSNome()?>" readonly>
+            <input type="text" name="flo_nome" value="<?php echo $oFiliado->getSNome()?>" readonly>
             </label><br>
 
             <label for="cpf">CPF</label>
             <label>
-                <input type="text" name="flo_cpf" value="<?= $oFiliado->getSCPF()?>" readonly>
+                <input type="text" name="flo_cpf" value="<?php echo $oFiliado->getSCPF()?>" readonly>
             </label><br>
 
             <label for="rg">RG</label>
             <label>
-                <input type="text" name="flo_rg" value="<?= $oFiliado->getSRg()?>" readonly>
+                <input type="text" name="flo_rg" value="<?php echo $oFiliado->getSRg()?>" readonly>
             </label><br>
 
             <label for="data_nascimento">Data de nascimento </label>
             <label>
-                <input type="text"  value="<?= $oFiliado->getDataNascimentoFormatada()?>" readonly>
-                <input type="hidden" name="flo_data_nascimento" value="<?= $oFiliado->getSDataNascimentoBanco()?>">
+                <input type="text"  value="<?php echo $oFiliado->getDataNascimentoFormatada()?>" readonly>
+                <input type="hidden" name="flo_data_nascimento" value="<?php echo $oFiliado->getSDataNascimentoBanco()?>">
             </label><br>
 
             <label for="idade">Idade</label>
             <label>
-                <input type="text" name="flo_idade" value="<?= $oFiliado->getIIdade()?>" readonly>
+                <input type="text" name="flo_idade" value="<?php echo $oFiliado->getIIdade()?>" readonly>
             </label><br>
 
             <label for="empresa">Empresa</label>
-            <input type="text" id="empresa" name="flo_empresa" value="<?= $oFiliado->getSEmpresa()?>" ><br>
+            <input type="text" id="empresa" name="flo_empresa" value="<?php echo $oFiliado->getSEmpresa()?>" ><br>
 
             <label for="cargo">Cargo</label>
-            <input type="text" id="cargo" name="flo_cargo" value="<?= $oFiliado->getSCargo()?>"><br>
+            <input type="text" id="cargo" name="flo_cargo" value="<?php echo $oFiliado->getSCargo()?>"><br>
 
             <div>
                 <label>Situação </label>
@@ -64,18 +64,18 @@
 
             <label for="tel_residencial">Telefone Residencial </label>
             <label>
-                <input type="text" name="flo_tel_residencial" value="<?= $oFiliado->getSTelResidencial()?>" readonly>
+                <input type="text" name="flo_tel_residencial" value="<?php echo $oFiliado->getSTelResidencial()?>" readonly>
             </label><br>
 
             <label for="tel_celular">Telefone Celular</label>
             <label>
-                <input type="text" name="flo_tel_celular" value="<?= $oFiliado->getSTelCelular()?>" readonly>
+                <input type="text" name="flo_tel_celular" value="<?php echo $oFiliado->getSTelCelular()?>" readonly>
             </label><br>
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Editar filiado"/>
         </form>
-        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/filiado/listar">Voltar</a>
-        <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
+        <a class="botao-voltar" href="<?php echo Ambiente::getUrl('filiado/listar')?>">Voltar</a>
+        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
 
     </section>
 </main>

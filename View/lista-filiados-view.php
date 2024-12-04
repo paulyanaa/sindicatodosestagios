@@ -1,5 +1,4 @@
 <?php
-
 ?>
 
 <!doctype html>
@@ -9,7 +8,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="/../sindicatodosestagios/View/css/styles.css">
+    <link rel="stylesheet" href="<?php echo Ambiente::getUrl('View/css/styles.css')?>">
     <title>Filiados</title>
 </head>
 <body>
@@ -17,7 +16,7 @@
 
     <h1>Filiados Cadastrados</h1>
 
-    <form action="http://localhost/sindicatodosestagios/filiado/listar" method="post" enctype = "multipart/form-data">
+    <form action="<?php echo Ambiente::getUrl('filiado/listar')?>" method="post" enctype = "multipart/form-data">
         <h3>Filtro</h3>
         <label for="nome">Nome</label>
         <input type="text" id="nome" name="flo_nome" placeholder="Digite o nome" >
@@ -72,33 +71,36 @@
                 <tbody>
                 <?php foreach($aFiliados as $filiado):?>
                     <tr>
-                        <td><?= $filiado->getSNome() ?></td>
-                        <td><?= $filiado->getSCpf() ?></td>
-                        <td><?= $filiado->getSRg() ?></td>
-                        <td><?= $filiado->getDataNascimentoFormatada()?></td>
-                        <td><?= $filiado->getIIdade() ?></td>
-                        <td><?= $filiado->getSEmpresa() ?></td>
-                        <td><?= $filiado->getSCargo() ?></td>
-                        <td><?= $filiado->getSSituacao() ?></td>
-                        <td><?= $filiado->getSTelResidencial() ?></td>
-                        <td><?= $filiado->getSTelCelular() ?></td>
-                        <td><?= $filiado->getUltimaAtualizacaoFormatada() ?></td>
+                        <td><?php echo $filiado->getSNome() ?></td>
+                        <td><?php echo $filiado->getSCpf() ?></td>
+                        <td><?php echo $filiado->getSRg() ?></td>
+                        <td><?php echo $filiado->getDataNascimentoFormatada()?></td>
+                        <td><?php echo $filiado->getIIdade() ?></td>
+                        <td><?php echo $filiado->getSEmpresa() ?></td>
+                        <td><?php echo $filiado->getSCargo() ?></td>
+                        <td><?php echo $filiado->getSSituacao() ?></td>
+                        <td><?php echo $filiado->getSTelResidencial() ?></td>
+                        <td><?php echo $filiado->getSTelCelular() ?></td>
+                        <td><?php echo $filiado->getUltimaAtualizacaoFormatada() ?></td>
                         <td>
-                            <form action="http://localhost/sindicatodosestagios/dependente/listar" method="post">
-                                <input type="hidden" name="flo_id" value="<?= $filiado->getIId() ?>">
-                                <input type="submit" class="botao-dependentes" value="Visualizar dependentes">
-                            </form>
+<!--                            <form action="--><?php //echo Ambiente::getUrl('dependente/listar')?><!--" method="post">-->
+<!--                                <input type="hidden" name="flo_id" value="--><?php //echo $filiado->getIId() ?><!--">-->
+<!--                                <input type="submit" class="botao-dependentes" value="Visualizar dependentes">-->
+<!--                            </form>-->
+
+                            <a class="botao-dependentes" href="<?php echo Ambiente::getUrl('dependente/listar')?>?flo_id=<?php echo $filiado->getIId() ?>">Visualizar Dependentes</a>
+
                         </td>
                         <?php if($bAparecerBotao): ?>
                         <td>
-                            <form action="http://localhost/sindicatodosestagios/filiado/editar" method="post">
-                                <input type="hidden" name="flo_id" value="<?= $filiado->getIId() ?>">
+                            <form action="<?php echo Ambiente::getUrl('filiado/editar')?>" method="post">
+                                <input type="hidden" name="flo_id" value="<?php echo $filiado->getIId() ?>">
                                 <input type="submit" class="botao-editar" value="Editar">
                             </form>
                         </td>
                         <td>
-                            <form action="http://localhost/sindicatodosestagios/filiado/deletar" method="post">
-                                <input type="hidden" name="flo_id" value="<?= $filiado->getIId() ?>">
+                            <form action="<?php echo Ambiente::getUrl('filiado/deletar')?>" method="post">
+                                <input type="hidden" name="flo_id" value="<?php echo $filiado->getIId() ?>">
                                 <input type="submit" class="botao-excluir" value="Excluir">
                             </form>
                         </td>
@@ -111,11 +113,11 @@
     </section>
 
     <?php if($bAparecerBotao): ?>
-    <a class="botao-cadastrar-filiado" href="http://localhost/sindicatodosestagios/filiado/cadastrar">Cadastrar Novo Filiado</a>
+    <a class="botao-cadastrar-filiado" href="<?php echo Ambiente::getUrl('filiado/cadastrar')?>">Cadastrar Novo Filiado</a>
     <?php endif?>
 
-    <a class="botao-voltar-menu" href="http://localhost/sindicatodosestagios/usuario/menu">Voltar</a>
-    <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
+    <a class="botao-voltar-menu" href="<?php echo Ambiente::getUrl('usuario/menu')?>">Voltar</a>
+    <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
 
 </main>
 </body>

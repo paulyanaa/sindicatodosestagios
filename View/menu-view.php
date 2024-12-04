@@ -12,19 +12,14 @@
 </head>
 <body>
 <main>
-
     <h1>Menu</h1>
-
     <section class="container-buttons">
         <?php if($bAparecerBotao): ?>
-        <a class="botao-listar-usuario" href="http://localhost/sindicatodosestagios/usuario/listar" >Usuários</a><br>
+        <a class="botao-listar-usuario" href="<?php echo Ambiente::getUrl('usuario/listar')?>" >Usuários</a><br>
         <?php endif;?>
-        <a class="botao-listar-filiado" href="http://localhost/sindicatodosestagios/filiado/listar" >Filiados</a><br>
-
-        <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
-
+        <a class="botao-listar-filiado" href="<?php echo Ambiente::getUrl('filiado/listar')?>" >Filiados</a><br>
+        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
     </section>
 </main>
-
 </body>
 </html>

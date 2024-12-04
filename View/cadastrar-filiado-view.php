@@ -8,7 +8,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<!--    <link rel="stylesheet"  href="/../sindicatodosestagios/View/css/styles.css">-->
     <title>Filiado - Cadastro</title>
 </head>
 <body>
@@ -16,7 +15,7 @@
     <h1>Cadastro de Filiado</h1>
 
     <section class="container-form">
-        <form action="http://localhost/sindicatodosestagios/filiado/cadastrarFiliado" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo Ambiente::getUrl('filiado/cadastrarFiliado')?>" method="post" enctype = "multipart/form-data">
 
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="flo_nome" placeholder="Digite o nome" required><br>
@@ -29,9 +28,6 @@
 
             <label for="data_nascimento">Data de nascimento</label>
             <input type="date" id="data_nascimento" name="flo_data_nascimento" placeholder="Digite a data de nascimento" required><br>
-
-<!--            <label for="idade">Idade</label>-->
-<!--            <input type="text" id="idade" name="flo_idade" placeholder="Digite a idade" required><br>-->
 
             <label for="empresa">Empresa</label>
             <input type="text" id="empresa" name="flo_empresa" placeholder="Digite o nome da empresa" ><br>
@@ -57,8 +53,8 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar filiado"/>
         </form>
-        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/filiado/listar">Voltar</a>
-        <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
+        <a class="botao-voltar" href="<?php echo Ambiente::getUrl('filiado/listar')?>">Voltar</a>
+        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
 
     </section>
 </main>

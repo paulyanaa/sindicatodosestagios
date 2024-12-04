@@ -8,7 +8,6 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!--    <link rel="stylesheet"  href="/../sindicatodosestagios/View/css/styles.css">-->
     <title>Dependente - Cadastro</title>
 </head>
 <body>
@@ -16,9 +15,9 @@
     <h1>Cadastro de Dependente</h1>
 
     <section class="container-form">
-        <form action="http://localhost/sindicatodosestagios/dependente/cadastrarDependente" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo Ambiente::getUrl('dependente/cadastrarDependente')?>" method="post" enctype = "multipart/form-data">
 
-            <input type="hidden" name="flo_id" value="<?= $iIdFiliadoAssociado?>">
+            <input type="hidden" name="flo_id" value="<?php echo $iIdFiliadoAssociado?>">
 
             <label for="nome">Nome</label>
             <input type="text" id="nome" name="dpe_nome" placeholder="Digite o nome" required><br>
@@ -40,8 +39,8 @@
 
             <input type="submit" name="cadastro" class="botao-cadastrar" value="Cadastrar Dependente"/>
         </form>
-        <a class="botao-voltar" href="http://localhost/sindicatodosestagios/dependente/listar?flo_id=<?=$iIdFiliadoAssociado?>">Voltar</a>
-        <a class="botao-sair" href="http://localhost/sindicatodosestagios/usuario/logout">Sair</a>
+        <a class="botao-voltar" href="<?php echo Ambiente::getUrl('dependente/listar')?>?flo_id=<?php echo$iIdFiliadoAssociado?>">Voltar</a>
+        <a class="botao-sair" href="<?php echo Ambiente::getUrl('usuario/logout')?>">Sair</a>
 
     </section>
 </main>
