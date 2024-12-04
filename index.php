@@ -5,6 +5,7 @@ require_once __DIR__ . "/Controller/UsuarioController.php";
 require_once __DIR__ . "/Controller/FiliadoController.php";
 require_once __DIR__ . "/Controller/DependenteController.php";
 
+
 $url = strip_tags(filter_input(INPUT_GET, 'url', FILTER_DEFAULT));
 
 $verificacao = (!empty($url)) ? $url : 'usuario/index';

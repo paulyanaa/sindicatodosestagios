@@ -1,8 +1,10 @@
 <?php
 
+
+
 use Model\DependenteModel;
 
-require_once __DIR__ . '/../Config/DatabaseHandler.php';
+require_once __DIR__ . '/../Handler/DatabaseHandler.php';
 require_once __DIR__ . '/../Model/DependenteModel.php';
 class DependenteDAO
 {

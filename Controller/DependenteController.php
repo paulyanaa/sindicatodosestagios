@@ -1,5 +1,6 @@
 <?php
 
+
 use Model\DependenteModel;
 
 require_once __DIR__ . '/../Model/DependenteDAO.php';

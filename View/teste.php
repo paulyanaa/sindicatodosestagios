@@ -1,6 +1,2 @@
-<?php
-
-require_once '../Controller/DependenteController.php';
-
-$user = new DependenteController();
+<?php echo Ambiente::getUrl('usuario/login');
 

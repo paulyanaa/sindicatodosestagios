@@ -1,6 +1,9 @@
 <?php
+
+
 use Model\UsuarioModel;
-require_once __DIR__ . '/../Config/DatabaseHandler.php';
+
+require_once __DIR__ . '/../Handler/DatabaseHandler.php';
 require_once __DIR__ . '/../Model/UsuarioModel.php';
 
 class UsuarioDAO

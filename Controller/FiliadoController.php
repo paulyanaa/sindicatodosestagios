@@ -1,8 +1,9 @@
 <?php
 
-use Model\FiliadoModel;
-use Utils\Functions;
 
+use Model\FiliadoModel;
+
+require_once __DIR__ . '/../Handler/SessaoHandler.php';
 require_once __DIR__ . '/../Model/FiliadoDAO.php';
 require_once __DIR__ . '/../Model/FiliadoModel.php';
 //require_once __DIR__ . '/../Utils/Functions.php';

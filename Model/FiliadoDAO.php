@@ -1,8 +1,10 @@
 <?php
 
+
+
 use Model\FiliadoModel;
 
-require_once __DIR__ . '/../Config/DatabaseHandler.php';
+require_once __DIR__ . '/../Handler/DatabaseHandler.php';
 require_once __DIR__ . '/../Model/FiliadoModel.php';
 class FiliadoDAO{
     public function __construct()

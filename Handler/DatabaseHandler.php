@@ -1,14 +1,14 @@
 <?php
 
 
+
 class DatabaseHandler
 {
-
     private $pdo;
     private $inTransaction = false;
     private $rollbackTransaction = false;
 
-    public function __construct(string $sHost='localhost', string $sUsuario='root', string $sSenha='', string $sPorta='3005', string $sDbname='paulyana')
+    public function __construct(string $sHost = 'localhost', string $sUsuario = 'root', string $sSenha = '', string $sPorta = '3005', string $sDbname = 'paulyana')
     {
         try {
             $this->pdo = new PDO("mysql:host=$sHost;port=$sPorta;dbname=$sDbname;charset=utf8", $sUsuario, $sSenha);
