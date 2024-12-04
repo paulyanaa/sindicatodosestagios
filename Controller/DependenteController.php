@@ -5,6 +5,7 @@ use Model\DependenteModel;
 require_once __DIR__ . '/../Model/DependenteDAO.php';
 require_once __DIR__ . '/../Model/DependenteModel.php';
 require_once __DIR__ . '/../Controller/UsuarioController.php';
+require_once __DIR__ . '/../Config/Ambiente.php';
 
 class DependenteController
 {

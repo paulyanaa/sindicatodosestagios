@@ -8,6 +8,7 @@ require_once __DIR__ . '/../Model/FiliadoModel.php';
 //require_once __DIR__ . '/../Utils/Functions.php';
 require_once __DIR__ . '/../Controller/UsuarioController.php';
 require_once __DIR__ . '/../Controller/DependenteController.php';
+require_once __DIR__ . '/../Config/Ambiente.php';
 
 class FiliadoController{
     public function __construct()
@@ -61,7 +62,9 @@ class FiliadoController{
     public function editar(?array $aDados = null):void{
 
         if($this->oUsuarioController->isAdmin($this->sLogin)){
-            $oFiliado = FiliadoModel::createFromArray($this->oFiliadoDAO->findById($aDados['id']));
+
+            $oFiliado = FiliadoModel::createFromArray($this->oFiliadoDAO->findById($aDados['flo_id']));
+
             include('editar-filiado-view.php');
             require_once  __DIR__.'/../View/editar-filiado-view.php';
         }else{

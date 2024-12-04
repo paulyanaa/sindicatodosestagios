@@ -2,10 +2,10 @@
 
 use Model\UsuarioModel;
 
-//require_once __DIR__ . "/../Config/DatabaseHandler.php";
 require_once __DIR__ . '/../Config/SessaoHandler.php';
 require_once __DIR__ . '/../Model/UsuarioModel.php';
 require_once __DIR__ . '/../Model/UsuarioDAO.php';
+require_once __DIR__ . '/../Config/Ambiente.php';
 
 
 
@@ -13,7 +13,6 @@ class UsuarioController{
     public function __construct()
     {
         $this->oUsuarioDAO = new UsuarioDAO();
-
     }
 
     public function index():void{
@@ -48,7 +47,7 @@ class UsuarioController{
         $oSessao->verificarSessao();
 
         if($this->isAdmin($oSessao->getDado('login'))){
-            $this->oUsuarioDAO->delete($aDados['id']);
+            $this->oUsuarioDAO->delete($aDados['uso_id']);
 
             $this->listar();
         }else{
