@@ -62,17 +62,6 @@ class DependenteController
     }
 
 
-//    public function cadastrarDependente(?array $aDados = null):void{
-//
-//        if($this->oUsuarioController->isAdmin($this->sLogin)){
-//            $oDependente = DependenteModel::createFromArray($aDados);
-//            $this->oDependenteDAO->save($oDependente);
-//            $this->listar($aDados);
-//        }else{
-//            require_once  __DIR__.'/../View/menu-view.php';
-//        }
-//    }
-
     public function editar(?array $aDados = null):void{
 
         if($this->oUsuarioController->isAdmin($this->sLogin)){
@@ -99,6 +88,7 @@ class DependenteController
             }else{
                 echo "<script>alert('Dependente já cadastrado. Tente novamente.');</script>";
                 $this->listar($aDados);
+
             }
         }
     }
