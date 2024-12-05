@@ -2,43 +2,76 @@
 
 namespace Utils;
 
+use Cassandra\Exception;
+use DateTime;
+
 class Functions
 {
+    public static function validarNome($sNome):bool{
 
-    public function __construct()
-    {
+        $sNome = trim($sNome);
+
+        if (empty($sNome)) {
+            return false;
+        }
+        if (!preg_match("/^[a-zA-ZÀ-ÿ\s'-]+$/", $sNome)) {
+            return false;
+        }
+        if (strlen($sNome) < 2 || strlen($sNome) > 100) {
+            return false;
+        }
+        return true;
     }
 
-    public static function validarCpf($cpf):bool{
-        // Remove caracteres especiais, como ponto e hífen
-        $cpf = preg_replace('/[^0-9]/', '', $cpf);
+    public static function validarCpf($sCpf):bool{
 
-        // Verifica se o CPF possui 11 dígitos
-        if (strlen($cpf) != 11) {
+        $sCpf = preg_replace('/[^0-9]/', '', $sCpf);
+
+        if (strlen($sCpf) != 11) {
             return false;
         }
 
-        // Verifica se o CPF é composto apenas por números repetidos (exemplo: 111.111.111.11)
-        if ($cpf === str_repeat($cpf[0], 11)) {
+        if ($sCpf === str_repeat($sCpf[0], 11)) {
             return false;
         }
 
-        // Calcula o primeiro dígito verificador
-        $soma = 0;
+        $iSoma = 0;
         for ($i = 0; $i < 9; $i++) {
-            $soma += (int)$cpf[$i] * (10 - $i);
+            $iSoma += (int)$sCpf[$i] * (10 - $i);
         }
-        $digito1 = $soma % 11 < 2 ? 0 : 11 - $soma % 11;
+        $digito1 = $iSoma % 11 < 2 ? 0 : 11 - $iSoma % 11;
 
-        // Calcula o segundo dígito verificador
-        $soma = 0;
+        $iSoma = 0;
         for ($i = 0; $i < 10; $i++) {
-            $soma += (int)$cpf[$i] * (11 - $i);
+            $iSoma += (int)$sCpf[$i] * (11 - $i);
         }
-        $digito2 = $soma % 11 < 2 ? 0 : 11 - $soma % 11;
+        $digito2 = $iSoma % 11 < 2 ? 0 : 11 - $iSoma % 11;
 
-        // Verifica se os dois dígitos verificadores calculados são iguais aos fornecidos
-        return $digito1 == (int)$cpf[9] && $digito2 == (int)$cpf[10];
+
+        return $digito1 == (int)$sCpf[9] && $digito2 == (int)$sCpf[10];
+    }
+
+    public static function validarRg($sRg){
+        $pattern = '/^\d{1,2}\.\d{3}\.\d{3}-\d{1}$/';
+        if (preg_match($pattern, $sRg)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function validarDataNascimento($sDataNascimento):bool{
+        $sData = DateTime::createFromFormat('Y-m-d', $sDataNascimento);
+        if (!$sData || $sData->format('Y-m-d') !== $sDataNascimento) {
+            return false;
+        }
+        $hoje = new DateTime();
+        $iIdade = $hoje->diff($sData)->y;
+
+        if ($iIdade < 18 || $iIdade > 120) {
+            return false;
+        }
+        return true;
     }
 
 
