@@ -1,6 +1,6 @@
 <?php
 
-
+require_once __DIR__ . '/../Config/DatabaseConfig.php';
 
 class DatabaseHandler
 {
@@ -8,10 +8,12 @@ class DatabaseHandler
     private $inTransaction = false;
     private $rollbackTransaction = false;
 
-    public function __construct(string $sHost = 'localhost', string $sUsuario = 'root', string $sSenha = '', string $sPorta = '3005', string $sDbname = 'paulyana')
+    public function __construct()
     {
+        $aDadosDB = DatabaseConfig::getConeccao();
+
         try {
-            $this->pdo = new PDO("mysql:host=$sHost;port=$sPorta;dbname=$sDbname;charset=utf8", $sUsuario, $sSenha);
+            $this->pdo = new PDO("mysql:host={$aDadosDB['host']};port={$aDadosDB['porta']};dbname={$aDadosDB['dbname']};charset=utf8", $aDadosDB['usuario'], $aDadosDB['senha']);
         } catch (PDOException $e) {
             echo "Erro ao tentar se conectar com o banco: " . $e->getMessage();
         }
