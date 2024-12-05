@@ -2,11 +2,12 @@
 
 
 use Model\FiliadoModel;
+use Utils\Functions;
 
 require_once __DIR__ . '/../Handler/SessaoHandler.php';
 require_once __DIR__ . '/../Model/FiliadoDAO.php';
 require_once __DIR__ . '/../Model/FiliadoModel.php';
-//require_once __DIR__ . '/../Utils/Functions.php';
+require_once __DIR__ . '/../Utils/Functions.php';
 require_once __DIR__ . '/../Controller/UsuarioController.php';
 require_once __DIR__ . '/../Controller/DependenteController.php';
 require_once __DIR__ . '/../Config/AmbienteConfig.php';
@@ -21,13 +22,13 @@ class FiliadoController{
 
         $this->oSessao->verificarSessao();
         $this->sLogin = $this->oSessao->getDado('login');
-
+        $this->isAdmin = $this->oUsuarioController->isAdmin($this->sLogin);
 
 
     }
     public function listar(?array $aDados = null):void{
 
-        $bAparecerBotao = $this->oUsuarioController->isAdmin($this->sLogin);
+        $bAparecerBotao = $this->isAdmin;
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $aFiliados = $this->oFiliadoDAO->findByFiltro($aDados);
@@ -41,7 +42,7 @@ class FiliadoController{
 
 
     public function cadastrar():void{
-        if($this->oUsuarioController->isAdmin($this->sLogin)){
+        if($this->isAdmin){
             require_once  __DIR__.'/../View/cadastrar-filiado-view.php';
         }else{
             echo "<script>alert('Você não tem permissão para fazer cadastro de filiado');</script>";
@@ -50,8 +51,7 @@ class FiliadoController{
     }
 
     public function deletar(?array $aDados = null):void{
-
-        if($this->oUsuarioController->isAdmin($this->sLogin)){
+        if($this->isAdmin){
             $this->oFiliadoDAO->delete($aDados['flo_id']);
             $this->listar();
         }else{
@@ -62,7 +62,7 @@ class FiliadoController{
 
     public function editar(?array $aDados = null):void{
 
-        if($this->oUsuarioController->isAdmin($this->sLogin)){
+        if($this->isAdmin){
 
             $oFiliado = FiliadoModel::createFromArray($this->oFiliadoDAO->findById($aDados['flo_id']));
 
@@ -76,11 +76,9 @@ class FiliadoController{
 
     public function cadastrarFiliado(?array $aDados = null):void{
 
-        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->oUsuarioController->isAdmin($this->sLogin))){
-
-            $oFiliado = FiliadoModel::createFromArray($aDados);
-
-            if(!$this->oFiliadoDAO->isFiliadoExiste($oFiliado->getSCpf())){
+        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->isAdmin) && ($this->validarFiliado($aDados))){
+            if(!$this->oFiliadoDAO->isFiliadoExiste($aDados['flo_cpf'])){
+                $oFiliado = FiliadoModel::createFromArray($aDados);
                 $this->oFiliadoDAO->save($oFiliado);
 
             }else{
@@ -90,17 +88,47 @@ class FiliadoController{
         }
 
     }public function editarFiliado(?array $aDados = null):void{
-        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->oUsuarioController->isAdmin($this->sLogin))){
+        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->isAdmin)){
             $oFiliado = FiliadoModel::createFromArray($aDados);
             $this->oFiliadoDAO->update($oFiliado);
             $this->listar();
         }
     }
 
-//    private function validaDados($sNome, $sCpf, $sRg, $tDataNascimento){
-//
-//        $sCpf = Functions::validarCpf($oFiliado->getSCpf());
-//    }
+    private function validarFiliado(?array $aDados = null): bool
+    {
+        try{
+            $errors = array();
+
+            if(!Functions::validarNome($aDados['flo_nome'])){
+                $errors[] = "O nome não deve conter númeos ou caracteres especiais.";
+            }
+
+            if(!Functions::validarCpf($aDados['flo_cpf'])){
+                $errors[] = "CPF inválido.";
+            }
+
+            if(!Functions::validarRg($aDados['flo_rg'])){
+                $errors[] = "RG inválido.";
+            }
+
+            if(!Functions::validarDataNascimento($aDados['flo_data_nascimento'])){
+                $errors[] = "Formato de data de nascimento invalida.";
+            }
+
+            if(!empty($errors)){
+                throw new Exception(implode("",$errors));
+            }
+            return true;
+
+        } catch (Exception $e){
+            echo "<script>alert('{$e->getMessage()}')</script>";
+
+            require_once  __DIR__.'/../View/cadastrar-filiado-view.php';
+            return false;
+        }
+
+    }
 
 
 }
