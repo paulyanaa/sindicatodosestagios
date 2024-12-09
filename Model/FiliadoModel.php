@@ -127,16 +127,23 @@ class FiliadoModel
         return $this->sUltimaAtualizacao->format('d/m/Y');
     }
 
-    public function setSEmpresa(?string $sEmpresa): void
-    {
-        $this->sEmpresa = $sEmpresa;
-    }
 
     public function setSCargo(?string $sCargo): void
     {
         $this->sCargo = $sCargo;
     }
 
+    public function setSSituacao(?string $sSituacao): void
+    {
+        $this->sSituacao = $sSituacao;
+    }
+
+    public static function verificarEmpresa (FiliadoModel $oFiliado):void{
+        if($oFiliado->getSEmpresa() == null){
+            $oFiliado->setSCargo(null);
+            $oFiliado->setSSituacao(null);
+        }
+    }
 
 
     public static function createFromArray(array $aDadosFiliado):FiliadoModel{
