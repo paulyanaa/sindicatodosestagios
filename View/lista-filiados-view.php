@@ -22,9 +22,9 @@
         <input type="text" id="nome" name="flo_nome" placeholder="Digite o nome" >
 
         <div>
-            <label>Grau de Parentesco</label>
+            <label>Mês de nascimento</label>
             <select name="flo_data_nascimento">
-                <option value=""></option>
+                <option value="">Selecione</option>
                 <option value="1">Janeiro</option>
                 <option value="2">Fevereiro</option>
                 <option value="2">Março</option>
@@ -37,8 +37,8 @@
                 <option value="10">Outubro</option>
                 <option value="11">Novembro</option>
                 <option value="12">Dezembro</option>
-
             </select>
+
         </div>
 
         <input type="submit" name="filtro" class="botao-filtrar" value="Filtrar"/>
@@ -110,10 +110,24 @@
                 </tbody>
             </table>
         </div>
+        <a class="botao-primeira-pagina" href="?pagina=1">Primeira</a>
+
+        <?php if($iPagina>1):?>
+        <a class="botao-pagina-anterior" href="?pagina=<?php echo $iPagina - 1?>"><<</a>
+        <?php endif;?>
+
+        <?php echo $iPagina?>
+
+        <?php if($iPagina<$iPaginas):?>
+        <a class="botao-pagina-seguinte" href="?pagina=<?php echo $iPagina + 1?>">>></a>
+        <?php endif;?>
+
+        <a class="botao-ultima-pagina" href="?pagina=<?php echo $iPaginas?>">Última</a>
+
     </section>
 
     <?php if($bAparecerBotao): ?>
-    <a class="botao-cadastrar-filiado" href="<?php echo AmbienteConfig::getUrl('filiado/cadastrar')?>">Cadastrar Novo Filiado</a>
+        <br><a class="botao-cadastrar-filiado" href="<?php echo AmbienteConfig::getUrl('filiado/cadastrar')?>">Cadastrar Novo Filiado</a><br>
     <?php endif?>
 
     <a class="botao-voltar-menu" href="<?php echo AmbienteConfig::getUrl('usuario/menu')?>">Voltar</a>
