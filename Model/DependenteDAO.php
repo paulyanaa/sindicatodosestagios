@@ -22,6 +22,12 @@ class DependenteDAO
             4 => $oDependente->getSGrauDeParentesco()
         ];
         $this->oDatabase->execute($sSql, $sParametros);
+
+        $sSql2 = "UPDATE flo_filiado SET flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
+        $sParametros2 = [
+            1 => $oDependente->getIIdFiliadoAssociado()
+        ];
+        $this->oDatabase->execute($sSql2, $sParametros2);
     }
 
     public function findAll(int $id):array{
