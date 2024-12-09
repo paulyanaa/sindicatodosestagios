@@ -36,7 +36,7 @@ class DependenteController
         }
 
         include('lista-dependentes-view.php');
-        require_once __DIR__.'/../View/lista-dependentes-view.php';
+        require_once __DIR__ . '/../View/DependenteView/lista-dependentes-view.php';
     }
 
     public function cadastrar(?array $aDados = null):void{
@@ -45,11 +45,11 @@ class DependenteController
 
         if($this->oUsuarioController->isAdmin($this->sLogin)){
             include('cadastrar-dependente-view.php');
-            require_once  __DIR__.'/../View/cadastrar-dependente-view.php';
+            require_once __DIR__ . '/../View/DependenteView/cadastrar-dependente-view.php';
         }else{
 
             echo "<script>alert('Você não tem permissão para fazer cadastro de dependente');</script>";
-            require_once  __DIR__.'/../View/menu-view.php';
+            require_once __DIR__ . '/../View/GeneralView/menu-view.php';
         }
     }
 
@@ -59,7 +59,7 @@ class DependenteController
             $this->listar($aDados);
         }else{
             echo "<script>alert('Você não tem permissão para deletar dependente');</script>";
-            require_once  __DIR__.'/../View/menu-view.php';
+            require_once __DIR__ . '/../View/GeneralView/menu-view.php';
         }
     }
 
@@ -71,10 +71,10 @@ class DependenteController
             $oDependente = $this->oDependenteDAO->findById($aDados['flo_id'],$aDados['dpe_id']);
 
             include('editar-dependente-view.php');
-            require_once  __DIR__.'/../View/editar-dependente-view.php';
+            require_once __DIR__ . '/../View/DependenteView/editar-dependente-view.php';
         }else{
             echo "<script>alert('Você não tem permissão para editar um filiado');</script>";
-            require_once  __DIR__.'/../View/menu-view.php';
+            require_once __DIR__ . '/../View/GeneralView/menu-view.php';
         }
     }
 
@@ -129,7 +129,7 @@ class DependenteController
         } catch (Exception $e){
             echo "<script>alert('{$e->getMessage()}')</script>";
 
-            require_once  __DIR__.'/../View/cadastrar-dependente-view.php';
+            require_once __DIR__ . '/../View/DependenteView/cadastrar-dependente-view.php';
             return false;
         }
     }

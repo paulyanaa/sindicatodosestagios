@@ -59,16 +59,16 @@ class FiliadoController{
         }
 
         include('lista-filiados-view.php');
-        require_once __DIR__.'/../View/lista-filiados-view.php';
+        require_once __DIR__ . '/../View/FiliadoView/lista-filiados-view.php';
     }
 
 
     public function cadastrar():void{
         if($this->isAdmin){
-            require_once  __DIR__.'/../View/cadastrar-filiado-view.php';
+            require_once __DIR__ . '/../View/FiliadoView/cadastrar-filiado-view.php';
         }else{
             echo "<script>alert('Você não tem permissão para fazer cadastro de filiado');</script>";
-            require_once  __DIR__.'/../View/menu-view.php';
+            require_once __DIR__ . '/../View/GeneralView/menu-view.php';
         }
     }
 
@@ -78,7 +78,7 @@ class FiliadoController{
             $this->listar();
         }else{
             echo "<script>alert('Você não tem permissão para deletar um filiado');</script>";
-            require_once  __DIR__.'/../View/menu-view.php';
+            require_once __DIR__ . '/../View/GeneralView/menu-view.php';
         }
     }
 
@@ -89,10 +89,10 @@ class FiliadoController{
             $oFiliado = FiliadoModel::createFromArray($this->oFiliadoDAO->findById($aDados['flo_id']));
 
             include('editar-filiado-view.php');
-            require_once  __DIR__.'/../View/editar-filiado-view.php';
+            require_once __DIR__ . '/../View/FiliadoView/editar-filiado-view.php';
         }else{
             echo "<script>alert('Você não tem permissão para editar um filiado');</script>";
-            require_once  __DIR__.'/../View/menu-view.php';
+            require_once __DIR__ . '/../View/GeneralView/menu-view.php';
         }
     }
 
@@ -148,7 +148,7 @@ class FiliadoController{
         } catch (Exception $e){
             echo "<script>alert('{$e->getMessage()}')</script>";
 
-            require_once  __DIR__.'/../View/cadastrar-filiado-view.php';
+            require_once __DIR__ . '/../View/FiliadoView/cadastrar-filiado-view.php';
             return false;
         }
     }

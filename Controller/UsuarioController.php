@@ -22,7 +22,7 @@ class UsuarioController{
     }
 
     public function login():void{
-        require_once  __DIR__.'/../View/login-view.php';
+        require_once __DIR__ . '/../View/GeneralView/login-view.php';
     }
 
     public function logout():void{
@@ -37,9 +37,9 @@ class UsuarioController{
         $oSessao->verificarSessao();
 
         if($this->isAdmin($oSessao->getDado('login'))){
-            require_once  __DIR__.'/../View/cadastrar-usuario-view.php';
+            require_once __DIR__ . '/../View/UsuarioView/cadastrar-usuario-view.php';
         }else{
-            require_once  __DIR__.'/../View/login-view.php';
+            require_once __DIR__ . '/../View/GeneralView/login-view.php';
         }
     }
 
@@ -53,7 +53,7 @@ class UsuarioController{
 
             $this->listar();
         }else{
-            require_once  __DIR__.'/../View/login-view.php';
+            require_once __DIR__ . '/../View/GeneralView/login-view.php';
         }
     }
 
@@ -63,7 +63,7 @@ class UsuarioController{
         $aUsuariosComuns = $this->oUsuarioDAO->FindByTipo('comum');
 
         include('lista-usuarios-view.php');
-        require_once __DIR__.'/../View/lista-usuarios-view.php';
+        require_once __DIR__ . '/../View/UsuarioView/lista-usuarios-view.php';
     }
 
 
@@ -81,7 +81,7 @@ class UsuarioController{
         }
 
         include('menu-view.php');
-        require_once  __DIR__.'/../View/menu-view.php';
+        require_once __DIR__ . '/../View/GeneralView/menu-view.php';
         exit();
     }
 
@@ -90,7 +90,6 @@ class UsuarioController{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($this->validarSenha($aDados['login'], $aDados['senha'])){
-                echo 'entrou no 2* if';
                 $oSessao = new SessaoHandler();
 
                 $oSessao->setDado('login', $aDados['login']);
