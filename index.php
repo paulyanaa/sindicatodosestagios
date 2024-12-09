@@ -16,9 +16,9 @@ $sController = ucfirst($url[0]) . 'Controller';
 $sMetodo = $url[1];
 $aDados = array_merge($_POST, $_GET);
 
-var_dump($url);
-var_dump($sController);
-var_dump($sMetodo);
+//var_dump($url);
+//var_dump($sController);
+//var_dump($sMetodo);
 
 
 try {
