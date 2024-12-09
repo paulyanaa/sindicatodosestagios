@@ -2,11 +2,13 @@
 
 
 use Model\DependenteModel;
+use Utils\Functions;
 
 require_once __DIR__ . '/../Model/DependenteDAO.php';
 require_once __DIR__ . '/../Model/DependenteModel.php';
 require_once __DIR__ . '/../Controller/UsuarioController.php';
 require_once __DIR__ . '/../Config/AmbienteConfig.php';
+require_once __DIR__ . '/../Utils/Functions.php';
 
 class DependenteController
 {
@@ -78,7 +80,7 @@ class DependenteController
 
     public function cadastrarDependente(?array $aDados = null):void{
 
-        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->oUsuarioController->isAdmin($this->sLogin))){
+        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->oUsuarioController->isAdmin($this->sLogin) && ($this->validarDependente($aDados)))){
 
             $oDependente = DependenteModel::createFromArray($aDados);
 
@@ -98,6 +100,37 @@ class DependenteController
             $oDependente = DependenteModel::createFromArray($aDados);
             $this->oDependenteDAO->update($oDependente);
             $this->listar($aDados);
+        }
+    }
+
+    private function validarDependente(?array $aDados = null): bool
+    {
+        try{
+            $errors = array();
+
+            if(!Functions::validarNome($aDados['dpe_nome'])){
+                $errors[] = "Nome inválido.";
+            }
+
+            if(!Functions::validarDataNascimento($aDados['dpe_data_nascimento'])){
+                $errors[] = "Data de nascimento invalida ou idade insuficiente.";
+            }
+
+//            if(!Functions::validarGrauDeParentesco($aDados['dpe_grau_de_parentesco'])){
+//                $errors[] = "Grau de parentesco inválido.";
+//            }
+
+
+            if(!empty($errors)){
+                throw new Exception(implode("",$errors));
+            }
+            return true;
+
+        } catch (Exception $e){
+            echo "<script>alert('{$e->getMessage()}')</script>";
+
+            require_once  __DIR__.'/../View/cadastrar-dependente-view.php';
+            return false;
         }
     }
 
