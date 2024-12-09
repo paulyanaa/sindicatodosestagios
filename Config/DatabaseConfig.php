@@ -5,7 +5,7 @@ class DatabaseConfig{
 
     public static function getConeccao(){
 
-        $sArquivoJson = '/opt/lampp/htdocs/sindicatodosestagios/Config/dadosDB.json';
+        $sArquivoJson = __DIR__ . '/../Config/dadosDB.json';
 
         $jsonData = file_get_contents($sArquivoJson);
 
