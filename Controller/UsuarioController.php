@@ -62,7 +62,8 @@ class UsuarioController{
         $aUsuariosAdmins = $this->oUsuarioDAO->FindByTipo('administrador');
         $aUsuariosComuns = $this->oUsuarioDAO->FindByTipo('comum');
 
-        include('lista-usuarios-view.php');
+//        include('lista-usuarios-view.php');
+        include(__DIR__ . '/../View/UsuarioView/lista-usuarios-view.php');
         require_once __DIR__ . '/../View/UsuarioView/lista-usuarios-view.php';
     }
 
@@ -80,7 +81,7 @@ class UsuarioController{
             $bAparecerBotao = false;
         }
 
-        include('menu-view.php');
+        include(__DIR__ . '/../View/GeneralView/menu-view.php');
         require_once __DIR__ . '/../View/GeneralView/menu-view.php';
         exit();
     }

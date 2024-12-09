@@ -58,7 +58,7 @@ class FiliadoController{
             $aFiliados = $this->oFiliadoDAO->findAll($iInicio, $iLimite);
         }
 
-        include('lista-filiados-view.php');
+        include(__DIR__ . '/../View/FiliadoView/lista-filiados-view.php');
         require_once __DIR__ . '/../View/FiliadoView/lista-filiados-view.php';
     }
 
@@ -88,7 +88,7 @@ class FiliadoController{
 
             $oFiliado = FiliadoModel::createFromArray($this->oFiliadoDAO->findById($aDados['flo_id']));
 
-            include('editar-filiado-view.php');
+            include(__DIR__ . '/../View/FiliadoView/editar-filiado-view.php');
             require_once __DIR__ . '/../View/FiliadoView/editar-filiado-view.php';
         }else{
             echo "<script>alert('Você não tem permissão para editar um filiado');</script>";

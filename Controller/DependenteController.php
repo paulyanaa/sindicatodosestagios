@@ -35,7 +35,7 @@ class DependenteController
             $bAparecerBotao = false;
         }
 
-        include('lista-dependentes-view.php');
+        include(__DIR__ . '/../View/DependenteView/lista-dependentes-view.php');
         require_once __DIR__ . '/../View/DependenteView/lista-dependentes-view.php';
     }
 
@@ -44,7 +44,7 @@ class DependenteController
         $iIdFiliadoAssociado = $aDados['flo_id'];
 
         if($this->oUsuarioController->isAdmin($this->sLogin)){
-            include('cadastrar-dependente-view.php');
+            include(__DIR__ . '/../View/DependenteView/cadastrar-dependente-view.php');
             require_once __DIR__ . '/../View/DependenteView/cadastrar-dependente-view.php';
         }else{
 
@@ -70,7 +70,7 @@ class DependenteController
 
             $oDependente = $this->oDependenteDAO->findById($aDados['flo_id'],$aDados['dpe_id']);
 
-            include('editar-dependente-view.php');
+            include(__DIR__ . '/../View/DependenteView/editar-dependente-view.php');
             require_once __DIR__ . '/../View/DependenteView/editar-dependente-view.php';
         }else{
             echo "<script>alert('Você não tem permissão para editar um filiado');</script>";
