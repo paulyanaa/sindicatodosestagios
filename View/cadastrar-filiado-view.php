@@ -38,6 +38,7 @@
             <div>
                 <label>Situacao</label>
                 <select name="flo_situacao">
+                    <option value="">Selecione</option>
                     <option value="Ativo">Ativo</option>
                     <option value="Inativo">Aposentado</option>
                     <option value="Aposentado">Inativo</option>
