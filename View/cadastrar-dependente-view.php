@@ -28,6 +28,7 @@
             <div>
                 <label>Grau de Parentesco</label>
                 <select name="dpe_grau_de_parentesco">
+                    <option value="">Selecione</option>
                     <option value="Cônjuge">Cônjuge</option>
                     <option value="Filho(a)">Filho(a)</option>
                     <option value="Pai">Pai</option>
