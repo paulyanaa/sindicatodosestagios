@@ -15,19 +15,18 @@ class FiliadoDAO{
 
     public function save(FiliadoModel $oFiliado):void{
 
-        $sSql = "INSERT INTO flo_filiado (flo_nome, flo_cpf, flo_rg, flo_data_nascimento, flo_idade, flo_empresa, flo_cargo, flo_situacao, flo_tel_residencial, flo_tel_celular, flo_ultima_atualizacao) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
+        $sSql = "INSERT INTO flo_filiado (flo_nome, flo_cpf, flo_rg, flo_data_nascimento, flo_empresa, flo_cargo, flo_situacao, flo_tel_residencial, flo_tel_celular, flo_ultima_atualizacao) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
         $sParametros = [
             1 => $oFiliado ->getSNome(),
             2 => $oFiliado ->getSCpf(),
             3 => $oFiliado ->getSRg(),
             4 => ($oFiliado ->getSDataNascimento())->format('Y-m-d'),
-            5 => $oFiliado ->getIIdade(),
-            6 => $oFiliado ->getSEmpresa(),
-            7 => $oFiliado ->getSCargo(),
-            8 => $oFiliado ->getSSituacao(),
-            9 => $oFiliado ->getSTelResidencial(),
-            10 => $oFiliado ->getSTelCelular()
+            5 => $oFiliado ->getSEmpresa(),
+            6 => $oFiliado ->getSCargo(),
+            7 => $oFiliado ->getSSituacao(),
+            8 => $oFiliado ->getSTelResidencial(),
+            9 => $oFiliado ->getSTelCelular()
         ];
         $this->oDatabase->execute($sSql, $sParametros);
     }
@@ -55,9 +54,10 @@ class FiliadoDAO{
     }
 
 
-    public function findAll():array{
+    public function findAll($iInicio, $iLimite):array{
 
-        $sSql = "SELECT * FROM flo_filiado";
+        $sSql = "SELECT * FROM flo_filiado ORDER BY flo_nome LIMIT {$iInicio}, {$iLimite}";
+
         $aFiliados = $this->oDatabase->query($sSql);
 
         $aObjFiliado = array_map(function($filiado){
@@ -83,7 +83,7 @@ class FiliadoDAO{
         return $aResultadoConsulta[0];
     }
 
-    public function findByFiltro(?array $aDados)
+    public function findByFiltro(?array $aDados, $iInicio, $iLimite)
     {
 
         $sSql = "SELECT * FROM flo_filiado WHERE 1=1";
@@ -102,6 +102,8 @@ class FiliadoDAO{
             ];
         }
 
+        $sSql .= " ORDER BY flo_nome LIMIT {$iInicio}, {$iLimite}";
+
         $aFiliados = $this->oDatabase->query($sSql, $aParametro);
 
         $aObjFiliado = array_map(function($filiado){
@@ -110,7 +112,12 @@ class FiliadoDAO{
 
         return $aObjFiliado;
 
+    }
 
+    public function countFiliados(){
+        $sSql = "SELECT COUNT(flo_cpf) AS total FROM flo_filiado";
+        $aConsulta = $this->oDatabase->query($sSql);
+        return $aConsulta[0]['total'];
     }
 
 }
