@@ -30,10 +30,32 @@ class FiliadoController{
 
         $bAparecerBotao = $this->isAdmin;
 
+        $iPagina = 1;
+        $iLimite = 2;
+
+        if(isset($aDados['pagina'])){
+            $iPagina = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
+        }
+        if(!$iPagina){
+            $iPagina = 1;
+        }
+
+        $iInicio = ($iPagina * $iLimite) - $iLimite;
+
+        $iPaginas = ceil(($this->oFiliadoDAO->countFiliados())/$iLimite);
+
+//        if(isset($aDados['flo_nome']) || isset($aDados['flo_data_nascimento'])){
+//            $sMes = filter_input(INPUT_GET, 'flo_data_nascimento', FILTER_VALIDATE_INT);
+//            $sNome = filter_input(INPUT_GET, 'flo_nome', FILTER_VALIDATE_INT);
+//            $aFiliados = $this->oFiliadoDAO->findByFiltro($aDados, $iInicio, $iLimite);
+//        }else{
+//            $aFiliados = $this->oFiliadoDAO->findAll($iInicio, $iLimite);
+//        }
+
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            $aFiliados = $this->oFiliadoDAO->findByFiltro($aDados);
+            $aFiliados = $this->oFiliadoDAO->findByFiltro($aDados, $iInicio, $iLimite);
         }else{
-            $aFiliados = $this->oFiliadoDAO->findAll();
+            $aFiliados = $this->oFiliadoDAO->findAll($iInicio, $iLimite);
         }
 
         include('lista-filiados-view.php');
@@ -79,6 +101,7 @@ class FiliadoController{
         if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->isAdmin) && ($this->validarFiliado($aDados))){
             if(!$this->oFiliadoDAO->isFiliadoExiste($aDados['flo_cpf'])){
                 $oFiliado = FiliadoModel::createFromArray($aDados);
+                FiliadoModel::verificarEmpresa($oFiliado);
                 $this->oFiliadoDAO->save($oFiliado);
 
             }else{
@@ -88,8 +111,9 @@ class FiliadoController{
         }
 
     }public function editarFiliado(?array $aDados = null):void{
-        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->isAdmin)){
+        if(($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->isAdmin) && ($this->validarFiliado($aDados))){
             $oFiliado = FiliadoModel::createFromArray($aDados);
+            FiliadoModel::verificarEmpresa($oFiliado);
             $this->oFiliadoDAO->update($oFiliado);
             $this->listar();
         }
@@ -101,7 +125,7 @@ class FiliadoController{
             $errors = array();
 
             if(!Functions::validarNome($aDados['flo_nome'])){
-                $errors[] = "O nome não deve conter númeos ou caracteres especiais.";
+                $errors[] = "Nome inválido.";
             }
 
             if(!Functions::validarCpf($aDados['flo_cpf'])){
@@ -113,7 +137,7 @@ class FiliadoController{
             }
 
             if(!Functions::validarDataNascimento($aDados['flo_data_nascimento'])){
-                $errors[] = "Formato de data de nascimento invalida.";
+                $errors[] = "Data de nascimento invalida ou idade insuficiente.";
             }
 
             if(!empty($errors)){
@@ -127,7 +151,6 @@ class FiliadoController{
             require_once  __DIR__.'/../View/cadastrar-filiado-view.php';
             return false;
         }
-
     }
 
 
