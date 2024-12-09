@@ -18,7 +18,7 @@ class UsuarioController{
     }
 
     public function index():void{
-        require_once  __DIR__.'/../View/home-view.php';
+        require_once __DIR__ . '/../View/GeneralView/home-view.php';
     }
 
     public function login():void{
@@ -28,7 +28,7 @@ class UsuarioController{
     public function logout():void{
         $oSessao = new SessaoHandler();
         $oSessao->deslogarSessao();
-        require_once  __DIR__.'/../View/home-view.php';
+        require_once __DIR__ . '/../View/GeneralView/home-view.php';
         exit();
     }
 
