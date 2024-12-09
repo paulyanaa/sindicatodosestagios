@@ -62,11 +62,12 @@ class UsuarioDAO
             return UsuarioModel::createFromArray($usuario);
         }, $aUsuarios);
 
-        if($aObjUsuario!=[]){
-            return $aObjUsuario;
-        }else{
-            return [];
-        }
+        return $aObjUsuario;
+//        if($aObjUsuario!=[]){
+//            return $aObjUsuario;
+//        }else{
+//            return [];
+//        }
     }
 
     public function FindByLogin($sLogin):array{
@@ -80,12 +81,12 @@ class UsuarioDAO
         }
     }
 
-    public function idFindByLogin($sLogin):array{
-        $sSql = " SELECT uso_id FROM uso_usuario WHERE uso_login = ? ";
-        $sParametro = [1 => $sLogin];
-        $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
-        return $aResultadoConsulta;
-    }
+//    public function idFindByLogin($sLogin):array{
+//        $sSql = " SELECT uso_id FROM uso_usuario WHERE uso_login = ? ";
+//        $sParametro = [1 => $sLogin];
+//        $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
+//        return $aResultadoConsulta;
+//    }
 
     public function senhaFindByLogin($sLogin):array{
         $sSql = " SELECT uso_senha FROM uso_usuario WHERE uso_login = ? ";
