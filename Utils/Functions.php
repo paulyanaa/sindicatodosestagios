@@ -62,17 +62,17 @@ class Functions
 
     public static function validarDataNascimento($sDataNascimento):bool{
         $sData = DateTime::createFromFormat('Y-m-d', $sDataNascimento);
+
         if (!$sData || $sData->format('Y-m-d') !== $sDataNascimento) {
             return false;
         }
         $hoje = new DateTime();
         $iIdade = $hoje->diff($sData)->y;
 
-        if ($iIdade < 18 || $iIdade > 120) {
+        if ($iIdade < 0 || $iIdade > 120) {
             return false;
         }
         return true;
     }
-
 
 }
