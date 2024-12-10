@@ -2,13 +2,13 @@
 
 
 use Model\DependenteModel;
-use Utils\Functions;
+use Utils\Validation;
 
 require_once __DIR__ . '/../Model/DependenteDAO.php';
 require_once __DIR__ . '/../Model/DependenteModel.php';
 require_once __DIR__ . '/../Controller/UsuarioController.php';
 require_once __DIR__ . '/../Config/AmbienteConfig.php';
-require_once __DIR__ . '/../Utils/Functions.php';
+require_once __DIR__ . '/../Utils/Validation.php';
 
 class DependenteController
 {
@@ -108,11 +108,11 @@ class DependenteController
         try{
             $errors = array();
 
-            if(!Functions::validarNome($aDados['dpe_nome'])){
+            if(!Validation::validarNome($aDados['dpe_nome'])){
                 $errors[] = "Nome inválido.";
             }
 
-            if(!Functions::validarDataNascimento($aDados['dpe_data_nascimento'])){
+            if(!Validation::validarDataNascimento($aDados['dpe_data_nascimento'])){
                 $errors[] = "Data de nascimento invalida ou idade insuficiente.";
             }
 

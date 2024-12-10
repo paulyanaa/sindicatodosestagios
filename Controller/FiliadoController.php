@@ -1,13 +1,11 @@
 <?php
-
-
 use Model\FiliadoModel;
-use Utils\Functions;
+use Utils\Validation;
 
 require_once __DIR__ . '/../Handler/SessaoHandler.php';
 require_once __DIR__ . '/../Model/FiliadoDAO.php';
 require_once __DIR__ . '/../Model/FiliadoModel.php';
-require_once __DIR__ . '/../Utils/Functions.php';
+require_once __DIR__ . '/../Utils/Validation.php';
 require_once __DIR__ . '/../Controller/UsuarioController.php';
 require_once __DIR__ . '/../Controller/DependenteController.php';
 require_once __DIR__ . '/../Config/AmbienteConfig.php';
@@ -24,39 +22,41 @@ class FiliadoController{
         $this->sLogin = $this->oSessao->getDado('login');
         $this->isAdmin = $this->oUsuarioController->isAdmin($this->sLogin);
 
-
     }
     public function listar(?array $aDados = null):void{
+
+        var_dump($aDados);
 
         $bAparecerBotao = $this->isAdmin;
 
         $iPagina = 1;
         $iLimite = 2;
 
-        if(isset($aDados['pagina'])){
-            $iPagina = filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT);
-        }
+        $iPagina = isset($aDados['pagina'])
+            ? filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT)
+            : "";
+
         if(!$iPagina){
             $iPagina = 1;
         }
 
+        $iPaginas = ceil($this->oFiliadoDAO->countFiliados()/$iLimite);
+
         $iInicio = ($iPagina * $iLimite) - $iLimite;
 
-        $iPaginas = ceil(($this->oFiliadoDAO->countFiliados())/$iLimite);
-
-//        if(isset($aDados['flo_nome']) || isset($aDados['flo_data_nascimento'])){
-//            $sMes = filter_input(INPUT_GET, 'flo_data_nascimento', FILTER_VALIDATE_INT);
-//            $sNome = filter_input(INPUT_GET, 'flo_nome', FILTER_VALIDATE_INT);
-//            $aFiliados = $this->oFiliadoDAO->findByFiltro($aDados, $iInicio, $iLimite);
-//        }else{
-//            $aFiliados = $this->oFiliadoDAO->findAll($iInicio, $iLimite);
-//        }
-
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            echo 'to no if';
+
+
             $aFiliados = $this->oFiliadoDAO->findByFiltro($aDados, $iInicio, $iLimite);
+
         }else{
+            echo 'to no else';
             $aFiliados = $this->oFiliadoDAO->findAll($iInicio, $iLimite);
+
         }
+
+
 
         include(__DIR__ . '/../View/FiliadoView/lista-filiados-view.php');
         require_once __DIR__ . '/../View/FiliadoView/lista-filiados-view.php';
@@ -124,19 +124,19 @@ class FiliadoController{
         try{
             $errors = array();
 
-            if(!Functions::validarNome($aDados['flo_nome'])){
+            if(!Validation::validarNome($aDados['flo_nome'])){
                 $errors[] = "Nome inválido.";
             }
 
-            if(!Functions::validarCpf($aDados['flo_cpf'])){
+            if(!Validation::validarCpf($aDados['flo_cpf'])){
                 $errors[] = "CPF inválido.";
             }
 
-            if(!Functions::validarRg($aDados['flo_rg'])){
+            if(!Validation::validarRg($aDados['flo_rg'])){
                 $errors[] = "RG inválido.";
             }
 
-            if(!Functions::validarDataNascimento($aDados['flo_data_nascimento'])){
+            if(!Validation::validarDataNascimento($aDados['flo_data_nascimento'])){
                 $errors[] = "Data de nascimento invalida ou idade insuficiente.";
             }
 
