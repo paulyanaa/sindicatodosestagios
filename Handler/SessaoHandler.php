@@ -35,4 +35,8 @@ class SessaoHandler
         $_SESSION[$sParametro] = $sValor;
     }
 
+    public function unsetDado(string $sParametro): void{
+        unset($_SESSION[$sParametro]);
+    }
+
 }
