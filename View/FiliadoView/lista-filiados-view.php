@@ -25,18 +25,18 @@
             <label>Mês de nascimento</label>
             <select name="flo_data_nascimento">
                 <option value="">Selecione</option>
-                <option value="1">Janeiro</option>
-                <option value="2">Fevereiro</option>
-                <option value="2">Março</option>
-                <option value="4">Abril</option>
-                <option value="5">Maio</option>
-                <option value="6">Junho</option>
-                <option value="7">Julho</option>
-                <option value="8">Agosto</option>
-                <option value="9">Setembro</option>
-                <option value="10">Outubro</option>
-                <option value="11">Novembro</option>
-                <option value="12">Dezembro</option>
+                <option value="1" >Janeiro</option>
+                <option value="2" >Fevereiro</option>
+                <option value="3" >Março</option>
+                <option value="4" >Abril</option>
+                <option value="5" >Maio</option>
+                <option value="6" >Junho</option>
+                <option value="7" >Julho</option>
+                <option value="8" >Agosto</option>
+                <option value="9" >Setembro</option>
+                <option value="10" >Outubro</option>
+                <option value="11" >Novembro</option>
+                <option value="12" >Dezembro</option>
             </select>
 
         </div>
@@ -83,10 +83,6 @@
                         <td><?php echo $filiado->getSTelCelular() ?></td>
                         <td><?php echo $filiado->getUltimaAtualizacaoFormatada() ?></td>
                         <td>
-<!--                            <form action="--><?php //echo Ambiente::getUrl('dependente/listar')?><!--" method="post">-->
-<!--                                <input type="hidden" name="flo_id" value="--><?php //echo $filiado->getIId() ?><!--">-->
-<!--                                <input type="submit" class="botao-dependentes" value="Visualizar dependentes">-->
-<!--                            </form>-->
 
                             <a class="botao-dependentes" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?php echo $filiado->getIId() ?>">Visualizar Dependentes</a>
 
@@ -121,7 +117,6 @@
         <?php if($iPagina<$iPaginas):?>
         <a class="botao-pagina-seguinte" href="?pagina=<?php echo $iPagina + 1?>">>></a>
         <?php endif;?>
-
         <a class="botao-ultima-pagina" href="?pagina=<?php echo $iPaginas?>">Última</a>
 
     </section>
