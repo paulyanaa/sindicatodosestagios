@@ -5,7 +5,7 @@ namespace Utils;
 use Cassandra\Exception;
 use DateTime;
 
-class Functions
+class Validation
 {
     public static function validarNome($sNome):bool{
 
