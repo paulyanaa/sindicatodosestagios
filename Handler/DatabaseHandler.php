@@ -22,13 +22,16 @@ class DatabaseHandler
 
     public function query($sSql, $aParametros = [])
     {
+
         try {
             if (!empty($aParametros)) {
                 $PDOStatement = $this->pdo->prepare($sSql);
                 foreach ($aParametros as $sParametro => &$sValor) {
-                    $PDOStatement->bindValue($sParametro, $sValor);
+//                    var_dump($sSql, $sValor, $sParametro);
+                    $PDOStatement->bindValue($sParametro +1, $sValor);
                 }
                 $PDOStatement->execute();
+
                 return $PDOStatement->fetchAll(PDO::FETCH_ASSOC);
             } else {
                 $PDOStatement = $this->pdo->query($sSql);
