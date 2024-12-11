@@ -27,7 +27,7 @@ class SessaoHandler
 
     public function getDado(string $sParametroSession): string
     {
-        return $_SESSION[$sParametroSession];
+        return $_SESSION[$sParametroSession] ?? '';
     }
 
     public function setDado(string $sParametro, string $sValor): void
