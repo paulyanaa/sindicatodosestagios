@@ -1,15 +1,11 @@
 <?php
-
 namespace Utils;
 
-use Cassandra\Exception;
 use DateTime;
 
-class Validation
-{
-    public static function validarNome($sNome):bool{
-
-        $sNome = trim($sNome);
+class Validation {
+    public static function validarNome($sNome) : bool {
+		$sNome = trim($sNome);
 
         if (empty($sNome)) {
             return false;
@@ -23,8 +19,7 @@ class Validation
         return true;
     }
 
-    public static function validarCpf($sCpf):bool{
-
+    public static function validarCpf($sCpf) : bool {
         $sCpf = preg_replace('/[^0-9]/', '', $sCpf);
 
         if (strlen($sCpf) != 11) {
@@ -46,12 +41,10 @@ class Validation
             $iSoma += (int)$sCpf[$i] * (11 - $i);
         }
         $digito2 = $iSoma % 11 < 2 ? 0 : 11 - $iSoma % 11;
-
-
         return $digito1 == (int)$sCpf[9] && $digito2 == (int)$sCpf[10];
     }
 
-    public static function validarRg($sRg){
+    public static function validarRg($sRg): bool {
         $pattern = '/^\d{1,2}\.\d{3}\.\d{3}-\d{1}$/';
         if (preg_match($pattern, $sRg)) {
             return true;
@@ -60,7 +53,7 @@ class Validation
         }
     }
 
-    public static function validarDataNascimento($sDataNascimento):bool{
+    public static function validarDataNascimento($sDataNascimento) : bool {
         $sData = DateTime::createFromFormat('Y-m-d', $sDataNascimento);
 
         if (!$sData || $sData->format('Y-m-d') !== $sDataNascimento) {

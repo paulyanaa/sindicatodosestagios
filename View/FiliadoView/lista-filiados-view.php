@@ -74,7 +74,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($aFiliados as $filiado):?>
+                <?php foreach($loFiliados as $filiado):?>
                     <tr>
                         <td><?php echo $filiado->getSNome() ?></td>
                         <td><?php echo $filiado->getSCpf() ?></td>

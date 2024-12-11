@@ -14,11 +14,9 @@
 </head>
 <body>
 <main>
-
     <h1>Dependentes</h1>
-
     <section class="container-dependentes">
-        <?php if(!empty($aDependentes)): ?>
+        <?php if(!empty($loDependentes)): ?>
         <div>
             <table>
                 <thead>
@@ -33,7 +31,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($aDependentes as $dependente):?>
+                <?php foreach($loDependentes as $dependente):?>
                     <tr>
                         <td><?php echo $dependente->getSNome()?></td>
                         <td><?php echo $dependente->getTDataNascimentoFormatada()?></td>
@@ -59,18 +57,14 @@
                 <?php endforeach;?>
                 </tbody>
             </table>
-
         </div>
         <?php else:?>
         <h2>Nenhum dependente cadastrado até o momento!</h2>
         <?php endif?>
     </section>
-
     <?php if($bAparecerBotao): ?>
         <a class="botao-voltar-menu" href="<?php echo AmbienteConfig::getUrl('dependente/cadastrar')?>?flo_id=<?= $iIdFiliadoAssociado?>">Cadastrar Novo Dependente</a><br>
     <?php endif?>
-
-
     <a class="botao-voltar-menu" href="<?php echo AmbienteConfig::getUrl('filiado/listar')?>">Voltar</a>
     <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
 
