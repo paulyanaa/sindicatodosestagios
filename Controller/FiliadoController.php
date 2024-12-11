@@ -25,41 +25,44 @@ class FiliadoController{
     }
     public function listar(?array $aDados = null):void{
 
-        var_dump($aDados);
+        if(isset($aDados['limpar_filtro'])){
+            $this->oSessao->unsetDado('flo_nome');
+            $this->oSessao->unsetDado('flo_data_nascimento');
+        }
+
+        if(!empty($aDados['flo_nome'])){
+            $this->oSessao->setDado('flo_nome', $aDados['flo_nome']);
+        }
+        $sNome = $this->oSessao->getDado('flo_nome');
+
+        if(!empty($aDados['flo_data_nascimento'])) {
+            $this->oSessao->setDado('flo_data_nascimento', $aDados['flo_data_nascimento']);
+        }
+        $iMes = $this->oSessao->getDado('flo_data_nascimento');
+
+
 
         $bAparecerBotao = $this->isAdmin;
-
         $iPagina = 1;
         $iLimite = 2;
 
         $iPagina = isset($aDados['pagina'])
             ? filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT)
             : "";
-
         if(!$iPagina){
             $iPagina = 1;
         }
 
-        $iPaginas = ceil($this->oFiliadoDAO->countFiliados()/$iLimite);
-
         $iInicio = ($iPagina * $iLimite) - $iLimite;
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            echo 'to no if';
+        $iPaginas = ceil($this->oFiliadoDAO->countFiliados($iMes,$sNome) /$iLimite);
 
-
-            $aFiliados = $this->oFiliadoDAO->findByFiltro($aDados, $iInicio, $iLimite);
-
-        }else{
-            echo 'to no else';
-            $aFiliados = $this->oFiliadoDAO->findAll($iInicio, $iLimite);
-
-        }
+        $aFiliados = $this->oFiliadoDAO->findByFiltro($iMes,$sNome, $iInicio, $iLimite);
 
 
 
-        include(__DIR__ . '/../View/FiliadoView/lista-filiados-view.php');
-        require_once __DIR__ . '/../View/FiliadoView/lista-filiados-view.php';
+        include __DIR__ . '/../View/FiliadoView/lista-filiados-view.php';
+//        require_once __DIR__ . '/../View/FiliadoView/lista-filiados-view.php';
     }
 
 
@@ -150,6 +153,14 @@ class FiliadoController{
 
             require_once __DIR__ . '/../View/FiliadoView/cadastrar-filiado-view.php';
             return false;
+        }
+    }
+
+    public function limparFiltroFiliado(?array $aDados = null):void{
+        if(isset($aDados['limpar_filtro'])){
+            $this->oSessao->unsetDado('flo_nome');
+            $this->oSessao->unsetDado('flo_data_nascimento');
+            $this->listar();
         }
     }
 
