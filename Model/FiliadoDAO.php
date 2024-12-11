@@ -9,8 +9,19 @@ class FiliadoDAO {
     }
 
     public function save(FiliadoModel $oFiliado) :  void {
-        $sSql = "INSERT INTO flo_filiado (flo_nome, flo_cpf, flo_rg, flo_data_nascimento, flo_empresa, flo_cargo, flo_situacao, flo_tel_residencial, flo_tel_celular, flo_ultima_atualizacao) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
+        $sSql = "INSERT INTO flo_filiado (
+                         flo_nome, 
+                         flo_cpf, 
+                         flo_rg, 
+                         flo_data_nascimento, 
+                         flo_empresa, 
+                         flo_cargo, 
+                         flo_situacao, 
+                         flo_tel_residencial, 
+                         flo_tel_celular, 
+                         flo_ultima_atualizacao
+                         ) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
         $aParametros = [
             $oFiliado ->getSNome(),
             $oFiliado ->getSCpf(),
@@ -34,7 +45,9 @@ class FiliadoDAO {
     }
 
     public function update(FiliadoModel $oFiliado) : void {
-        $sSql = "UPDATE flo_filiado SET flo_empresa = ?, flo_cargo = ?, flo_situacao = ?, flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
+        $sSql = "UPDATE flo_filiado 
+				SET flo_empresa = ?, flo_cargo = ?, flo_situacao = ?, flo_ultima_atualizacao = CURDATE() 
+				WHERE flo_filiado.flo_id = ?";
         $aParametros = [
             $oFiliado->getSEmpresa(),
             $oFiliado->getSCargo(),

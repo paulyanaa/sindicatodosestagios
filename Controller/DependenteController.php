@@ -19,6 +19,19 @@ class DependenteController {
 	    $this->isAdmin = $this->oUsuarioController->isAdmin($this->sLogin);
     }
 
+	/*
+	 * Lista os dependentes de determinado filiado
+	 *
+	 * Lista todos os dependentes cadastrados com o id do filiado referente a ele
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 *
+	 * @param array $aDados
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 *
+    */
     public function listar(?array $aDados = null) : void {
         $iIdFiliadoAssociado = $aDados['flo_id'];
         $loDependentes = $this->oDependenteDAO->findAll($iIdFiliadoAssociado);
@@ -31,6 +44,17 @@ class DependenteController {
         include __DIR__ . '/../View/DependenteView/lista-dependentes-view.php';
     }
 
+	/*
+    * Redireciona para o metodo cadastrarDependente
+    *
+    * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+    *
+    * @param array $aDados
+    *  @return void
+    *
+    * @since 1.0.0
+    *
+	*/
     public function cadastrar(?array $aDados = null) : void {
         $iIdFiliadoAssociado = $aDados['flo_id'];
 
@@ -42,6 +66,21 @@ class DependenteController {
         }
     }
 
+
+
+	/*
+	 * Deleta um dependente
+	 *
+	 * Deleta dependente do banco de dados atraves do id
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 *
+	 * @param array $aDados
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 *
+	*/
     public function deletar(?array $aDados = null) : void {
         if($this->isAdmin) {
             $this->oDependenteDAO->delete($aDados['dpe_id']);
@@ -52,6 +91,19 @@ class DependenteController {
         }
     }
 
+	/*
+	 * Edita dados de um dependente
+	 *
+	 * Edita dados de dependente de determinado filiado atraves do id do filiado e do id do dependente
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 *
+	 * @param array $aDados
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 *
+	*/
     public function editar(?array $aDados = null) : void {
         if($this->isAdmin) {
             $oDependente = $this->oDependenteDAO->findById($aDados['flo_id'],$aDados['dpe_id']);
