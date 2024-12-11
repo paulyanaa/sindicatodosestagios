@@ -1,4 +1,5 @@
 <?php
+
 ?>
 
 <!doctype html>
@@ -19,29 +20,33 @@
     <form action="<?php echo AmbienteConfig::getUrl('filiado/listar')?>" method="post" enctype = "multipart/form-data">
         <h3>Filtro</h3>
         <label for="nome">Nome</label>
-        <input type="text" id="nome" name="flo_nome" placeholder="Digite o nome" >
+        <input type="text" id="nome" name="flo_nome" placeholder="Digite o nome" value="<?php echo !empty($sNome) ? $sNome : ''; ?>" >
 
         <div>
             <label>Mês de nascimento</label>
             <select name="flo_data_nascimento">
                 <option value="">Selecione</option>
-                <option value="1" >Janeiro</option>
-                <option value="2" >Fevereiro</option>
-                <option value="3" >Março</option>
-                <option value="4" >Abril</option>
-                <option value="5" >Maio</option>
-                <option value="6" >Junho</option>
-                <option value="7" >Julho</option>
-                <option value="8" >Agosto</option>
-                <option value="9" >Setembro</option>
-                <option value="10" >Outubro</option>
-                <option value="11" >Novembro</option>
-                <option value="12" >Dezembro</option>
+                <option value="1" <?php echo $iMes == 1 ? 'selected' : ''; ?>>Janeiro</option>
+                <option value="2" <?php echo $iMes == 2 ? 'selected' : ''; ?>>Fevereiro</option>
+                <option value="3" <?php echo $iMes == 3 ? 'selected' : ''; ?>>Março</option>
+                <option value="4" <?php echo $iMes == 4 ? 'selected' : ''; ?>>Abril</option>
+                <option value="5" <?php echo $iMes == 5 ? 'selected' : ''; ?> >Maio</option>
+                <option value="6" <?php echo $iMes == 6 ? 'selected' : ''; ?> >Junho</option>
+                <option value="7" <?php echo $iMes == 7 ? 'selected' : ''; ?> >Julho</option>
+                <option value="8" <?php echo $iMes == 8 ? 'selected' : ''; ?> >Agosto</option>
+                <option value="9" <?php echo $iMes == 9 ? 'selected' : ''; ?> >Setembro</option>
+                <option value="10" <?php echo $iMes == 10 ? 'selected' : ''; ?> >Outubro</option>
+                <option value="11" <?php echo $iMes == 11 ? 'selected' : ''; ?> >Novembro</option>
+                <option value="12" <?php echo $iMes == 12 ? 'selected' : ''; ?> >Dezembro</option>
             </select>
 
         </div>
 
         <input type="submit" name="filtro" class="botao-filtrar" value="Filtrar"/>
+    </form>
+
+    <form action="<?php echo AmbienteConfig::getUrl('filiado/listar')?>" method="post" enctype = "multipart/form-data">
+        <button type="submit" name="limpar_filtro">Limpar Filtro</button>
     </form>
 
     <section class="container-filiados">
