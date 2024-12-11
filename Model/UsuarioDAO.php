@@ -15,7 +15,7 @@ class UsuarioDAO
 
     public function isUsuarioExiste($sLogin):bool{
         $SSql ="SELECT 1 FROM uso_usuario WHERE uso_login = ? LIMIT 1";
-        $sParametro = [1 => $sLogin];
+        $sParametro = [$sLogin];
         $aResultadoConsulta = $this->oDatabase->query($SSql, $sParametro);
         return !empty($aResultadoConsulta);
     }
@@ -24,9 +24,9 @@ class UsuarioDAO
 
         $sSql = "INSERT INTO uso_usuario (uso_login, uso_senha, uso_tipo) VALUES (?, ?, ?)";
         $sParametros = [
-            1 => $oUsuario->getSLogin(),
-            2 => $sSenhaCriptografada,
-            3 => $oUsuario->getSTipo()
+            $oUsuario->getSLogin(),
+            $sSenhaCriptografada,
+            $oUsuario->getSTipo()
         ];
         $this->oDatabase->execute($sSql, $sParametros);
     }
@@ -34,7 +34,7 @@ class UsuarioDAO
     public function delete(int $iId):void{
         $sSql = "DELETE FROM uso_usuario WHERE `uso_usuario`.`uso_id` = ?";
         $sParametros = [
-            1 => $iId,
+            $iId,
         ];
         $this->oDatabase->execute($sSql, $sParametros);
     }
@@ -55,7 +55,7 @@ class UsuarioDAO
 
     public function FindByTipo($sTipo):array{
         $sSql = " SELECT * FROM uso_usuario WHERE uso_tipo = ? ";
-        $sParametro = [1 => $sTipo];
+        $sParametro = [$sTipo];
         $aUsuarios = $this->oDatabase->query($sSql, $sParametro);
 
         $aObjUsuario = array_map(function($usuario){
@@ -72,7 +72,7 @@ class UsuarioDAO
 
     public function FindByLogin($sLogin):array{
         $sSql = " SELECT * FROM uso_usuario WHERE uso_login = ? ";
-        $sParametro = [1 => $sLogin];
+        $sParametro = [$sLogin];
         $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
         if($aResultadoConsulta!=[]){
             return $aResultadoConsulta[0];
@@ -90,7 +90,7 @@ class UsuarioDAO
 
     public function senhaFindByLogin($sLogin):array{
         $sSql = " SELECT uso_senha FROM uso_usuario WHERE uso_login = ? ";
-        $sParametro = [1 => $sLogin];
+        $sParametro = [$sLogin];
         $aResultadoConsulta = $this->oDatabase->query($sSql, $sParametro);
         if(!empty($aResultadoConsulta)){
             return $aResultadoConsulta[0];

@@ -16,16 +16,16 @@ class DependenteDAO
     public function save(DependenteModel $oDependente):void{
         $sSql = "INSERT INTO dpe_dependente (flo_id, dpe_nome, dpe_data_nascimento, dpe_grau_de_parentesco) VALUES (?, ?, ?,?)";
         $sParametros = [
-            1 => $oDependente->getIIdFiliadoAssociado(),
-            2 => $oDependente->getSNome(),
-            3 => $oDependente->getTDataNascimentoBanco(),
-            4 => $oDependente->getSGrauDeParentesco()
+            $oDependente->getIIdFiliadoAssociado(),
+            $oDependente->getSNome(),
+            $oDependente->getTDataNascimentoBanco(),
+            $oDependente->getSGrauDeParentesco()
         ];
         $this->oDatabase->execute($sSql, $sParametros);
 
         $sSql2 = "UPDATE flo_filiado SET flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
         $sParametros2 = [
-            1 => $oDependente->getIIdFiliadoAssociado()
+            $oDependente->getIIdFiliadoAssociado()
         ];
         $this->oDatabase->execute($sSql2, $sParametros2);
     }
@@ -34,7 +34,7 @@ class DependenteDAO
 
         $sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ?";
         $sParametros = [
-            1 => $id
+            $id
         ];
         $aDependentes = $this->oDatabase->query($sSql, $sParametros);
         $aObjDependente = array_map(function($dependente){
@@ -48,8 +48,8 @@ class DependenteDAO
 
         $sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_id = ?";
         $sParametros = [
-            1 => $idFiliado,
-            2 => $idDependente
+            $idFiliado,
+            $idDependente
         ];
         $oDependente = $this->oDatabase->query($sSql, $sParametros);
 
@@ -60,7 +60,7 @@ class DependenteDAO
     {
         $sSql = "DELETE FROM dpe_dependente WHERE dpe_id = ?";
         $sParametros = [
-            1 => $dpe_id
+            $dpe_id
         ];
         $this->oDatabase->execute($sSql, $sParametros);
     }
@@ -69,7 +69,7 @@ class DependenteDAO
     {
         $sSql = "DELETE FROM dpe_dependente WHERE flo_id = ?";
         $sParametros = [
-            1 => $idFiliado
+            $idFiliado
         ];
         $this->oDatabase->execute($sSql, $sParametros);
     }
@@ -77,9 +77,9 @@ class DependenteDAO
     public function isDependenteExiste(DependenteModel $oDependente):bool{
         $sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_nome = ? AND dpe_grau_de_parentesco = ?";
         $sParametros = [
-            1 => $oDependente->getIIdFiliadoAssociado(),
-            2 => $oDependente->getSNome(),
-            3 => $oDependente->getSGrauDeParentesco(),
+            $oDependente->getIIdFiliadoAssociado(),
+            $oDependente->getSNome(),
+            $oDependente->getSGrauDeParentesco(),
         ];
         $aDependentes = $this->oDatabase->query($sSql, $sParametros);
         return !empty($aDependentes);
@@ -90,15 +90,15 @@ class DependenteDAO
     {
         $sSql = "UPDATE dpe_dependente SET dpe_nome = ? WHERE dpe_dependente.flo_id = ? and dpe_dependente.dpe_id = ?";
         $sParametros = [
-            1 => $oDependente->getSNome(),
-            2 => $oDependente->getIIdFiliadoAssociado(),
-            3 => $oDependente->getIId()
+            $oDependente->getSNome(),
+            $oDependente->getIIdFiliadoAssociado(),
+            $oDependente->getIId()
         ];
         $this->oDatabase->execute($sSql, $sParametros);
 
         $sSql2 = "UPDATE flo_filiado SET flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
         $sParametros2 = [
-            1 => $oDependente->getIIdFiliadoAssociado()
+            $oDependente->getIIdFiliadoAssociado()
         ];
         $this->oDatabase->execute($sSql2, $sParametros2);
     }
