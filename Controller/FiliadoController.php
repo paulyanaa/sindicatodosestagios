@@ -43,7 +43,7 @@ class FiliadoController {
         $iMes = $this->oSessao->getDado('flo_data_nascimento');
 
         $iPagina = 1;
-        $iLimite = 10;
+        $iLimite = 3;
 
         $iPagina = isset($aDados['pagina'])
             ? filter_input(INPUT_GET, 'pagina', FILTER_VALIDATE_INT)
@@ -74,7 +74,8 @@ class FiliadoController {
     public function deletar(?array $aDados = null) : void {
         if($this->isAdmin) {
             $this->oFiliadoDAO->delete($aDados['flo_id']);
-            $this->listar();
+            header("Location: " . AmbienteConfig::getUrl('filiado/listar'));
+            exit;
         } else {
             echo "<script>alert('Você não tem permissão para deletar um filiado');</script>";
             require_once __DIR__ . '/../View/GeneralView/menu-view.php';
@@ -102,7 +103,8 @@ class FiliadoController {
             } else {
                 echo "<script>alert('Filiado já cadastrado. Tente novamente.');</script>";
             }
-            $this->listar();
+            header("Location: " . AmbienteConfig::getUrl('filiado/listar'));
+            exit;
         }
     }
 
@@ -111,7 +113,8 @@ class FiliadoController {
             $oFiliado = FiliadoModel::createFromArray($aDados);
             FiliadoModel::verificarEmpresa($oFiliado);
             $this->oFiliadoDAO->update($oFiliado);
-            $this->listar();
+            header("Location: " . AmbienteConfig::getUrl('filiado/listar'));
+            exit;
         }
     }
 
