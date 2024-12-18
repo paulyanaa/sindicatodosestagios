@@ -3,6 +3,6 @@
   "host": "localhost",
   "usuario": "root",
   "senha": "",
-  "porta": "3306",
+  "porta": "3305",
   "dbname": "paulyana"
 }
