@@ -8,7 +8,7 @@ class DatabaseHandler {
     private $rollbackTransaction = false;
 
     public function __construct() {
-        $aDadosDB = DatabaseConfig::getConeccao();
+        $aDadosDB = DatabaseConfig::getConexao();
 
         try {
             $this->pdo = new PDO(
