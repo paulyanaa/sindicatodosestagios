@@ -1,5 +1,5 @@
 <?php
-
+use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
 ?>
 
 <!doctype html>

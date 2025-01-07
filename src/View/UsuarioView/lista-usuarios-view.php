@@ -1,4 +1,5 @@
 <?php
+use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
 ?>
 <!doctype html>
 <html lang="pt-br">
