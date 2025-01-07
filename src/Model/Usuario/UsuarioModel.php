@@ -1,8 +1,5 @@
 <?php
-
-namespace Model;
-require_once __DIR__ . '/../Model/UsuarioDAO.php';
-
+namespace Moobi\SindicatoDosEstagios\Model\Usuario;
 class UsuarioModel {
     private ?int $iId;
     private string $sLogin;

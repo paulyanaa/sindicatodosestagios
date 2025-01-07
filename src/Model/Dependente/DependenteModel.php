@@ -1,7 +1,5 @@
 <?php
-
-namespace Model;
-
+namespace Moobi\SindicatoDosEstagios\Model\Dependente;
 class DependenteModel {
     private $iId;
     private $iIdFiliadoAssociado;

@@ -1,8 +1,7 @@
 <?php
-namespace Utils;
+namespace Moobi\SindicatoDosEstagios\Utils;
 
 use DateTime;
-
 class Validation {
     public static function validarNome($sNome) : bool {
 		$sNome = trim($sNome);

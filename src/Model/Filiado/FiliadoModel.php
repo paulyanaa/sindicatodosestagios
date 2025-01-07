@@ -1,8 +1,7 @@
 <?php
-namespace Model;
+namespace Moobi\SindicatoDosEstagios\Model\Filiado;
 
 use DateTime;
-
 class FiliadoModel {
     private ?int $iId;
     private string $sNome;
