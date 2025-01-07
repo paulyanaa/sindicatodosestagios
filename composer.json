@@ -1,0 +1,11 @@
+{
+    "name": "moobi/sindicatodosestagios",
+    "autoload": {
+        "psr-4": {
+            "Moobi\\SindicatoDosEstagios\\": "src/"
+        }
+    },
+    "require": {
+      "ext-pdo": "*"
+    }
+}
