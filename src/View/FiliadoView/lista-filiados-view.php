@@ -67,7 +67,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                     <th>Telefone Celular</th>
                     <th>Útima atualização</th>
                     <th>Dependentes</th>
-                    <?php if($bAparecerBotao): ?>
+                    <?php if($bExibirAcoesUsuario): ?>
                     <th colspan="2">Ação</th>
                     <?php endif?>
 
@@ -92,7 +92,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                             <a class="botao-dependentes" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?php echo $filiado->getIId() ?>">Visualizar Dependentes</a>
 
                         </td>
-                        <?php if($bAparecerBotao): ?>
+                        <?php if($bExibirAcoesUsuario): ?>
                         <td>
                             <form action="<?php echo AmbienteConfig::getUrl('filiado/editar')?>" method="post">
                                 <input type="hidden" name="flo_id" value="<?php echo $filiado->getIId() ?>">
@@ -126,7 +126,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
 
     </section>
 
-    <?php if($bAparecerBotao): ?>
+    <?php if($bExibirAcoesUsuario): ?>
         <br><a class="botao-cadastrar-filiado" href="<?php echo AmbienteConfig::getUrl('filiado/cadastrar')?>">Cadastrar Novo Filiado</a><br>
     <?php endif?>
 

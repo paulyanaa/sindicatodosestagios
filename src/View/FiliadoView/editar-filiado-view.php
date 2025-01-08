@@ -17,7 +17,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
     <h1>Edição de Filiado</h1>
 
     <section class="container-form">
-        <form action="<?php echo AmbienteConfig::getUrl('filiado/editarFiliado')?>" method="post" enctype = "multipart/form-data">
+        <form action="<?php echo AmbienteConfig::getUrl('filiado/atualizarFiliado')?>" method="post" enctype = "multipart/form-data">
 
             <input type="hidden" name="flo_id" value="<?php echo $oFiliado->getIId() ?>">
 
