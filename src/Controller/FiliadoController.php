@@ -98,7 +98,7 @@ class FiliadoController {
 	 * @return void
 	 *
 	 * @since 1.0.0
- */
+	 */
 	public function deletar(?array $aDados = null): void {
 		if ($this->isAdmin) {
 			$this->oFiliadoDAO->delete($aDados['flo_id']);

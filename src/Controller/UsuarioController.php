@@ -4,26 +4,64 @@ namespace Moobi\SindicatoDosEstagios\Controller;
 use Moobi\SindicatoDosEstagios\Handler\SessaoHandler;
 use Moobi\SindicatoDosEstagios\Model\Usuario\UsuarioDAO;
 use Moobi\SindicatoDosEstagios\Model\Usuario\UsuarioModel;
+
+/**
+ * Class UsuarioController
+ * @package Moobi\SindicatoDosEstagios\Controller
+ * @version 1.0.0
+ */
 class UsuarioController {
 	private UsuarioDAO $oUsuarioDAO;
 	public function __construct() {
 		$this->oUsuarioDAO = new UsuarioDAO();
 	}
 
+	/**
+	 * Redireciona o usuário para tela inicial.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function index(): void {
 		require_once __DIR__ . '/../View/GeneralView/home-view.php';
 	}
 
+	/**
+	 * Redireciona o usuário para tela de login.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function login(): void {
 		require_once __DIR__ . '/../View/GeneralView/login-view.php';
 	}
 
+	/**
+	 * Desloga o usuário.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function logout(): void {
 		SessaoHandler::deslogarSessao();
 		require_once __DIR__ . '/../View/GeneralView/home-view.php';
 		exit();
 	}
 
+	/**
+	 * Redireciona para a tela de cadastro de usuário.
+	 *
+	 * @return void
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @since 1.0.0
+	 */
 	public function cadastrar(): void {
 		SessaoHandler::verificarSessao();
 		$isAdmin = $this->oUsuarioDAO->isAdmin(SessaoHandler::getDado('login'));
@@ -35,6 +73,15 @@ class UsuarioController {
 		}
 	}
 
+	/**
+	 * Deleta um usuario.
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function deletar(?array $aDados = null): void {
 		SessaoHandler::verificarSessao();
 		$isAdmin = $this->oUsuarioDAO->isAdmin(SessaoHandler::getDado('login'));
@@ -46,6 +93,14 @@ class UsuarioController {
 		}
 	}
 
+	/**
+	 * Lista todos os usuarios.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
 	public function listar(): void {
 		$aUsuariosAdmins = $this->oUsuarioDAO->FindByTipo('administrador');
 		$aUsuariosComuns = $this->oUsuarioDAO->FindByTipo('comum');
@@ -53,6 +108,14 @@ class UsuarioController {
 		include __DIR__ . '/../View/UsuarioView/lista-usuarios-view.php';
 	}
 
+	/**
+	 * Redireciona para a tela de menu.
+	 *
+	 * @return void
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @since 1.0.0
+	 */
 	public function menu(): void {
 		SessaoHandler::verificarSessao();
 		$isAdmin = $this->oUsuarioDAO->isAdmin(SessaoHandler::getDado('login'));
@@ -66,29 +129,42 @@ class UsuarioController {
 		exit();
 	}
 
-	public function acessar(?array $aDados = null): void
-	{
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			if ($this->validarSenha($aDados['login'], $aDados['senha'])) {
-				$isAdmin = $this->oUsuarioDAO->isAdmin($aDados['login']);
-				SessaoHandler::setDado('login', $aDados['login']);
-				SessaoHandler::setDado('isAdmin', $isAdmin);
-				$this->menu();
-			} else {
-				echo "<script>alert('Usuário ou senha incorretos!');</script>";
-				$this->login();
-			}
+	/**
+	 * Inicia sessão
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function acessar(?array $aDados = null): void {
+		if ($this->validarSenha($aDados['login'], $aDados['senha'])) {
+			$isAdmin = $this->oUsuarioDAO->isAdmin($aDados['login']);
+			SessaoHandler::setDado('login', $aDados['login']);
+			SessaoHandler::setDado('isAdmin', $isAdmin);
+			$this->menu();
+		} else {
+			echo "<script>alert('Usuário ou senha incorretos!');</script>";
+			$this->login();
 		}
 	}
 
-	public function cadastrarUsuario(?array $aDados = null): void
-	{
+	/**
+	 * Cadastra um novo usuário.
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function cadastrarUsuario(?array $aDados = null): void {
 		SessaoHandler::verificarSessao();
 		$isAdmin = $this->oUsuarioDAO->isAdmin(SessaoHandler::getDado('login'));
 
-		if (($_SERVER['REQUEST_METHOD'] === 'POST') && ($isAdmin)) {
+		if ($isAdmin){
 			$oUsuario = UsuarioModel::createFromArray($aDados);
-
 			if (!$this->oUsuarioDAO->isUsuarioExiste($oUsuario->getSLogin())) {
 				$sSenhaCriptografada = password_hash($oUsuario->getSSenha(), PASSWORD_DEFAULT);
 				$this->oUsuarioDAO->save($oUsuario, $sSenhaCriptografada);
@@ -99,8 +175,17 @@ class UsuarioController {
 		}
 	}
 
-	private function validarSenha($sLogin, $sSenha): bool
-	{
+	/**
+	 * Valida a senha inserida no login.
+	 *
+	 * @param $sLogin
+	 * @param $sSenha
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
+	private function validarSenha($sLogin, $sSenha): bool {
 		if ($this->oUsuarioDAO->isUsuarioExiste($sLogin)) {
 			return password_verify($sSenha, ($this->oUsuarioDAO->senhaFindByLogin($sLogin))['uso_senha']);
 		} else {
