@@ -24,7 +24,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                     <th>Nome</th>
                     <th>Data de Nascimento</th>
                     <th>Grau de Parentesco</th>
-                    <?php if($bAparecerBotao): ?>
+                    <?php if($bExibirAcoesUsuario): ?>
                         <th colspan="2">Ação</th>
                     <?php endif?>
 
@@ -37,7 +37,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                         <td><?php echo $dependente->getTDataNascimentoFormatada()?></td>
                         <td><?php echo $dependente->getSGrauDeParentesco()?></td>
 
-                        <?php if($bAparecerBotao): ?>
+                        <?php if($bExibirAcoesUsuario): ?>
                             <td>
                                 <form action="<?php echo AmbienteConfig::getUrl('dependente/editar')?>" method="post">
                                     <input type="hidden" name="dpe_id" value="<?php echo $dependente->getIId()  ?>">
@@ -62,7 +62,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
         <h2>Nenhum dependente cadastrado até o momento!</h2>
         <?php endif?>
     </section>
-    <?php if($bAparecerBotao): ?>
+    <?php if($bExibirAcoesUsuario): ?>
         <a class="botao-voltar-menu" href="<?php echo AmbienteConfig::getUrl('dependente/cadastrar')?>?flo_id=<?= $iIdFiliadoAssociado?>">Cadastrar Novo Dependente</a><br>
     <?php endif?>
     <a class="botao-voltar-menu" href="<?php echo AmbienteConfig::getUrl('filiado/listar')?>">Voltar</a>
