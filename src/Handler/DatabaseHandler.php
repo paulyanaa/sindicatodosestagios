@@ -6,18 +6,21 @@ use Moobi\SindicatoDosEstagios\Config\DatabaseConfig;
 use PDO;
 use PDOException;
 
+/**
+ * Class DatabaseHandler
+ * @package Moobi\SindicatoDosEstagios\Handler
+ * @version 1.0.0
+ */
 class DatabaseHandler
 {
-	private $pdo;
-	private $inTransaction = false;
-	private $rollbackTransaction = false;
+	private PDO $oPDO;
 
 	public function __construct()
 	{
 		$aDadosDB = DatabaseConfig::getConexao();
 
 		try {
-			$this->pdo = new PDO(
+			$this->oPDO = new PDO(
 				"mysql:host={$aDadosDB['host']};port={$aDadosDB['porta']};dbname={$aDadosDB['dbname']};charset=utf8",
 				$aDadosDB['usuario'],
 				$aDadosDB['senha']
@@ -27,30 +30,47 @@ class DatabaseHandler
 		}
 	}
 
-	public function query($sSql, $aParametros = [])
-	{
+	/**
+	 *Efetua consultas no banco de dados usando PDO.
+	 *
+	 * @param $sSql
+	 * @param array $aParametros
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return array|false
+	 *
+	 * @since 1.0.0
+	 */
+	public function query($sSql, array $aParametros = []): false|array {
 		try {
 			if (!empty($aParametros)) {
-				$PDOStatement = $this->pdo->prepare($sSql);
+				$PDOStatement = $this->oPDO->prepare($sSql);
 				foreach ($aParametros as $sParametro => &$sValor) {
 					$PDOStatement->bindValue($sParametro + 1, $sValor);
 				}
 				$PDOStatement->execute();
-				return $PDOStatement->fetchAll(PDO::FETCH_ASSOC);
 			} else {
-				$PDOStatement = $this->pdo->query($sSql);
-				return $PDOStatement->fetchAll(PDO::FETCH_ASSOC);
+				$PDOStatement = $this->oPDO->query($sSql);
 			}
+			return $PDOStatement->fetchAll(PDO::FETCH_ASSOC);
 		} catch (PDOException $e) {
 			echo "Erro na consulta: " . $e->getMessage();
 			return false;
 		}
 	}
 
-	public function execute($sSql, $aParametros = [])
-	{
+	/**
+	 * Executa ações no banco de dados utilizando PDO.
+	 *
+	 * @param $sSql
+	 * @param array $aParametros
+	 * @return bool
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @since 1.0.0
+	 */
+	public function execute($sSql, array $aParametros = []): bool {
 		try {
-			$PDOStatement = $this->pdo->prepare($sSql);
+			$PDOStatement = $this->oPDO->prepare($sSql);
 			foreach ($aParametros as $sParametro => &$sValor) {
 				$PDOStatement->bindValue($sParametro + 1, $sValor);
 			}
@@ -61,32 +81,4 @@ class DatabaseHandler
 		}
 	}
 
-	public function startTransaction()
-	{
-		if (!$this->inTransaction) {
-			$this->pdo->beginTransaction();
-			$this->inTransaction = true;
-			$this->rollbackTransaction = false;
-		}
-	}
-
-	public function failTransaction()
-	{
-		if ($this->inTransaction) {
-			$this->rollbackTransaction = true;
-		}
-	}
-
-	public function endTransaction()
-	{
-		if ($this->inTransaction) {
-			if ($this->rollbackTransaction) {
-				$this->pdo->rollBack();
-			} else {
-				$this->pdo->commit();
-			}
-			$this->inTransaction = false;
-			$this->rollbackTransaction = false;
-		}
-	}
 }
