@@ -1,5 +1,4 @@
 <?php
-
 namespace Moobi\SindicatoDosEstagios\Config;
 
 /**
@@ -7,8 +6,7 @@ namespace Moobi\SindicatoDosEstagios\Config;
  * @package Moobi\SindicatoDosEstagios\Config
  * @version 1.0.0
  */
-class DatabaseConfig
-{
+class DatabaseConfig {
 	/**
 	 * Transforma arquivo json com dados do Banco em array
 	 *

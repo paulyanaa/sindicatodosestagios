@@ -6,8 +6,7 @@ namespace Moobi\SindicatoDosEstagios\Config;
  * @package Moobi\SindicatoDosEstagios\Config
  * @version 1.0.0
  */
-class AmbienteConfig
-{
+class AmbienteConfig {
 	/**
 	 * Cria variável de ambiente.
 	 *
