@@ -6,39 +6,41 @@ use Moobi\SindicatoDosEstagios\Handler\SessaoHandler;
 use Moobi\SindicatoDosEstagios\Model\Filiado\FiliadoDAO;
 use Moobi\SindicatoDosEstagios\Model\Filiado\FiliadoModel;
 use Moobi\SindicatoDosEstagios\Utils\Validation;
+
 class FiliadoController
 {
+	private bool $isAdmin;
+
 	public function __construct()
 	{
 		$this->oFiliadoDAO = new FiliadoDAO();
 		$this->oUsuarioController = new UsuarioController();
-		$this->oSessao = new SessaoHandler();
 
-		$this->oSessao->verificarSessao();
-		$this->sLogin = $this->oSessao->getDado('login');
-		$this->isAdmin = $this->oUsuarioController->isAdmin($this->sLogin);
+		SessaoHandler::verificarSessao();
+		$this->isAdmin = $this->oUsuarioController->isAdmin(SessaoHandler::getDado('login'));
 
 	}
 
 	public function listar(?array $aDados = null): void
 	{
+
 		$bAparecerBotao = $this->isAdmin;
 
 		if (isset($aDados['limpar_filtro'])) {
-			$this->oSessao->unsetDado('flo_nome');
-			$this->oSessao->unsetDado('flo_data_nascimento');
+			SessaoHandler::unsetDado('flo_nome');
+			SessaoHandler::unsetDado('flo_data_nascimento');
 		}
 
 		if (!empty($aDados['flo_nome'])) {
-			$this->oSessao->setDado('flo_nome', $aDados['flo_nome']);
+			SessaoHandler::setDado('flo_nome', $aDados['flo_nome']);
 		}
 
 		if (!empty($aDados['flo_data_nascimento'])) {
-			$this->oSessao->setDado('flo_data_nascimento', $aDados['flo_data_nascimento']);
+			SessaoHandler::setDado('flo_data_nascimento', $aDados['flo_data_nascimento']);
 		}
 
-		$sNome = $this->oSessao->getDado('flo_nome');
-		$iMes = $this->oSessao->getDado('flo_data_nascimento');
+		$sNome = SessaoHandler::getDado('flo_nome');
+		$iMes = SessaoHandler::getDado('flo_data_nascimento');
 
 		$iPagina = 1;
 		$iLimite = 10;

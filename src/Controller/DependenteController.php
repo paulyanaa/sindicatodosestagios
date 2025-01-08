@@ -14,10 +14,9 @@ class DependenteController
 	{
 		$this->oUsuarioController = new UsuarioController();
 		$this->oDependenteDAO = new DependenteDAO();
-		$this->oSessao = new SessaoHandler();
 
-		$this->oSessao->verificarSessao();
-		$this->sLogin = $this->oSessao->getDado('login');
+		SessaoHandler::verificarSessao();
+		$this->sLogin = SessaoHandler::getDado('login');
 		$this->isAdmin = $this->oUsuarioController->isAdmin($this->sLogin);
 	}
 

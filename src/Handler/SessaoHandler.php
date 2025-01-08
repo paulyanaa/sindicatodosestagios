@@ -1,42 +1,42 @@
 <?php
 
 namespace Moobi\SindicatoDosEstagios\Handler;
-class SessaoHandler
-{
-	public function __construct()
-	{
+class SessaoHandler {
+	public static function verificarSessao(): void {
 		if (session_status() == PHP_SESSION_NONE) {
 			session_start();
 		}
-	}
 
-	public function verificarSessao(): void
-	{
 		if (!isset($_SESSION['login'])) {
-			require_once __DIR__ . '/../View/login-view.php';
+			require_once __DIR__ . '/../View/GeneralView/login-view.php';
 			exit();
 		}
 	}
 
-	public function deslogarSessao(): void
-	{
+	public static function deslogarSessao(): void {
 		session_start();
 		session_unset();
 		session_destroy();
 	}
 
-	public function getDado(string $sParametroSession): string
-	{
+	public static function getDado(string $sParametroSession): string {
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
 		return $_SESSION[$sParametroSession] ?? '';
 	}
 
-	public function setDado(string $sParametro, string $sValor): void
-	{
+	public static function setDado(string $sParametro, string $sValor): void {
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
 		$_SESSION[$sParametro] = $sValor;
 	}
 
-	public function unsetDado(string $sParametro): void
-	{
+	public static function unsetDado(string $sParametro): void {
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
 		unset($_SESSION[$sParametro]);
 	}
 }
