@@ -2,29 +2,39 @@
 namespace Moobi\SindicatoDosEstagios\Controller;
 
 use Exception;
+use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
 use Moobi\SindicatoDosEstagios\Handler\SessaoHandler;
 use Moobi\SindicatoDosEstagios\Model\Filiado\FiliadoDAO;
 use Moobi\SindicatoDosEstagios\Model\Filiado\FiliadoModel;
 use Moobi\SindicatoDosEstagios\Utils\Validation;
 
-class FiliadoController
-{
+/**
+ * Class FiliadoController
+ * @package Moobi\SindicatoDosEstagios\Controller
+ * @version 1.0.0
+ */
+class FiliadoController {
+	private FiliadoDAO $oFiliadoDAO;
 	private bool $isAdmin;
 
-	public function __construct()
-	{
-		$this->oFiliadoDAO = new FiliadoDAO();
-		$this->oUsuarioController = new UsuarioController();
-
+	public function __construct() {
 		SessaoHandler::verificarSessao();
+		$this->oFiliadoDAO = new FiliadoDAO();
 		$this->isAdmin = SessaoHandler::getDado('isAdmin');
-
 	}
 
-	public function listar(?array $aDados = null): void
-	{
+	/**
+	 * Lista os filiados cadastrados.
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function listar(?array $aDados = null): void {
 
-		$bAparecerBotao = $this->isAdmin;
+		$bExibirAcoesUsuario = $this->isAdmin;
 
 		if (isset($aDados['limpar_filtro'])) {
 			SessaoHandler::unsetDado('flo_nome');
@@ -62,29 +72,54 @@ class FiliadoController
 		include __DIR__ . '/../View/FiliadoView/lista-filiados-view.php';
 	}
 
-	public function cadastrar(): void
-	{
+	/**
+	 * Redireciona para o metodo cadastrarFiliado
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function cadastrar(): void {
 		if ($this->isAdmin) {
 			require_once __DIR__ . '/../View/FiliadoView/cadastrar-filiado-view.php';
 		} else {
 			echo "<script>alert('Você não tem permissão para fazer cadastro de filiado');</script>";
-			require_once __DIR__ . '/../View/GeneralView/menu-view.php';
+			$sRedirecionamento = AmbienteConfig::getUrl('usuario/menu');
+			header("Location: {$sRedirecionamento}");
 		}
 	}
 
-	public function deletar(?array $aDados = null): void
-	{
+	/**
+	 * Deleta um filiado.
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+ */
+	public function deletar(?array $aDados = null): void {
 		if ($this->isAdmin) {
 			$this->oFiliadoDAO->delete($aDados['flo_id']);
 			$this->listar();
 		} else {
 			echo "<script>alert('Você não tem permissão para deletar um filiado');</script>";
-			require_once __DIR__ . '/../View/GeneralView/menu-view.php';
+			$sRedirecionamento = AmbienteConfig::getUrl('usuario/menu');
+			header("Location: {$sRedirecionamento}");
 		}
 	}
 
-	public function editar(?array $aDados = null): void
-	{
+	/**
+	 *  Redireciona para o metodo atualizarFiliado.
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function editar(?array $aDados = null): void {
 
 		if ($this->isAdmin) {
 			$oFiliado = FiliadoModel::createFromArray($this->oFiliadoDAO->findById($aDados['flo_id']));
@@ -92,13 +127,22 @@ class FiliadoController
 			include __DIR__ . '/../View/FiliadoView/editar-filiado-view.php';
 		} else {
 			echo "<script>alert('Você não tem permissão para editar um filiado');</script>";
-			require_once __DIR__ . '/../View/GeneralView/menu-view.php';
+			$sRedirecionamento = AmbienteConfig::getUrl('usuario/menu');
+			header("Location: {$sRedirecionamento}");
 		}
 	}
 
-	public function cadastrarFiliado(?array $aDados = null): void
-	{
-		if (($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->isAdmin) && ($this->validarFiliado($aDados))) {
+	/**
+	 * Cadastra um novo filiado.
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function cadastrarFiliado(?array $aDados = null): void {
+		if (($this->isAdmin) && ($this->validarFiliado($aDados))) {
 			if (!$this->oFiliadoDAO->isFiliadoExiste($aDados['flo_cpf'])) {
 				$oFiliado = FiliadoModel::createFromArray($aDados);
 				FiliadoModel::verificarEmpresa($oFiliado);
@@ -110,9 +154,18 @@ class FiliadoController
 		}
 	}
 
-	public function editarFiliado(?array $aDados = null): void
+	/**
+	 * Edita dados de um filiado.
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function atualizarFiliado(?array $aDados = null): void
 	{
-		if (($_SERVER['REQUEST_METHOD'] === 'POST') && ($this->isAdmin) && ($this->validarFiliado($aDados))) {
+		if (($this->isAdmin) && ($this->validarFiliado($aDados))) {
 			$oFiliado = FiliadoModel::createFromArray($aDados);
 			FiliadoModel::verificarEmpresa($oFiliado);
 			$this->oFiliadoDAO->update($oFiliado);
@@ -120,29 +173,38 @@ class FiliadoController
 		}
 	}
 
+	/**
+	 *  Valida dados de um filiado.
+	 *
+	 * @param array|null $aDados
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
 	private function validarFiliado(?array $aDados = null): bool
 	{
 		try {
-			$errors = array();
+			$aErrors = array();
 
 			if (!Validation::validarNome($aDados['flo_nome'])) {
-				$errors[] = "Nome inválido.";
+				$aErrors[] = "Nome inválido.";
 			}
 
 			if (!Validation::validarCpf($aDados['flo_cpf'])) {
-				$errors[] = "CPF inválido.";
+				$aErrors[] = "CPF inválido.";
 			}
 
 			if (!Validation::validarRg($aDados['flo_rg'])) {
-				$errors[] = "RG inválido.";
+				$aErrors[] = "RG inválido.";
 			}
 
 			if (!Validation::validarDataNascimento($aDados['flo_data_nascimento'])) {
-				$errors[] = "Data de nascimento invalida ou idade insuficiente.";
+				$aErrors[] = "Data de nascimento invalida ou idade insuficiente.";
 			}
 
-			if (!empty($errors)) {
-				throw new Exception(implode("", $errors));
+			if (!empty($aErrors)) {
+				throw new Exception(implode("", $aErrors));
 			}
 			return true;
 		} catch (Exception $e) {
