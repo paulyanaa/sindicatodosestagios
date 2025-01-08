@@ -84,4 +84,13 @@ class UsuarioDAO
 			return [];
 		}
 	}
+
+	public function isAdmin($sLogin): bool {
+		$sTipo = ($this->findByLogin($sLogin))['uso_tipo'];
+		if ($sTipo == "administrador") {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

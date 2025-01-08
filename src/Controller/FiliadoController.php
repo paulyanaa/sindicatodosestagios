@@ -17,7 +17,7 @@ class FiliadoController
 		$this->oUsuarioController = new UsuarioController();
 
 		SessaoHandler::verificarSessao();
-		$this->isAdmin = $this->oUsuarioController->isAdmin(SessaoHandler::getDado('login'));
+		$this->isAdmin = SessaoHandler::getDado('isAdmin');
 
 	}
 
