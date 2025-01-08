@@ -15,7 +15,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
 <main>
     <h1>Menu</h1>
     <section class="container-buttons">
-        <?php if($bAparecerBotao): ?>
+        <?php if($bExibirAcoesUsuario): ?>
         <a class="botao-listar-usuario" href="<?php echo AmbienteConfig::getUrl('usuario/listar')?>" >Usuários</a><br>
         <?php endif;?>
         <a class="botao-listar-filiado" href="<?php echo AmbienteConfig::getUrl('filiado/listar')?>" >Filiados</a><br>
