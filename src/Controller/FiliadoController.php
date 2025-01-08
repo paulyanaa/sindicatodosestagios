@@ -163,8 +163,7 @@ class FiliadoController {
 	 *
 	 * @since 1.0.0
 	 */
-	public function atualizarFiliado(?array $aDados = null): void
-	{
+	public function atualizarFiliado(?array $aDados = null): void {
 		if (($this->isAdmin) && ($this->validarFiliado($aDados))) {
 			$oFiliado = FiliadoModel::createFromArray($aDados);
 			FiliadoModel::verificarEmpresa($oFiliado);
@@ -182,8 +181,7 @@ class FiliadoController {
 	 *
 	 * @since 1.0.0
 	 */
-	private function validarFiliado(?array $aDados = null): bool
-	{
+	private function validarFiliado(?array $aDados = null): bool {
 		try {
 			$aErrors = array();
 
