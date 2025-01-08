@@ -1,15 +1,19 @@
 <?php
-
 namespace Moobi\SindicatoDosEstagios\Controller;
 
 use Exception;
+use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
 use Moobi\SindicatoDosEstagios\Handler\SessaoHandler;
 use Moobi\SindicatoDosEstagios\Model\Dependente\DependenteDAO;
 use Moobi\SindicatoDosEstagios\Model\Dependente\DependenteModel;
 use Moobi\SindicatoDosEstagios\Utils\Validation;
 
-class DependenteController
-{
+/**
+ * Class DependenteController
+ * @package Moobi\SindicatoDosEstagios\Controller
+ * @version 1.0.0
+ */
+class DependenteController {
 	private DependenteDAO $oDependenteDAO;
 	private string $isAdmin;
 
@@ -57,7 +61,8 @@ class DependenteController
 			include __DIR__ . '/../View/DependenteView/cadastrar-dependente-view.php';
 		} else {
 			echo "<script>alert('Você não tem permissão para fazer cadastro de dependente');</script>";
-			require_once __DIR__ . '/../View/GeneralView/menu-view.php';
+			$sRedirecionamento = AmbienteConfig::getUrl('usuario/menu');
+			header("Location: $sRedirecionamento");
 		}
 	}
 
@@ -70,19 +75,19 @@ class DependenteController
 	 *
 	 * @since 1.0.0
 	 */
-	public function deletar(?array $aDados = null): void
-	{
+	public function deletar(?array $aDados = null): void {
 		if ($this->isAdmin) {
 			$this->oDependenteDAO->delete($aDados['dpe_id']);
 			$this->listar($aDados);
 		} else {
 			echo "<script>alert('Você não tem permissão para deletar dependente');</script>";
-			require_once __DIR__ . '/../View/GeneralView/menu-view.php';
+			$sRedirecionamento = AmbienteConfig::getUrl('usuario/menu');
+			header("Location: $sRedirecionamento");
 		}
 	}
 
 	/**
-	 *  Redireciona para o metodo editarDependente
+	 *  Redireciona para o metodo atualizarDependente
 	 *
 	 * @param array|null $aDados
 	 * @return void
@@ -90,14 +95,14 @@ class DependenteController
 	 *
 	 * @since 1.0.0
 	 */
-	public function editar(?array $aDados = null): void
-	{
+	public function editar(?array $aDados = null): void {
 		if ($this->isAdmin) {
 			$oDependente = $this->oDependenteDAO->findById($aDados['flo_id'], $aDados['dpe_id']);
 			include __DIR__ . '/../View/DependenteView/editar-dependente-view.php';
 		} else {
 			echo "<script>alert('Você não tem permissão para editar um filiado');</script>";
-			require_once __DIR__ . '/../View/GeneralView/menu-view.php';
+			$sRedirecionamento = AmbienteConfig::getUrl('usuario/menu');
+			header("Location: $sRedirecionamento");
 		}
 	}
 
@@ -110,8 +115,7 @@ class DependenteController
 	 *
 	 * @since 1.0.0
 	 */
-	public function cadastrarDependente(?array $aDados = null): void
-	{
+	public function cadastrarDependente(?array $aDados = null): void {
 		if (($this->isAdmin) && ($this->validarDependente($aDados))) {
 			$oDependente = DependenteModel::createFromArray($aDados);
 
@@ -133,8 +137,7 @@ class DependenteController
 	 *
 	 * @since 1.0.0
 	 */
-	public function atualizarDependente(?array $aDados = null): void
-	{
+	public function atualizarDependente(?array $aDados = null): void {
 		if ($this->isAdmin) {
 			$oDependente = DependenteModel::createFromArray($aDados);
 			$this->oDependenteDAO->update($oDependente);
@@ -152,8 +155,7 @@ class DependenteController
 	 *
 	 * @since 1.0.0
 	 */
-	private function validarDependente(?array $aDados = null): bool
-	{
+	private function validarDependente(?array $aDados = null): bool {
 		try {
 			$aErrors = array();
 
@@ -171,7 +173,8 @@ class DependenteController
 			return true;
 		} catch (Exception $e) {
 			echo "<script>alert('{$e->getMessage()}')</script>";
-			require_once __DIR__ . '/../View/DependenteView/cadastrar-dependente-view.php';
+			$sRedirecionamento = AmbienteConfig::getUrl('dependente/cadastrar');
+			header("Location: {$sRedirecionamento}");
 			return false;
 		}
 	}
