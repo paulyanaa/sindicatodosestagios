@@ -27,8 +27,8 @@ class DependenteController {
 	 *  Lista os dependentes de determinado filiado
 	 *
 	 * @param array|null $aDados
-	 * @return void
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
 	 *
 	 * @since 1.0.0
 	 */
@@ -48,9 +48,8 @@ class DependenteController {
 	 *  Redireciona para o metodo cadastrarDependente
 	 *
 	 * @param array|null $aDados
-	 * @return void
-	 *
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
 	 *
 	 * @since 1.0.0
 	 */
@@ -70,8 +69,8 @@ class DependenteController {
 	 *  Deleta um dependente
 	 *
 	 * @param array|null $aDados
-	 * @return void
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
 	 *
 	 * @since 1.0.0
 	 */
@@ -90,8 +89,8 @@ class DependenteController {
 	 *  Redireciona para o metodo atualizarDependente
 	 *
 	 * @param array|null $aDados
-	 * @return void
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
 	 *
 	 * @since 1.0.0
 	 */
@@ -110,8 +109,8 @@ class DependenteController {
 	 * Cadastra um novo dependente
 	 *
 	 * @param array|null $aDados
-	 * @return void
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
 	 *
 	 * @since 1.0.0
 	 */
@@ -132,8 +131,8 @@ class DependenteController {
 	 * Edita dados de um dependente
 	 *
 	 * @param array|null $aDados
-	 * @return void
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
 	 *
 	 * @since 1.0.0
 	 */
@@ -150,8 +149,8 @@ class DependenteController {
 	 *  Valida dados de um dependente
 	 *
 	 * @param array|null $aDados
-	 * @return bool
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return bool
 	 *
 	 * @since 1.0.0
 	 */
