@@ -90,11 +90,10 @@ class UsuarioController {
 			if (!$this->oUsuarioDAO->isUsuarioExiste($oUsuario->getSLogin())) {
 				$sSenhaCriptografada = password_hash($oUsuario->getSSenha(), PASSWORD_DEFAULT);
 				$this->oUsuarioDAO->save($oUsuario, $sSenhaCriptografada);
-				$this->listar();
 			} else {
 				echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
-				$this->listar();
 			}
+			$this->listar();
 		}
 	}
 
