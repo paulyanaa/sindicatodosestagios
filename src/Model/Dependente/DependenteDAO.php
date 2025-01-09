@@ -2,15 +2,29 @@
 namespace Moobi\SindicatoDosEstagios\Model\Dependente;
 
 use Moobi\SindicatoDosEstagios\Handler\DatabaseHandler;
-class DependenteDAO
-{
-	public function __construct()
-	{
+
+/**
+ * Class DependenteDAO
+ * @package Moobi\SindicatoDosEstagios\Model\Dependente
+ * @version 1.0.0
+ */
+class DependenteDAO {
+	private DatabaseHandler $oDatabase;
+
+	public function __construct() {
 		$this->oDatabase = new DatabaseHandler();
 	}
 
-	public function save(DependenteModel $oDependente): void
-	{
+	/**
+	 * Salva os dados do dependente no banco de dados.
+	 *
+	 * @param DependenteModel $oDependente
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function save(DependenteModel $oDependente): void {
 		$sSql = "INSERT INTO dpe_dependente (flo_id, dpe_nome, dpe_data_nascimento, dpe_grau_de_parentesco) VALUES (?, ?, ?,?)";
 		$aParametros = [
 			$oDependente->getIIdFiliadoAssociado(),
@@ -27,8 +41,16 @@ class DependenteDAO
 		$this->oDatabase->execute($sSql2, $aParametros2);
 	}
 
-	public function findAll(int $iIdFiliado): array
-	{
+	/**
+	 * Busca os dependentes de determinado filiado.
+	 *
+	 * @param int $iIdFiliado
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return array
+	 *
+	 * @since 1.0.0
+	 */
+	public function findAllByFiliadoId(int $iIdFiliado): array {
 		$sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ?";
 		$aParametros = [$iIdFiliado];
 		$aDependentes = $this->oDatabase->query($sSql, $aParametros);
@@ -38,8 +60,17 @@ class DependenteDAO
 		}, $aDependentes);
 	}
 
-	public function findById(int $iIdFiliado, int $iIdDependente): DependenteModel
-	{
+	/**
+	 * Busca um dependente específico de determinado filiado.
+	 *
+	 * @param int $iIdFiliado
+	 * @param int $iIdDependente
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return DependenteModel
+	 *
+	 * @since 1.0.0
+	 */
+	public function findByIdDependenteEIdFiliado(int $iIdFiliado, int $iIdDependente): DependenteModel {
 		$sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_id = ?";
 		$aParametros = [
 			$iIdFiliado,
@@ -49,22 +80,31 @@ class DependenteDAO
 		return DependenteModel::createFromArray($oDependente[0]);
 	}
 
-	public function delete(int $iIdDependente): void
-	{
+	/**
+	 * Exclui os dados de determinado dependente do banco de dados.
+	 *
+	 * @param int $iIdDependente
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function delete(int $iIdDependente): void {
 		$sSql = "DELETE FROM dpe_dependente WHERE dpe_id = ?";
 		$aParametros = [$iIdDependente];
 		$this->oDatabase->execute($sSql, $aParametros);
 	}
 
-	public function deleteAllByFiliado(int $iIdFiliado): void
-	{
-		$sSql = "DELETE FROM dpe_dependente WHERE flo_id = ?";
-		$aParametros = [$iIdFiliado];
-		$this->oDatabase->execute($sSql, $aParametros);
-	}
-
-	public function isDependenteExiste(DependenteModel $oDependente): bool
-	{
+	/**
+	 * Verifica se determinado dependente já está cadastrado no banco de dados.
+	 *
+	 * @param DependenteModel $oDependente
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
+	public function isDependenteExiste(DependenteModel $oDependente): bool {
 		$sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_nome = ? AND dpe_grau_de_parentesco = ?";
 		$aParametros = [
 			$oDependente->getIIdFiliadoAssociado(),
@@ -75,8 +115,16 @@ class DependenteDAO
 		return !empty($aDependentes);
 	}
 
-	public function update(DependenteModel $oDependente): void
-	{
+	/**
+	 * Atualiza os dados de determinado dependente no banco de dados.
+	 *
+	 * @param DependenteModel $oDependente
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * 2since 1.0.0
+	 */
+	public function update(DependenteModel $oDependente): void {
 		$sSql = "UPDATE dpe_dependente SET dpe_nome = ? WHERE dpe_dependente.flo_id = ? and dpe_dependente.dpe_id = ?";
 		$aParametros = [
 			$oDependente->getSNome(),
