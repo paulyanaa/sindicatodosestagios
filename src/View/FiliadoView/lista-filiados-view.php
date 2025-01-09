@@ -1,5 +1,15 @@
 <?php
 use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
+use Moobi\SindicatoDosEstagios\Model\Filiado\FiliadoModel;
+
+    /**
+     * @var int $iMes
+     * @var bool $bExibirAcoesUsuario
+     * @var array $loFiliados
+     * @var FiliadoModel $oFiliado
+     * @var int $iPagina
+     * @var int $iPaginas
+     */
 ?>
 
 <!doctype html>
@@ -74,34 +84,34 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($loFiliados as $filiado):?>
+                <?php foreach($loFiliados as $oFiliado):?>
                     <tr>
-                        <td><?php echo $filiado->getNome() ?></td>
-                        <td><?php echo $filiado->getCpf() ?></td>
-                        <td><?php echo $filiado->getRg() ?></td>
-                        <td><?php echo $filiado->getDataNascimento()->format('d/m/Y')?></td>
-                        <td><?php echo $filiado->getIdade() ?></td>
-                        <td><?php echo $filiado->getEmpresa() ?></td>
-                        <td><?php echo $filiado->getCargo() ?></td>
-                        <td><?php echo $filiado->getSituacao() ?></td>
-                        <td><?php echo $filiado->getTelResidencial() ?></td>
-                        <td><?php echo $filiado->getTelCelular() ?></td>
-                        <td><?php echo $filiado->getUltimaAtualizacao()->format('d/m/Y') ?></td>
+                        <td><?php echo $oFiliado->getNome() ?></td>
+                        <td><?php echo $oFiliado->getCpf() ?></td>
+                        <td><?php echo $oFiliado->getRg() ?></td>
+                        <td><?php echo $oFiliado->getDataNascimento()->format('d/m/Y')?></td>
+                        <td><?php echo $oFiliado->getIdade() ?></td>
+                        <td><?php echo $oFiliado->getEmpresa() ?></td>
+                        <td><?php echo $oFiliado->getCargo() ?></td>
+                        <td><?php echo $oFiliado->getSituacao() ?></td>
+                        <td><?php echo $oFiliado->getTelResidencial() ?></td>
+                        <td><?php echo $oFiliado->getTelCelular() ?></td>
+                        <td><?php echo $oFiliado->getUltimaAtualizacao()->format('d/m/Y') ?></td>
                         <td>
 
-                            <a class="botao-dependentes" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?php echo $filiado->getId() ?>">Visualizar Dependentes</a>
+                            <a class="botao-dependentes" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?php echo $oFiliado->getId() ?>">Visualizar Dependentes</a>
 
                         </td>
                         <?php if($bExibirAcoesUsuario): ?>
                         <td>
                             <form action="<?php echo AmbienteConfig::getUrl('filiado/editar')?>" method="post">
-                                <input type="hidden" name="flo_id" value="<?php echo $filiado->getId() ?>">
+                                <input type="hidden" name="flo_id" value="<?php echo $oFiliado->getId() ?>">
                                 <input type="submit" class="botao-editar" value="Editar">
                             </form>
                         </td>
                         <td>
                             <form action="<?php echo AmbienteConfig::getUrl('filiado/deletar')?>" method="post">
-                                <input type="hidden" name="flo_id" value="<?php echo $filiado->getId() ?>">
+                                <input type="hidden" name="flo_id" value="<?php echo $oFiliado->getId() ?>">
                                 <input type="submit" class="botao-excluir" value="Excluir">
                             </form>
                         </td>

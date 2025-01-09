@@ -1,5 +1,7 @@
 <?php
 use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
+
+    /** @var bool $bExibirAcoesUsuario */
 ?>
 <!doctype html>
 <html lang="pt-br">

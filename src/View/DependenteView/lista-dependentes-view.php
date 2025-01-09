@@ -1,5 +1,12 @@
 <?php
 use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
+use Moobi\SindicatoDosEstagios\Model\Dependente\DependenteModel;
+
+    /**
+     * @var array $loDependentes
+     * @var bool $bExibirAcoesUsuario
+     * @var DependenteModel $oDependente
+     */
 ?>
 
 <!doctype html>
@@ -31,24 +38,24 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($loDependentes as $dependente):?>
+                <?php foreach($loDependentes as $oDependente):?>
                     <tr>
-                        <td><?php echo $dependente->getNome()?></td>
-                        <td><?php echo $dependente->getDataNascimento()->format('d/m/Y')?></td>
-                        <td><?php echo $dependente->getGrauDeParentesco()?></td>
+                        <td><?php echo $oDependente->getNome()?></td>
+                        <td><?php echo $oDependente->getDataNascimento()->format('d/m/Y')?></td>
+                        <td><?php echo $oDependente->getGrauDeParentesco()?></td>
 
                         <?php if($bExibirAcoesUsuario): ?>
                             <td>
                                 <form action="<?php echo AmbienteConfig::getUrl('dependente/editar')?>" method="post">
-                                    <input type="hidden" name="dpe_id" value="<?php echo $dependente->getId()  ?>">
-                                    <input type="hidden" name="flo_id" value="<?php echo $dependente->getIdFiliadoAssociado()?>">
+                                    <input type="hidden" name="dpe_id" value="<?php echo $oDependente->getId()  ?>">
+                                    <input type="hidden" name="flo_id" value="<?php echo $oDependente->getIdFiliadoAssociado()?>">
                                     <input type="submit" class="botao-editar" value="Editar">
                                 </form>
                             </td>
                             <td>
                                 <form action="<?php echo AmbienteConfig::getUrl('dependente/deletar')?>" method="post">
-                                    <input type="hidden" name="dpe_id" value="<?php echo $dependente->getId() ?>">
-                                    <input type="hidden" name="flo_id" value="<?php echo $dependente->getIdFiliadoAssociado()?>">
+                                    <input type="hidden" name="dpe_id" value="<?php echo $oDependente->getId() ?>">
+                                    <input type="hidden" name="flo_id" value="<?php echo $oDependente->getIdFiliadoAssociado()?>">
                                     <input type="submit" class="botao-excluir" value="Excluir">
                                 </form>
                             </td>

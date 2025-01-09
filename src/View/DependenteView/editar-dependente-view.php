@@ -1,5 +1,8 @@
 <?php
 use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
+use Moobi\SindicatoDosEstagios\Model\Dependente\DependenteModel;
+
+/** @var DependenteModel $oDependente */
 ?>
 
 <!doctype html>
@@ -33,7 +36,7 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 <input type="hidden" name="dpe_data_nascimento" value="<?php echo $oDependente->getDataNascimento()->format('Y-m-d')?>">
             </label><br>
 
-            <label for="grau_de_parentesco">Grau de Parenesco</label>
+            <label for="grau_de_parentesco">Grau de Parentesco</label>
             <label>
                 <input type="text" name="dpe_grau_de_parentesco" value="<?php echo $oDependente->getGrauDeParentesco()?>" readonly>
             </label><br>

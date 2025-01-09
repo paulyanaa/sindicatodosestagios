@@ -1,5 +1,8 @@
 <?php
 use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
+use Moobi\SindicatoDosEstagios\Model\Filiado\FiliadoModel;
+
+    /** @var FiliadoModel $oFiliado */
 ?>
 
 <!doctype html>

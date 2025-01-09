@@ -1,5 +1,13 @@
 <?php
 use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
+use Moobi\SindicatoDosEstagios\Model\Usuario\UsuarioModel;
+
+    /**
+     * @var array $loUsuariosAdmins
+     * @var array $loUsuariosComuns
+     * @var UsuarioModel $oAdmin
+     * @var UsuarioModel $oComum
+     */
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -28,13 +36,13 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($aUsuariosAdmins as $admin):?>
+                <?php foreach($loUsuariosAdmins as $oAdmin):?>
                 <tr>
-                    <td><?= $admin->getLogin() ?></td>
-                    <td><?= $admin->getTipo() ?></td>
+                    <td><?= $oAdmin->getLogin() ?></td>
+                    <td><?= $oAdmin->getTipo() ?></td>
                     <td>
                         <form action="<?php echo AmbienteConfig::getUrl('usuario/deletar')?>" method="post">
-                            <input type="hidden" name="uso_id" value="<?php echo $admin->getId() ?>">
+                            <input type="hidden" name="uso_id" value="<?php echo $oAdmin->getId() ?>">
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
                     </td>
@@ -58,13 +66,13 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach($aUsuariosComuns as $comum):?>
+                <?php foreach($loUsuariosComuns as $oComum):?>
                 <tr>
-                    <td><?php echo $comum->getLogin()?></td>
-                    <td><?php echo $comum->getTipo() ?></td>
+                    <td><?php echo $oComum->getLogin()?></td>
+                    <td><?php echo $oComum->getTipo() ?></td>
                     <td>
                         <form action="<?php echo AmbienteConfig::getUrl('usuario/deletar')?>" method="post">
-                            <input type="hidden" name="uso_id" value="<?= $comum->getId() ?>">
+                            <input type="hidden" name="uso_id" value="<?= $oComum->getId() ?>">
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
                     </td>

@@ -1,14 +1,14 @@
 <?php
 require_once "vendor/autoload.php";
 
-$url = strip_tags(filter_input(INPUT_GET, 'url', FILTER_DEFAULT));
+$sUrl = strip_tags(filter_input(INPUT_GET, 'url', FILTER_DEFAULT));
 
-$verificacao = (!empty($url)) ? $url : 'usuario/index';
+$sVerificacao = (!empty($sUrl)) ? $sUrl : 'usuario/index';
 
-$url = array_filter(explode('/', $verificacao));
+$sUrl = array_filter(explode('/', $sVerificacao));
 
-$sController = "Moobi\SindicatoDosEstagios\Controller\\" . ucfirst($url[0]) . 'Controller';
-$sMetodo = $url[1];
+$sController = "Moobi\SindicatoDosEstagios\Controller\\" . ucfirst($sUrl[0]) . 'Controller';
+$sMetodo = $sUrl[1];
 $aDados = array_merge($_POST, $_GET);
 
 try {
