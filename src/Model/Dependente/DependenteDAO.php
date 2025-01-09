@@ -27,16 +27,16 @@ class DependenteDAO {
 	public function save(DependenteModel $oDependente): void {
 		$sSql = "INSERT INTO dpe_dependente (flo_id, dpe_nome, dpe_data_nascimento, dpe_grau_de_parentesco) VALUES (?, ?, ?,?)";
 		$aParametros = [
-			$oDependente->getIIdFiliadoAssociado(),
-			$oDependente->getSNome(),
-			$oDependente->getTDataNascimentoBanco(),
-			$oDependente->getSGrauDeParentesco()
+			$oDependente->getIdFiliadoAssociado(),
+			$oDependente->getNome(),
+			$oDependente->getDataNascimento()->format('Y-m-d'),
+			$oDependente->getGrauDeParentesco()
 		];
 		$this->oDatabase->execute($sSql, $aParametros);
 
 		$sSql2 = "UPDATE flo_filiado SET flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
 		$aParametros2 = [
-			$oDependente->getIIdFiliadoAssociado()
+			$oDependente->getIdFiliadoAssociado()
 		];
 		$this->oDatabase->execute($sSql2, $aParametros2);
 	}
@@ -107,9 +107,9 @@ class DependenteDAO {
 	public function isDependenteExiste(DependenteModel $oDependente): bool {
 		$sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_nome = ? AND dpe_grau_de_parentesco = ?";
 		$aParametros = [
-			$oDependente->getIIdFiliadoAssociado(),
-			$oDependente->getSNome(),
-			$oDependente->getSGrauDeParentesco(),
+			$oDependente->getIdFiliadoAssociado(),
+			$oDependente->getNome(),
+			$oDependente->getGrauDeParentesco(),
 		];
 		$aDependentes = $this->oDatabase->query($sSql, $aParametros);
 		return !empty($aDependentes);
@@ -127,14 +127,14 @@ class DependenteDAO {
 	public function update(DependenteModel $oDependente): void {
 		$sSql = "UPDATE dpe_dependente SET dpe_nome = ? WHERE dpe_dependente.flo_id = ? and dpe_dependente.dpe_id = ?";
 		$aParametros = [
-			$oDependente->getSNome(),
-			$oDependente->getIIdFiliadoAssociado(),
-			$oDependente->getIId()
+			$oDependente->getNome(),
+			$oDependente->getIdFiliadoAssociado(),
+			$oDependente->getId()
 		];
 		$this->oDatabase->execute($sSql, $aParametros);
 
 		$sSql2 = "UPDATE flo_filiado SET flo_ultima_atualizacao = CURDATE() WHERE flo_filiado.flo_id = ?";
-		$aParametros2 = [$oDependente->getIIdFiliadoAssociado()];
+		$aParametros2 = [$oDependente->getIdFiliadoAssociado()];
 		$this->oDatabase->execute($sSql2, $aParametros2);
 	}
 }

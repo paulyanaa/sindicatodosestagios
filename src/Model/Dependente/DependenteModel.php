@@ -1,17 +1,26 @@
 <?php
 namespace Moobi\SindicatoDosEstagios\Model\Dependente;
+
+use DateMalformedStringException;
+use DateTime;
+
+/**
+ * Class DependenteModel
+ * @package Moobi\SindicatoDosEstagios\Model\Dependente
+ * @version 1.0.0
+ */
 class DependenteModel {
-    private $iId;
-    private $iIdFiliadoAssociado;
-    private $sNome;
-    private $tDataNascimento;
-    private $sGrauDeParentesco;
+    private ?int $iId;
+    private string $iIdFiliadoAssociado;
+    private string $sNome;
+    private DateTime $tDataNascimento;
+    private string $sGrauDeParentesco;
 
     public function __construct(
 		?int $iId,
 		string $iIdFiliadoAssociado,
 		string $sNome,
-		\DateTime $tDataNascimento,
+		DateTime $tDataNascimento,
 		string $sGrauDeParentesco
     ) {
         $this->iId = $iId;
@@ -21,46 +30,84 @@ class DependenteModel {
         $this->sGrauDeParentesco = $sGrauDeParentesco;
     }
 
-    public function getIId() : ?int {
+	/**
+	 * Recupera id do objeto dependente.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return int|null
+	 *
+	 * @since 1.0.0
+	 */
+    public function getId() : ?int {
         return $this->iId;
     }
 
-    public function getIIdFiliadoAssociado() : string {
+	/**
+	 * Recupera o id do filiado associado ao objeto dependente.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+    public function getIdFiliadoAssociado() : string {
         return $this->iIdFiliadoAssociado;
     }
 
-    public function getSNome() : string {
+	/**
+	 * Recupera o nome do objeto dependente.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+    public function getNome() : string {
         return $this->sNome;
     }
 
-    public function getTDataNascimento() : \DateTime {
+	/**
+	 * Recupera a data de nascimento do objeto dependente.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return DateTime
+	 *
+	 * @since 1.0.0
+	 */
+    public function getDataNascimento() : DateTime {
         return $this->tDataNascimento;
     }
 
-    public function getTDataNascimentoFormatada() : string{
-        return $this->tDataNascimento->format('d/m/Y');
-    }
-
-    public function getTDataNascimentoBanco() : string {
-        return $this->tDataNascimento->format('Y-m-d');
-    }
-
-    public function getSGrauDeParentesco() : string {
+	/**
+	 * Recupera o grau de parentesco do objeto dependente em relação
+	 * ao filiado associado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+    public function getGrauDeParentesco() : string {
         return $this->sGrauDeParentesco;
     }
 
+	/**
+	 * Cria um objeto dependente.
+	 *
+	 * @param array $aDadosDependente
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return DependenteModel
+	 * @throws DateMalformedStringException
+	 *
+	 * @since 1.0.0
+	 */
     public static function createFromArray(array $aDadosDependente) : DependenteModel {
 	    return new DependenteModel(
 	        $aDadosDependente['dpe_id'],
 	        $aDadosDependente['flo_id'],
 	        $aDadosDependente['dpe_nome'],
-	        new \DateTime($aDadosDependente['dpe_data_nascimento']),
+	        new DateTime($aDadosDependente['dpe_data_nascimento']),
 	        $aDadosDependente['dpe_grau_de_parentesco']
 	    );
     }
-
-
-
-
-
 }
