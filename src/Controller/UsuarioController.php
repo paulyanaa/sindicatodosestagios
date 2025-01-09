@@ -102,8 +102,8 @@ class UsuarioController {
 	 * @since 1.0.0
 	 */
 	public function listar(): void {
-		$aUsuariosAdmins = $this->oUsuarioDAO->FindByTipo('administrador');
-		$aUsuariosComuns = $this->oUsuarioDAO->FindByTipo('comum');
+		$loUsuariosAdmins = $this->oUsuarioDAO->FindByTipo('administrador');
+		$loUsuariosComuns = $this->oUsuarioDAO->FindByTipo('comum');
 
 		include __DIR__ . '/../View/UsuarioView/lista-usuarios-view.php';
 	}
