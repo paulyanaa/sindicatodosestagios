@@ -1,6 +1,7 @@
 <?php
 namespace Moobi\SindicatoDosEstagios\Model\Dependente;
 
+use DateMalformedStringException;
 use Moobi\SindicatoDosEstagios\Handler\DatabaseHandler;
 
 /**
@@ -45,10 +46,11 @@ class DependenteDAO {
 	 * Busca os dependentes de determinado filiado.
 	 *
 	 * @param int $iIdFiliado
-	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
 	 * @return array
 	 *
+	 * @throws DateMalformedStringException
 	 * @since 1.0.0
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
 	 */
 	public function findAllByFiliadoId(int $iIdFiliado): array {
 		$sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ?";
@@ -65,10 +67,11 @@ class DependenteDAO {
 	 *
 	 * @param int $iIdFiliado
 	 * @param int $iIdDependente
-	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
 	 * @return DependenteModel
 	 *
+	 * @throws DateMalformedStringException
 	 * @since 1.0.0
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
 	 */
 	public function findByIdDependenteEIdFiliado(int $iIdFiliado, int $iIdDependente): DependenteModel {
 		$sSql = "SELECT * FROM dpe_dependente WHERE flo_id = ? AND dpe_id = ?";
