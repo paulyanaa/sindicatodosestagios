@@ -34,7 +34,7 @@ class DependenteController {
 	 */
 	public function listar(?array $aDados = null): void {
 		$iIdFiliadoAssociado = $aDados['flo_id'];
-		$loDependentes = $this->oDependenteDAO->findAll($iIdFiliadoAssociado);
+		$loDependentes = $this->oDependenteDAO->findAllByFiliadoId($iIdFiliadoAssociado);
 
 		if ($this->isAdmin) {
 			$bExibirAcoesUsuario = true;
@@ -96,7 +96,7 @@ class DependenteController {
 	 */
 	public function editar(?array $aDados = null): void {
 		if ($this->isAdmin) {
-			$oDependente = $this->oDependenteDAO->findById($aDados['flo_id'], $aDados['dpe_id']);
+			$oDependente = $this->oDependenteDAO->findByIdDependenteEIdFiliado($aDados['flo_id'], $aDados['dpe_id']);
 			include __DIR__ . '/../View/DependenteView/editar-dependente-view.php';
 		} else {
 			echo "<script>alert('Você não tem permissão para editar um filiado');</script>";
