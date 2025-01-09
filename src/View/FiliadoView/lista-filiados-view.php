@@ -76,32 +76,32 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 <tbody>
                 <?php foreach($loFiliados as $filiado):?>
                     <tr>
-                        <td><?php echo $filiado->getSNome() ?></td>
-                        <td><?php echo $filiado->getSCpf() ?></td>
-                        <td><?php echo $filiado->getSRg() ?></td>
-                        <td><?php echo $filiado->getDataNascimentoFormatada()?></td>
-                        <td><?php echo $filiado->getIIdade() ?></td>
-                        <td><?php echo $filiado->getSEmpresa() ?></td>
-                        <td><?php echo $filiado->getSCargo() ?></td>
-                        <td><?php echo $filiado->getSSituacao() ?></td>
-                        <td><?php echo $filiado->getSTelResidencial() ?></td>
-                        <td><?php echo $filiado->getSTelCelular() ?></td>
-                        <td><?php echo $filiado->getUltimaAtualizacaoFormatada() ?></td>
+                        <td><?php echo $filiado->getNome() ?></td>
+                        <td><?php echo $filiado->getCpf() ?></td>
+                        <td><?php echo $filiado->getRg() ?></td>
+                        <td><?php echo $filiado->getDataNascimento()->format('d/m/Y')?></td>
+                        <td><?php echo $filiado->getIdade() ?></td>
+                        <td><?php echo $filiado->getEmpresa() ?></td>
+                        <td><?php echo $filiado->getCargo() ?></td>
+                        <td><?php echo $filiado->getSituacao() ?></td>
+                        <td><?php echo $filiado->getTelResidencial() ?></td>
+                        <td><?php echo $filiado->getTelCelular() ?></td>
+                        <td><?php echo $filiado->getUltimaAtualizacao()->format('d/m/Y') ?></td>
                         <td>
 
-                            <a class="botao-dependentes" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?php echo $filiado->getIId() ?>">Visualizar Dependentes</a>
+                            <a class="botao-dependentes" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?php echo $filiado->getId() ?>">Visualizar Dependentes</a>
 
                         </td>
                         <?php if($bExibirAcoesUsuario): ?>
                         <td>
                             <form action="<?php echo AmbienteConfig::getUrl('filiado/editar')?>" method="post">
-                                <input type="hidden" name="flo_id" value="<?php echo $filiado->getIId() ?>">
+                                <input type="hidden" name="flo_id" value="<?php echo $filiado->getId() ?>">
                                 <input type="submit" class="botao-editar" value="Editar">
                             </form>
                         </td>
                         <td>
                             <form action="<?php echo AmbienteConfig::getUrl('filiado/deletar')?>" method="post">
-                                <input type="hidden" name="flo_id" value="<?php echo $filiado->getIId() ?>">
+                                <input type="hidden" name="flo_id" value="<?php echo $filiado->getId() ?>">
                                 <input type="submit" class="botao-excluir" value="Excluir">
                             </form>
                         </td>
