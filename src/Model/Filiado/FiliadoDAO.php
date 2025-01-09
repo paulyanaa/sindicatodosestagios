@@ -1,6 +1,7 @@
 <?php
 namespace Moobi\SindicatoDosEstagios\Model\Filiado;
 
+use DateMalformedStringException;
 use Moobi\SindicatoDosEstagios\Handler\DatabaseHandler;
 
 /**
@@ -107,7 +108,7 @@ class FiliadoDAO {
 	}
 
 	/**
-	 * Busca um filiado específico.
+	 * Busca um filiado específico pelo id.
 	 *
 	 * @param int $iIdFiliado
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
@@ -131,6 +132,7 @@ class FiliadoDAO {
 	 * @param $iLimite
 	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
 	 * @return array
+	 * @throws DateMalformedStringException
 	 *
 	 * @since 1.0.0
 	 */
