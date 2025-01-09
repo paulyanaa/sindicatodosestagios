@@ -1,7 +1,14 @@
 <?php
 namespace Moobi\SindicatoDosEstagios\Model\Filiado;
 
+use DateMalformedStringException;
 use DateTime;
+
+/**
+ * Class FiliadoModel
+ * @package Moobi\SindicatoDosEstagios\Model\Filiado
+ * @version 1.0.0
+ */
 class FiliadoModel {
     private ?int $iId;
     private string $sNome;
@@ -43,82 +50,202 @@ class FiliadoModel {
         $this->sUltimaAtualizacao = $sUltimaAtualizacao;
     }
 
-    public function getIId() : ?int {
+	/**
+	 * Recupera id do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return int|null
+	 *
+	 * @since 1.0.0
+	 */
+    public function getId() : ?int {
         return $this->iId;
     }
 
-    public function getSNome() : string {
+	/**
+	 * Recupera o nome do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+    public function getNome() : string {
         return $this->sNome;
     }
 
-    public function getSCpf() : string {
+	/**
+	 * Recupera o cpf do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+    public function getCpf() : string {
         return $this->sCpf;
     }
 
-    public function getSRg() : string {
+	/**
+	 * Recupera o rg do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+    public function getRg() : string {
         return $this->sRg;
     }
 
-    public function getSDataNascimento() : DateTime {
+	/**
+	 * Recupera a data de nascimento do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return DateTime
+	 *
+	 * @since 1.0.0
+	 */
+    public function getDataNascimento() : DateTime {
         return $this->sDataNascimento;
     }
 
-    public function getIIdade() : int {
+	/**
+	 * Recupera a idade do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return int
+	 *
+	 * @since 1.0.0
+	 */
+    public function getIdade() : int {
         return $this->iIdade;
     }
 
-    public function getSEmpresa() : ?string {
+	/**
+	 * Recupera a empresa do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string|null
+	 *
+	 * @since 1.0.0
+	 */
+    public function getEmpresa() : ?string {
         return $this->sEmpresa;
     }
 
-    public function getSCargo() : ?string {
+	/**
+	 * Recupera o cargo do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string|null
+	 *
+	 * @since 1.0.0
+	 */
+    public function getCargo() : ?string {
         return $this->sCargo;
     }
 
-    public function getSSituacao() : ?string {
+	/**
+	 * Recupera a situação do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string|null
+	 *
+	 * @since 1.0.0
+	 */
+    public function getSituacao() : ?string {
         return $this->sSituacao;
     }
 
-    public function getSTelResidencial() : string {
+	/**
+	 * Recupera o telefone residencial do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+    public function getTelResidencial() : string {
         return $this->sTelResidencial;
     }
 
-    public function getSTelCelular() : string {
+	/**
+	 * Recupera o telefone celular do objeto filiado.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return string
+	 *
+	 * @since 1.0.0
+	 */
+    public function getTelCelular() : string {
         return $this->sTelCelular;
     }
 
-    public function getSUltimaAtualizacao() : \DateTime {
+	/**
+	 * Recupera a data da ultima atualização dos dados do objeto dependente.
+	 *
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return DateTime
+	 *
+	 * @since 1.0.0
+	 */
+    public function getUltimaAtualizacao() : \DateTime {
         return $this->sUltimaAtualizacao;
     }
 
-    public function getDataNascimentoFormatada() : string {
-        return $this->sDataNascimento->format('d/m/Y');
-    }
-
-    public function getSDataNascimentoBanco() : string {
-        return $this->sDataNascimento->format('Y-m-d');
-    }
-
-    public function getUltimaAtualizacaoFormatada() : string{
-        return $this->sUltimaAtualizacao->format('d/m/Y');
-    }
-
-
-    public function setSCargo(?string $sCargo): void {
+	/**
+	 * Altera o cargo do objeto filiado.
+	 *
+	 * @param string|null $sCargo
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+    public function setCargo(?string $sCargo): void {
         $this->sCargo = $sCargo;
     }
 
-    public function setSSituacao(?string $sSituacao): void {
+	/**
+	 * Altera o situação do objeto filiado.
+	 *
+	 * @param string|null $sSituacao
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+    public function setSituacao(?string $sSituacao): void {
         $this->sSituacao = $sSituacao;
     }
 
+	/**
+	 * Verifica se o atributo empresa está vazio.
+	 *
+	 * @param FiliadoModel $oFiliado
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
     public static function verificarEmpresa (FiliadoModel $oFiliado) : void {
-        if($oFiliado->getSEmpresa() == null){
-            $oFiliado->setSCargo(null);
-            $oFiliado->setSSituacao(null);
+        if($oFiliado->getEmpresa() == null){
+            $oFiliado->setCargo(null);
+            $oFiliado->setSituacao(null);
         }
     }
 
+	/**
+	 * Cria um objeto filiado.
+	 *
+	 * @param array $aDadosFiliado
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return FiliadoModel
+	 * @throws DateMalformedStringException
+	 *
+	 * @since 1.0.0
+	 */
     public static function createFromArray(array $aDadosFiliado) : FiliadoModel{
         return new FiliadoModel(
             $aDadosFiliado['flo_id'],
