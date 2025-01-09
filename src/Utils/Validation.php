@@ -2,8 +2,24 @@
 namespace Moobi\SindicatoDosEstagios\Utils;
 
 use DateTime;
+
+/**
+ * Class Validation
+ * @package Moobi\SindicatoDosEstagios\Utils
+ * @version 1.0.0
+ */
 class Validation {
-    public static function validarNome($sNome) : bool {
+
+	/**
+	 * Valida escrita de nome.
+	 *
+	 * @param string $sNome
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
+    public static function validarNome(string $sNome) : bool {
 		$sNome = trim($sNome);
 
         if (empty($sNome)) {
@@ -18,7 +34,16 @@ class Validation {
         return true;
     }
 
-    public static function validarCpf($sCpf) : bool {
+	/**
+	 * Valida cpf.
+	 *
+	 * @param string $sCpf
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
+    public static function validarCpf(string $sCpf) : bool {
         $sCpf = preg_replace('/[^0-9]/', '', $sCpf);
 
         if (strlen($sCpf) != 11) {
@@ -33,38 +58,55 @@ class Validation {
         for ($i = 0; $i < 9; $i++) {
             $iSoma += (int)$sCpf[$i] * (10 - $i);
         }
-        $digito1 = $iSoma % 11 < 2 ? 0 : 11 - $iSoma % 11;
+        $iDigito1 = $iSoma % 11 < 2 ? 0 : 11 - $iSoma % 11;
 
         $iSoma = 0;
         for ($i = 0; $i < 10; $i++) {
             $iSoma += (int)$sCpf[$i] * (11 - $i);
         }
-        $digito2 = $iSoma % 11 < 2 ? 0 : 11 - $iSoma % 11;
-        return $digito1 == (int)$sCpf[9] && $digito2 == (int)$sCpf[10];
+        $iDigito2 = $iSoma % 11 < 2 ? 0 : 11 - $iSoma % 11;
+        return $iDigito1 == (int)$sCpf[9] && $iDigito2 == (int)$sCpf[10];
     }
 
-    public static function validarRg($sRg): bool {
-        $pattern = '/^\d{1,2}\.\d{3}\.\d{3}-\d{1}$/';
-        if (preg_match($pattern, $sRg)) {
+	/**
+	 * Valida RG.
+	 *
+	 * @param string $sRg
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
+    public static function validarRg(string $sRg): bool {
+        $sPadrao = '/^\d{1,2}\.\d{3}\.\d{3}-\d{1}$/';
+        if (preg_match($sPadrao, $sRg)) {
             return true;
         } else {
             return false;
         }
     }
 
-    public static function validarDataNascimento($sDataNascimento) : bool {
+	/**
+	 * Valida data de nascimento.
+	 *
+	 * @param string $sDataNascimento
+	 * @author Paulyana Ferreira paulyanasilva@moobitech.com.br
+	 * @return bool
+	 *
+	 * @since 1.0.0
+	 */
+    public static function validarDataNascimento(string $sDataNascimento) : bool {
         $sData = DateTime::createFromFormat('Y-m-d', $sDataNascimento);
 
         if (!$sData || $sData->format('Y-m-d') !== $sDataNascimento) {
             return false;
         }
-        $hoje = new DateTime();
-        $iIdade = $hoje->diff($sData)->y;
+        $tHoje = new DateTime();
+        $iIdade = $tHoje->diff($sData)->y;
 
         if ($iIdade < 0 || $iIdade > 120) {
             return false;
         }
         return true;
     }
-
 }
