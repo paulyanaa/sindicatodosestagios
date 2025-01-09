@@ -43,9 +43,9 @@ class UsuarioDAO {
 	public function save(UsuarioModel $oUsuario, string $sSenhaCriptografada): void {
 		$sSql = "INSERT INTO uso_usuario (uso_login, uso_senha, uso_tipo) VALUES (?, ?, ?)";
 		$aParametros = [
-			$oUsuario->getSLogin(),
+			$oUsuario->getLogin(),
 			$sSenhaCriptografada,
-			$oUsuario->getSTipo()
+			$oUsuario->getTipo()
 		];
 		$this->oDatabase->execute($sSql, $aParametros);
 	}

@@ -30,11 +30,11 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 <tbody>
                 <?php foreach($aUsuariosAdmins as $admin):?>
                 <tr>
-                    <td><?= $admin->getSLogin() ?></td>
-                    <td><?= $admin->getSTipo() ?></td>
+                    <td><?= $admin->getLogin() ?></td>
+                    <td><?= $admin->getTipo() ?></td>
                     <td>
                         <form action="<?php echo AmbienteConfig::getUrl('usuario/deletar')?>" method="post">
-                            <input type="hidden" name="uso_id" value="<?php echo $admin->getIId() ?>">
+                            <input type="hidden" name="uso_id" value="<?php echo $admin->getId() ?>">
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
                     </td>
@@ -60,11 +60,11 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 <tbody>
                 <?php foreach($aUsuariosComuns as $comum):?>
                 <tr>
-                    <td><?php echo $comum->getSLogin()?></td>
-                    <td><?php echo $comum->getSTipo() ?></td>
+                    <td><?php echo $comum->getLogin()?></td>
+                    <td><?php echo $comum->getTipo() ?></td>
                     <td>
                         <form action="<?php echo AmbienteConfig::getUrl('usuario/deletar')?>" method="post">
-                            <input type="hidden" name="uso_id" value="<?= $comum->getIId() ?>">
+                            <input type="hidden" name="uso_id" value="<?= $comum->getId() ?>">
                             <input type="submit" class="botao-excluir" value="Excluir">
                         </form>
                     </td>

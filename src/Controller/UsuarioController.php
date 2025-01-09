@@ -165,8 +165,8 @@ class UsuarioController {
 
 		if ($isAdmin){
 			$oUsuario = UsuarioModel::createFromArray($aDados);
-			if (!$this->oUsuarioDAO->isUsuarioExiste($oUsuario->getSLogin())) {
-				$sSenhaCriptografada = password_hash($oUsuario->getSSenha(), PASSWORD_DEFAULT);
+			if (!$this->oUsuarioDAO->isUsuarioExiste($oUsuario->getLogin())) {
+				$sSenhaCriptografada = password_hash($oUsuario->getSenha(), PASSWORD_DEFAULT);
 				$this->oUsuarioDAO->save($oUsuario, $sSenhaCriptografada);
 			} else {
 				echo "<script>alert('Login já cadastrado. Tente novamente.');</script>";
