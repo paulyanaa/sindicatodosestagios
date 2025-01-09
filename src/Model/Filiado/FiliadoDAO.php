@@ -39,15 +39,15 @@ class FiliadoDAO {
                          ) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
 		$aParametros = [
-			$oFiliado->getSNome(),
-			$oFiliado->getSCpf(),
-			$oFiliado->getSRg(),
-			$oFiliado->getSDataNascimento()->format('Y-m-d'),
-			$oFiliado->getSEmpresa(),
-			$oFiliado->getSCargo(),
-			$oFiliado->getSSituacao(),
-			$oFiliado->getSTelResidencial(),
-			$oFiliado->getSTelCelular()
+			$oFiliado->getNome(),
+			$oFiliado->getCpf(),
+			$oFiliado->getRg(),
+			$oFiliado->getDataNascimento()->format('Y-m-d'),
+			$oFiliado->getEmpresa(),
+			$oFiliado->getCargo(),
+			$oFiliado->getSituacao(),
+			$oFiliado->getTelResidencial(),
+			$oFiliado->getTelCelular()
 		];
 		$this->oDatabase->execute($sSql, $aParametros);
 	}
@@ -83,10 +83,10 @@ class FiliadoDAO {
 				SET flo_empresa = ?, flo_cargo = ?, flo_situacao = ?, flo_ultima_atualizacao = CURDATE() 
 				WHERE flo_filiado.flo_id = ?";
 		$aParametros = [
-			$oFiliado->getSEmpresa(),
-			$oFiliado->getSCargo(),
-			$oFiliado->getSSituacao(),
-			$oFiliado->getIId()
+			$oFiliado->getEmpresa(),
+			$oFiliado->getCargo(),
+			$oFiliado->getSituacao(),
+			$oFiliado->getId()
 		];
 		$this->oDatabase->execute($sSql, $aParametros);
 	}
