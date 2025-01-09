@@ -33,22 +33,22 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
                 <tbody>
                 <?php foreach($loDependentes as $dependente):?>
                     <tr>
-                        <td><?php echo $dependente->getSNome()?></td>
-                        <td><?php echo $dependente->getTDataNascimentoFormatada()?></td>
-                        <td><?php echo $dependente->getSGrauDeParentesco()?></td>
+                        <td><?php echo $dependente->getNome()?></td>
+                        <td><?php echo $dependente->getDataNascimento()->format('d/m/Y')?></td>
+                        <td><?php echo $dependente->getGrauDeParentesco()?></td>
 
                         <?php if($bExibirAcoesUsuario): ?>
                             <td>
                                 <form action="<?php echo AmbienteConfig::getUrl('dependente/editar')?>" method="post">
-                                    <input type="hidden" name="dpe_id" value="<?php echo $dependente->getIId()  ?>">
-                                    <input type="hidden" name="flo_id" value="<?php echo $dependente->getIIdFiliadoAssociado()?>">
+                                    <input type="hidden" name="dpe_id" value="<?php echo $dependente->getId()  ?>">
+                                    <input type="hidden" name="flo_id" value="<?php echo $dependente->getIdFiliadoAssociado()?>">
                                     <input type="submit" class="botao-editar" value="Editar">
                                 </form>
                             </td>
                             <td>
                                 <form action="<?php echo AmbienteConfig::getUrl('dependente/deletar')?>" method="post">
-                                    <input type="hidden" name="dpe_id" value="<?php echo $dependente->getIId() ?>">
-                                    <input type="hidden" name="flo_id" value="<?php echo $dependente->getIIdFiliadoAssociado()?>">
+                                    <input type="hidden" name="dpe_id" value="<?php echo $dependente->getId() ?>">
+                                    <input type="hidden" name="flo_id" value="<?php echo $dependente->getIdFiliadoAssociado()?>">
                                     <input type="submit" class="botao-excluir" value="Excluir">
                                 </form>
                             </td>

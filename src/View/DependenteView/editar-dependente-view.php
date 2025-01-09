@@ -19,29 +19,29 @@ use Moobi\SindicatoDosEstagios\Config\AmbienteConfig;
     <section class="container-form">
         <form action="<?php echo AmbienteConfig::getUrl('dependente/atualizarDependente')?>" method="post" enctype = "multipart/form-data">
 
-            <input type="hidden" name="dpe_id" value="<?php echo $oDependente->getIId() ?>">
-            <input type="hidden" name="flo_id" value="<?php echo $oDependente->getIIdFiliadoAssociado() ?>">
+            <input type="hidden" name="dpe_id" value="<?php echo $oDependente->getId() ?>">
+            <input type="hidden" name="flo_id" value="<?php echo $oDependente->getIdFiliadoAssociado() ?>">
 
             <label for="nome">Nome</label>
             <label>
-                <input type="text" name="dpe_nome" placeholder="<?php echo $oDependente->getSNome()?>" >
+                <input type="text" name="dpe_nome" placeholder="<?php echo $oDependente->getNome()?>" >
             </label><br>
 
             <label for="data_de_nascimento">Data de Nascimento</label>
             <label>
-                <input type="text"  value="<?php echo $oDependente->getTDataNascimentoFormatada()?>" readonly>
-                <input type="hidden" name="dpe_data_nascimento" value="<?php echo $oDependente->getTDataNascimentoBanco()?>">
+                <input type="text"  value="<?php echo $oDependente->getDataNascimento()->format('d/m/Y')?>" readonly>
+                <input type="hidden" name="dpe_data_nascimento" value="<?php echo $oDependente->getDataNascimento()->format('Y-m-d')?>">
             </label><br>
 
             <label for="grau_de_parentesco">Grau de Parenesco</label>
             <label>
-                <input type="text" name="dpe_grau_de_parentesco" value="<?php echo $oDependente->getSGrauDeParentesco()?>" readonly>
+                <input type="text" name="dpe_grau_de_parentesco" value="<?php echo $oDependente->getGrauDeParentesco()?>" readonly>
             </label><br>
 
 
             <input type="submit" name="cadastro" class="botao-editar" value="Editar dependente"/>
         </form>
-        <a class="botao-voltar" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?=$oDependente->getIIdFiliadoAssociado()?>">Voltar</a>
+        <a class="botao-voltar" href="<?php echo AmbienteConfig::getUrl('dependente/listar')?>?flo_id=<?=$oDependente->getIdFiliadoAssociado()?>">Voltar</a>
         <a class="botao-sair" href="<?php echo AmbienteConfig::getUrl('usuario/logout')?>">Sair</a>
 
     </section>
